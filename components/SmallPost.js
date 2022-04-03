@@ -20,7 +20,7 @@ const SmallPost = (props) => {
                             <Grid style={{ display:'flex', justifyContent:'center' }}>
                                 <CardMedia
                                     component="img"
-                                    sx={{ marginTop: "10px", width: 130, height: 130, borderRadius: '50%'}}
+                                    sx={{ marginTop: "10px", width: 120, height: 120, borderRadius: '50%'}}
                                     image={post.image}
                                     alt={post.imageLabel}
                                 />
@@ -29,6 +29,7 @@ const SmallPost = (props) => {
                                 <Typography component="h2" variant="h5">
                                     {post.title}
                                 </Typography>
+                                <br />
                                 <Typography variant="subtitle1" paragraph>
                                     {post.description}
                                 </Typography>

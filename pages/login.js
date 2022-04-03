@@ -41,17 +41,16 @@ const Login = () => {
               R - ESTATE
             </Typography> */}
             <Grid container justifyContent="center" alignItems="center">
-            <Box 
+            {/* <Box 
               component="img" 
-              src="https://imgyukle.com/f/2022/03/31/E622RA.png" 
-              sx={{ width: 130, height: 120, marginTop: 7, borderRadius: '5%'}}
-            />
+              src="https://imgyukle.com/f/2022/04/03/EwiQFM.png" 
+              sx={{ width: 130, height: 120, marginTop: 7}}
+            /> */}
             </Grid>
-            
           </ThemeProvider>
           <Box
             sx={{
-              marginTop: 3,
+              marginTop: 15,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
@@ -92,7 +91,7 @@ const Login = () => {
                   type="submit"
                   fullWidth
                   variant="contained"
-                  sx={{ mt: 3, mb: 2 , backgroundColor: "#20232a"}}
+                  sx={{ mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}}}
                 >
                   Login
                 </Button>

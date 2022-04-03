@@ -7,8 +7,6 @@ import { Box } from '@mui/system';
 import AppBar from '@mui/material/AppBar';
 import Grid from '@mui/material/Grid';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Badge from '@mui/material/Badge';
-import EmailIcon from '@mui/icons-material/Email';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 const theme = createTheme({
@@ -26,7 +24,7 @@ function Navbar(props) {
 
   return (
     <Box sx={{ flexGrow: 1, margin: 10}}>
-        <AppBar position="fixed" style={{ backgroundColor:"#546e7a"}} >
+        <AppBar position="fixed" style={{ backgroundColor:"#455a64"}} >
           <Toolbar>
             <Grid container sx={{ width: 150}}>
               <ThemeProvider theme={theme}>
@@ -47,17 +45,17 @@ function Navbar(props) {
                     </Link>
                 </Grid>
                 <Grid item>
-                    <Link href="/" style={{ textDecoration: 'none', color: 'white', }}>
+                    <Link href="/profile" style={{ textDecoration: 'none', color: 'white', }}>
                       <Button variant="inherit">Profile</Button>
                     </Link>
                 </Grid> 
                 <Grid item>
-                    <Link href="/" style={{ textDecoration: 'none', color: 'white', }}>
+                    <Link href="/sale-properties" style={{ textDecoration: 'none', color: 'white', }}>
                       <Button variant="inherit">Sale Properties</Button>
                     </Link>
                 </Grid>    
                 <Grid item>
-                    <Link href="/" style={{ textDecoration: 'none', color: 'white', }}>
+                    <Link href="/sell-property" style={{ textDecoration: 'none', color: 'white', }}>
                       <Button variant="inherit">Sell Property</Button>
                     </Link>
                 </Grid>          

@@ -32,7 +32,7 @@ const UserSignupPage = () => {
             <CssBaseline />
             <Box
               sx={{
-                marginTop: 10,
+                marginTop: 8,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -41,8 +41,8 @@ const UserSignupPage = () => {
               <Avatar sx={{ m: 1, bgcolor: "#46505A"  }}>
                 <AccountBoxIcon />
               </Avatar>
-              <Typography component="h1" variant="h5">
-                Sign up
+              <Typography component="h1" variant="h5" >
+                Create account
               </Typography>
               <Box sx={{ mt: 3 }}>
                 <form
@@ -110,9 +110,9 @@ const UserSignupPage = () => {
                     type="submit"
                     fullWidth
                     variant="contained"
-                    sx={{ mt: 3, mb: 2, backgroundColor: "#20232a" }}
+                    sx={{ mt: 3, mb: 2, backgroundColor: "#455a64", fontSize: 13, height: 40, ':hover': { bgcolor: '#263238'}}}
                   >
-                    Sign Up
+                    Create account
                   </Button>
                   <Grid container spacing={2}>
                     <Grid item xs={6}>

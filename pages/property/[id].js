@@ -1,15 +1,13 @@
 import React from 'react';
-import { Container } from "@mui/material";
+import { CardContent, Container, Typography } from "@mui/material";
 import Navbar from "../../components/Navbar";
-import ImageList from '@material-ui/core/ImageList';
-import ImageListItem from '@material-ui/core/ImageListItem';
-import ImageListItemBar from '@material-ui/core/ImageListItemBar';
 import Carousel from 'react-material-ui-carousel'
-import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Footer from '../../components/Footer';
+import Divider from '@mui/material/Divider'
+import PropertyInformation from '../../components/PropertyInformation';
 
 const properties = [
     {
@@ -23,8 +21,12 @@ const properties = [
         bath: 2,
         price: 100000,
         type: 'Villa',
+        pool: 'No',
         size: 150,
         photo: 'https://media.architecturaldigest.com/photos/56d9ef71ce4f38152ccc96f4/2:1/w_5130,h_2565,c_limit/designers-homes-02.jpg',
+        detail: 'With beautiful views heading out towards the city landscape in one direction and'+
+                'sea in the other direction, these contemporary apartments are found in Maltepe on'+
+                'the Anatolian side of Istanbul and are available today at bargain prices not to miss out on.'
     },
     {
         id: 2,
@@ -35,6 +37,7 @@ const properties = [
         room: 5,
         bedroom: 2,
         bath: 2,
+        pool: 'No',
         price: 100000,
         type: 'Villa',
         size: 150,
@@ -50,6 +53,7 @@ const properties = [
         bedroom: 2,
         bath: 2,
         price: 100000,
+        pool: 'Yes',
         type: 'Villa',
         size: 150,
         photo: 'https://interiordesign.net/wp-content/uploads/2021/12/Interior-Design-L-Petresku-Studio-Ukraine-750_4100-HDR.jpg',
@@ -62,6 +66,7 @@ const properties = [
         city: 'Istanbul',
         room: 8,
         bedroom: 2,
+        pool: 'No',
         bath: 2,
         price: 100000,
         type: 'Villa',
@@ -77,6 +82,7 @@ const properties = [
         room: 8,
         bedroom: 2,
         bath: 2,
+        pool: 'Shared',
         price: 100000,
         type: 'Villa',
         size: 150,
@@ -91,20 +97,29 @@ const PropertyDetails = () => {
             <Navbar />
             <Container maxWidth="lg">
                 <Grid container alignItems="center" justifyContent="center" sx={{ marginTop: 12}}> 
-                    <Carousel sx= {{ width: 750, height: 450}} navButtonsAlwaysVisible >
+                    <Carousel sx= {{ width: 800, height: 500}} navButtonsAlwaysVisible >
                         {properties.map((property) => (
                             <Card>
                                 <Grid style={{ display:'flex', justifyContent:'center' }}>
                                     <CardMedia
                                         component="img"
-                                        sx={{ height: '100%', width: '100%'}}
+                                        sx={{ width: '100%', height: 450}}
                                         image={property.photo}
                                         alt={property.name}
+                                        key={property.id}
                                     />
                                 </Grid>
                             </Card>
                         ))}
                     </Carousel>
+                </Grid>
+                <Grid alignItems="center" justifyContent="center" sx={{ marginLeft: 5, marginRight: 5}}>
+                    <Grid item>
+                        <PropertyInformation propertyInfo={properties[0]} title="Overview"/>
+                    </Grid>
+                    <Grid item sx={{ marginTop: 3}}>
+                        <PropertyInformation propertyInfo={properties[0]} title="Property Features"/>
+                    </Grid>
                 </Grid>
                 <Footer 
                     title="Footer"

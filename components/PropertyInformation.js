@@ -17,9 +17,9 @@ const PropertyInformation = (props) => {
     const { propertyInfo, title } = props;
 
     return (
-        <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5', height: 125, maxHeight: 125 }}>
+        <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5'}}>
             <CardContent sx={{ marginTop: 4, marginLeft: 2, marginRight: 5}}>
-                <Typography sx={{ fontSize: 20, width: 170}}>{title}</Typography>
+                <Typography sx={{ fontSize: 23, width: 170, fontFamily: 'Raleway'}}>{title}</Typography>
             </CardContent>
             <CardContent>
                 <Divider orientation="vertical"/>   
@@ -105,10 +105,8 @@ const PropertyInformation = (props) => {
                                     </Grid>
                                 </Grid>
                             </Box>
-                        </Box>
-                        
-                }
-                
+                        </Box>      
+                    }
             </CardContent>
         </Card>
     )

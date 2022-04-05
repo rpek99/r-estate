@@ -121,7 +121,7 @@ const PropertyDetails = () => {
             <Navbar />
             <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5', boxShadow: 'none', marginBottom: 3}}>
                 <Grid container justifyContent="space-between" spacing={2}>
-                    <Grid sx={{ marginLeft: 10, marginTop: 2, marginBottom: 2 }} xs={8}>
+                    <Grid sx={{ marginLeft: 10, marginTop: 2 }} xs={8}>
                         <Grid>
                             <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>{properties[0].title}</Typography>
                         </Grid>
@@ -130,7 +130,7 @@ const PropertyDetails = () => {
                             <Typography sx={{ fontFamily: 'Raleway', fontSize: 35, color:'#c62828', marginLeft: 2, marginTop: -1}}>{formatter.format(properties[0].price)}</Typography>
                         </Grid>
                     </Grid>
-                    <Grid sx={{ marginTop: 6, marginRight: 5}} xs={2}>
+                    <Grid sx={{ marginTop: 5, marginRight: 5}} xs={2}>
                         <Link href="/">
                             <Button sx={{ fontFamily: 'Raleway', backgroundColor: '#d32f2f', color: 'white', width: 160, height: 40, fontSize: 20, ':hover': { bgcolor: '#b71c1c'}, textTransform: 'none'}}>Buy Property</Button>
                         </Link>

@@ -6,7 +6,7 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import Grid from '@mui/material/Grid';
-import { Icon, IconButton } from '@mui/material';
+import { IconButton } from '@mui/material';
 
 
 

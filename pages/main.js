@@ -1,14 +1,12 @@
+import React from 'react';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
 import { Container, Typography } from '@mui/material';
 import Properties from '../components/Properties';
-import Toolbar from '@mui/material/Toolbar';
-import Link from 'next/link';
-import Button from '@mui/material/Button';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-
-
+import Card from '@mui/material/Card';
+import QueryInput from '../components/QueryInput';
+import Button from '@mui/material/Button';
 
 const list = [
     {
@@ -83,12 +81,58 @@ const list = [
     },
 ]
 
+const cityList = [
+    'İstanbul',
+    'İzmir',
+    'Antalya',
+    'Rize',
+    'Muğla',
+    'Çanakkale',
+    'Ankara',
+    'Edirne',
+];
+
+const typeList = [
+    'Apartment',
+    'Villa',
+    'Bungalow',
+    'Penthouse',
+];
 
 const Main = () => {
+    
     return (
         <div>
             <Navbar />
-            <Container maxWidth="lg" sx={{ marginTop: 4 }}>
+            <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5', boxShadow: 'none', height: 100}}>
+                <Container maxWidth="lg">
+                    <Grid container>
+                        <Grid item sx={{ marginTop: 1 }} xs={3}>
+                            <Grid>
+                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 32, color: '#424242'}}>Find Your Ideal</Typography>
+                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242'}}>Home & Investment</Typography>
+                            </Grid>
+                        </Grid>
+                        <Grid item sx={{ marginTop: 2 }}>
+                            <Grid container>
+                                <Grid item>
+                                   <QueryInput type="checkBox" queryName="City" options={cityList}/>
+                                </Grid>
+                                <Grid item>
+                                    <QueryInput type="checkBox" queryName="Type" options={typeList}/>
+                                </Grid>
+                                <Grid item>
+                                    <QueryInput type="input" queryName="Price"/>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <Grid item sx={{ margin: 1, marginTop: 4}}>
+                            <Button sx={{ backgroundColor: '#5c6bc0', color: 'white', width: 100, height: 40, ':hover': { bgcolor: '#3949ab'} }}>Search</Button>
+                        </Grid>
+                    </Grid>
+                </Container>
+            </Card>
+            <Container maxWidth="lg" sx={{ marginTop: 3}}>
                 <Grid container spacing={4}>
                     {list.map((list) => (
                         <Properties key={list.id} post={list} />

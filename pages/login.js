@@ -41,19 +41,20 @@ const Login = () => {
               R - ESTATE
             </Typography> */}
             <Grid container justifyContent="center" alignItems="center">
-            {/* <Box 
+            <Box 
               component="img" 
-              src="https://imgyukle.com/f/2022/04/03/EwiQFM.png" 
-              sx={{ width: 130, height: 120, marginTop: 7}}
-            /> */}
+              src="https://imgyukle.com/f/2022/04/06/EAjw1Q.png" 
+              sx={{ width: 200, height: 80, marginTop: 8}}
+            />
             </Grid>
           </ThemeProvider>
           <Box
             sx={{
-              marginTop: 15,
+              marginTop: 5,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
+              marginBottom: 5
             }}
           >
             <Avatar sx={{ m: 1, bgcolor: "#46505A" }}>

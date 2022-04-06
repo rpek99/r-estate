@@ -99,6 +99,16 @@ const typeList = [
     'Penthouse',
 ];
 
+const priceList = [
+    'All',
+    '0 - 100.000',
+    '100.000 - 200.000',
+    '200.000 - 300.000',
+    '300.000 - 400.000',
+    '400.000 - 500.000',
+    '500.000 +',
+];
+
 const Main = () => {
     
     return (
@@ -122,7 +132,7 @@ const Main = () => {
                                     <QueryInput type="checkBox" queryName="Type" options={typeList}/>
                                 </Grid>
                                 <Grid item>
-                                    <QueryInput type="input" queryName="Price"/>
+                                    <QueryInput type="input" queryName="Price" options={priceList}/>
                                 </Grid>
                             </Grid>
                         </Grid>

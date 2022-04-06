@@ -32,17 +32,20 @@ const UserSignupPage = () => {
             <CssBaseline />
             <Box
               sx={{
-                marginTop: 8,
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
+                m: 1,
+                marginBottom: 2
               }}
             >
-              <Avatar sx={{ m: 1, bgcolor: "#46505A"  }}>
-                <AccountBoxIcon />
-              </Avatar>
+               <Box 
+                  component="img" 
+                  src="https://imgyukle.com/f/2022/04/06/EAjw1Q.png" 
+                  sx={{ width: 200, height: 80, m: 3}}
+                />
               <Typography component="h1" variant="h5" >
-                Create account
+                Sign in
               </Typography>
               <Box sx={{ mt: 3 }}>
                 <form
@@ -78,7 +81,7 @@ const UserSignupPage = () => {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={12}>
+                    <Grid item xs={10}>
                       <Controller
                         name="mobilePhone"
                         control={control}

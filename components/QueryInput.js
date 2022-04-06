@@ -6,9 +6,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
 import OutlinedInput from '@mui/material/OutlinedInput';
-import { Typography } from '@mui/material';
-import Grid from '@mui/material/Grid';
-import Divider from '@mui/material/Divider';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -25,7 +22,7 @@ const MenuProps = {
 
 
 const QueryInput = (props) => {
-    const [personName, setPersonName] = useState([]);
+    const [value, setValue] = useState([]);
 
     const {queryName, options, type} = props;
 
@@ -34,7 +31,7 @@ const QueryInput = (props) => {
             target: { value },
         } = event;
 
-        setPersonName(
+        setValue(
             // On autofill we get a stringified value.
             typeof value === 'string' ? value.split(',') : value,
         );
@@ -46,7 +43,7 @@ const QueryInput = (props) => {
                 {type === "checkBox" ?
                     <Select
                         multiple
-                        value={personName}
+                        value={value}
                         onChange={handleChange}
                         input={<OutlinedInput label={queryName} />}
                         renderValue={(selected) => selected.join(', ')}
@@ -54,42 +51,24 @@ const QueryInput = (props) => {
                     >
                         {options.map((option) => (
                             <MenuItem key={option} value={option}>
-                                <Checkbox checked={personName.indexOf(option) > -1} />
+                                <Checkbox checked={value.indexOf(option) > -1} />
                                 <ListItemText primary={option} />
                             </MenuItem>
                         ))}
                     </Select> : 
-                    <Select MenuProps={MenuProps} input={<OutlinedInput label="Price" />}>
-                        <Typography sx={{ marginTop: 2, marginLeft: 2, fontSize: 16}}>Price range</Typography>
-                        <Divider sx={{ m: 1, marginLeft: 2, width: 100}}/>
-                        <Grid container sx={{ m: 1, marginTop: 1}}>
-                            <Grid item>
-                                <FormControl size="small" sx={{ m: 1, maxWidth: 150 }}>
-                                    <InputLabel htmlFor="outlined-adornment-amount">Min Amount</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-amount"
-                                        label="Amount"
-                                        // value={values.amount}
-                                        // onChange={handleChange('amount')}
-                                    />
-                                </FormControl>
-                            </Grid>
-                            <Grid item>
-                                <Typography sx={{ m: 1, marginTop: 2, fontSize: 15}}>-</Typography>
-                            </Grid>
-                            <Grid item>
-                                <FormControl size="small" sx={{ m: 1, maxWidth: 150 }}>
-                                    <InputLabel htmlFor="outlined-adornment-amount">Max Amount</InputLabel>
-                                    <OutlinedInput
-                                        id="outlined-adornment-amount"
-                                        label="Amount"
-                                        // value={values.amount}
-                                        // onChange={handleChange('amount')}
-                                    />
-                                </FormControl>
-                            </Grid>
-                        </Grid>
-                    </Select> }
+                    <Select
+                        value={value}
+                        onChange={handleChange}
+                        input={<OutlinedInput label={queryName} />}
+                        renderValue={(selected) => selected.join(', ')}
+                        MenuProps={MenuProps}
+                    >
+                        {options.map((option) => (
+                            <MenuItem key={option} value={option}>
+                                <ListItemText primary={option} />
+                            </MenuItem>
+                        ))}
+                    </Select> } 
         </FormControl> 
     )
 }

@@ -55,32 +55,35 @@ export default function Home() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container>
-        <Toolbar sx={{ marginTop: "8px"}}>
-            <Typography
-                component="h2"
-                variant="h5"
-                color="inherit"
-                align="left"
-                noWrap
-                sx={{ flex: 1, fontWeight: "bold" }}
-            >
-                R - Estate
-            </Typography>
-            <Link href='sign-up'>
-              <Button size="medium" sx={{ marginRight: 2, color: "#424242", fontWeight: "bold", fontSize: "18px", textTransform: 'none', ':hover': { bgcolor: '#e0e0e0'}} }>
-                Sign Up
-              </Button>
-            </Link>
-            <Link href='/login'>
-              <Button size="large"  sx={{ backgroundColor: "#757575", color: "white", borderRadius: 2, textTransform: 'none', fontSize: "18px", width: 90, height: 40, ':hover': { bgcolor: '#424242'}} }>
-                Login
-              </Button>
-            </Link>
+        <Toolbar sx={{ marginTop: 1}}>
+            <Grid container justifyContent="space-between">
+              <Grid item>
+                <Box
+                    component="img" 
+                    src="https://imgyukle.com/f/2022/04/06/EAjw1Q.png" 
+                    sx={{ height: 70, width: 200}}
+                />
+              </Grid>
+              <Grid item sx={{ marginTop: 2.5}}>
+                <Link href='sign-up'>
+                  <Button size="medium" sx={{ marginRight: 2, color: "#424242", fontWeight: "bold", fontSize: "18px", textTransform: 'none', ':hover': { bgcolor: '#e0e0e0'}} }>
+                    Sign Up
+                  </Button>
+                </Link>
+                <Link href='/login'>
+                  <Button size="large"  sx={{ backgroundColor: "#757575", color: "white", borderRadius: 2, textTransform: 'none', fontSize: "18px", width: 90, height: 40, ':hover': { bgcolor: '#424242'}} }>
+                    Login
+                  </Button>
+                </Link>
+              </Grid>
+            </Grid>
           </Toolbar>
         </Container>
-        <Box sx={{ marginLeft: 10, marginRight: 10}}>
-          <MainPost />  
-        </Box>
+        <Grid container justifyContent="center">
+          <Box sx={{ width: 1300 }}>
+            <MainPost />  
+          </Box>
+        </Grid>
       <Container maxWidth="lg">
           <Typography variant="h5" sx={{ fontWeight: "bold", margin: 2, marginTop: 6, marginBottom: 3}}>Explore all things property</Typography>
           <Grid container spacing={4}>

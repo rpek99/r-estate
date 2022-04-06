@@ -26,20 +26,26 @@ function Navbar(props) {
     <Box sx={{ flexGrow: 1, margin: 10}}>
         <AppBar position="fixed" style={{ backgroundColor:"#455a64"}} >
           <Toolbar>
-            <Grid container sx={{ width: 150}}>
+            {/* <Grid container sx={{ width: 150}}>
               <ThemeProvider theme={theme}>
                 <Typography variant="h5" component="div">
                     R - ESTATE
                 </Typography>
               </ThemeProvider>
-            </Grid>
+            </Grid> */}
+            <Box 
+              component="img" 
+              src="https://imgyukle.com/f/2022/04/06/EAjFMI.png" 
+              sx={{ width: 160, height: 60, borderRadius: '2%'}}
+              
+            />
             <Grid
                 justify="space-between"
                 container 
                 spacing={1}
                 justifyContent="center"
             >
-                <Grid item sx={{ marginLeft: 5}}>
+                <Grid item>
                     <Link href="/main" style={{ textDecoration: 'none', color: 'white'}}>
                       <Button variant="inherit">Home</Button>
                     </Link>

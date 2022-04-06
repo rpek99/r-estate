@@ -21,6 +21,8 @@ const MainPost = () => {
             backgroundPosition: 'center',
             backgroundImage: `url(${imageUrl})`,
             top: 10,
+            height: 350,
+            marginBottom: 2
             }}
         >
             {<img style={{ display: 'none' }} src={imageUrl}  />}
@@ -31,7 +33,7 @@ const MainPost = () => {
                     bottom: 0,
                     right: 0,
                     left: 0,
-                    backgroundColor: 'rgba(0,0,0,.4)',
+                    backgroundColor: 'rgba(0,0,0,.2)',
                 }}
             />
             <Grid container justifyContent="center" >
@@ -41,8 +43,6 @@ const MainPost = () => {
                             position: 'relative',
                             p: { xs: 3, md: 8 },
                             pr: { md: 0 },
-                            marginTop: 3,
-                            marginBottom: 3,
                         }}
                     >
                         <Grid container justifyContent="center">

@@ -12,6 +12,7 @@ import { Controller, useForm } from "react-hook-form";
 import FormInput from '../components/FormInput';
 import PhoneInput from '../components/PhoneInput';
 import Link from 'next/link';
+import Card from '@mui/material/Card';
 
 
 const theme = createTheme();
@@ -27,8 +28,10 @@ const UserSignupPage = () => {
       }
   
       return (
+        <Card sx={{ backgroundColor: '#f5f5f5'}}>
           <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="xs">
+          <Container component="main" maxWidth="sm" sx={{ marginBottom: 5}}>
+            <Card sx={{ backgroundColor: 'white', borderRadius: '2%', height: 760}}>
             <CssBaseline />
             <Box
               sx={{
@@ -42,10 +45,10 @@ const UserSignupPage = () => {
                <Box 
                   component="img" 
                   src="https://imgyukle.com/f/2022/04/06/EAjw1Q.png" 
-                  sx={{ width: 200, height: 80, m: 3}}
+                  sx={{ width: 210, height: 80, m: 3, marginBottom: 3}}
                 />
-              <Typography component="h1" variant="h5" >
-                Sign in
+              <Typography sx={{ fontSize: 25 }}> 
+                Create Account
               </Typography>
               <Box sx={{ mt: 3 }}>
                 <form
@@ -53,7 +56,7 @@ const UserSignupPage = () => {
                   onSubmit={handleSubmit(onSubmit)}
                   encType='multipart/form-data'
                 >
-                  <Grid container spacing={2}>
+                  <Grid container spacing={2} sx={{ maxWidth: 416}}>
                     <Grid item xs={12} sm={6}>
                       <Controller
                         name='firstName'
@@ -81,7 +84,7 @@ const UserSignupPage = () => {
                         )}
                       />
                     </Grid>
-                    <Grid item xs={10}>
+                    <Grid item xs={12}>
                       <Controller
                         name="mobilePhone"
                         control={control}
@@ -113,11 +116,11 @@ const UserSignupPage = () => {
                     type="submit"
                     fullWidth
                     variant="contained"
-                    sx={{ mt: 3, mb: 2, backgroundColor: "#455a64", fontSize: 13, height: 40, ':hover': { bgcolor: '#263238'}}}
+                    sx={{ mt: 3, mb: 2, backgroundColor: "#455a64", fontSize: 15, height: 40, ':hover': { bgcolor: '#263238'}, textTransform: 'none'}}
                   >
-                    Create account
+                    Create Account
                   </Button>
-                  <Grid container spacing={2}>
+                  <Grid container justifyContent="space-between">
                     <Grid item xs={6}>
                       <Link href="/">
                         Return to Home page
@@ -125,15 +128,17 @@ const UserSignupPage = () => {
                     </Grid>
                     <Grid item xs={6}>
                       <Link href="/login">
-                        Already have an account? Sign in
+                          Already have an account? Sign in
                       </Link>
                     </Grid>
                   </Grid>
                 </form>
               </Box>
             </Box>
+            </Card>
           </Container>
         </ThemeProvider>
+      </Card>
       )
   };
 

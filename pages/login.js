@@ -11,6 +11,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { Controller, useForm } from "react-hook-form";
 import Link from 'next/link';
 import FormInput from '../components/FormInput';
+import Card from '@mui/material/Card';
 
 
 const theme = createTheme({
@@ -34,84 +35,83 @@ const Login = () => {
     }
 
     return (
-        <Container component="main" maxWidth="xs">
+      <Card sx={{ backgroundColor: '#f5f5f5'}}>
+        <Container maxWidth="sm" sx={{ marginBottom: 5 }}>
           <CssBaseline />
-          <ThemeProvider theme={theme}>
-            {/* <Typography align='center' variant='h3' sx={{ marginTop: 7}}>
-              R - ESTATE
-            </Typography> */}
-            <Grid container justifyContent="center" alignItems="center">
-            <Box 
-              component="img" 
-              src="https://imgyukle.com/f/2022/04/06/EAjw1Q.png" 
-              sx={{ width: 200, height: 80, marginTop: 8}}
-            />
-            </Grid>
-          </ThemeProvider>
-          <Box
-            sx={{
-              marginTop: 5,
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              marginBottom: 5
-            }}
-          >
-            <Avatar sx={{ m: 1, bgcolor: "#46505A" }}>
-              <LoginIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-              Login
-            </Typography>
-            <Box noValidate sx={{ mt: 1 }}>
-              <form
-                noValidate
-                onSubmit={handleSubmit(onSubmit)}
-              >
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <Controller
-                      name='email'
-                      control={control}
-                      render={(props) => (
-                        <FormInput {...props} required label="Email Address"/>
-                      )}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Controller
-                      name='password'
-                      control={control}
-                      render={(props) => (
-                        <FormInput {...props} required label="Password" type="password"/>
-                      )}
-                    />
-                  </Grid>
-                </Grid>
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}}}
+          <Card sx={{borderRadius: '2%', height: 760}}>
+              <Grid container justifyContent="center" alignItems="center">
+              <Box 
+                component="img" 
+                src="https://imgyukle.com/f/2022/04/06/EAjw1Q.png" 
+                sx={{ width: 210, height: 80, marginTop: 8}}
+              />
+              </Grid>
+            <Box
+              sx={{
+                marginTop: 5,
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                marginBottom: 5
+              }}
+            >
+              <Avatar sx={{ m: 1, bgcolor: "#46505A" }}>
+                <LoginIcon />
+              </Avatar>
+              <Typography sx={{ fontSize: 25}}>
+                Login
+              </Typography>
+              <Box noValidate sx={{ mt: 1 }}>
+                <form
+                  noValidate
+                  onSubmit={handleSubmit(onSubmit)}
                 >
-                  Login
-                </Button>
-                <Grid container spacing={2}>
-                  <Grid item xs={6}>
-                    <Link href="/">
-                      Return to Home page
-                    </Link>
+                  <Grid container spacing={2} sx={{ maxWidth: 415}}>
+                    <Grid item xs={12}>
+                      <Controller
+                        name='email'
+                        control={control}
+                        render={(props) => (
+                          <FormInput {...props} required label="Email Address"/>
+                        )}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Controller
+                        name='password'
+                        control={control}
+                        render={(props) => (
+                          <FormInput {...props} required label="Password" type="password"/>
+                        )}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={6}>
-                    <Link href="/sign-up">
-                      Don't have an account? Sign Up
-                    </Link>
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}, textTransform: 'none', fontSize: 15}}
+                  >
+                    Login
+                  </Button>
+                  <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                      <Link href="/">
+                        Return to Home page
+                      </Link>
+                    </Grid>
+                    <Grid item xs={6}>
+                      <Link href="/sign-up">
+                        Don't have an account? Sign Up
+                      </Link>
+                    </Grid>
                   </Grid>
-                </Grid>
-              </form>
+                </form>
+              </Box>
             </Box>
-          </Box>
-        </Container>       
+          </Card> 
+        </Container>     
+      </Card>
     )
 }
 

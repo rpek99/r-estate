@@ -23,46 +23,39 @@ function Navbar(props) {
 
 
   return (
-    <Box sx={{ flexGrow: 1, margin: 10}}>
+    <Box sx={{ margin: 10}}>
         <AppBar position="fixed" style={{ backgroundColor:"#455a64"}} >
           <Toolbar>
-            {/* <Grid container sx={{ width: 150}}>
-              <ThemeProvider theme={theme}>
-                <Typography variant="h5" component="div">
-                    R - ESTATE
-                </Typography>
-              </ThemeProvider>
-            </Grid> */}
             <Box 
               component="img" 
               src="https://imgyukle.com/f/2022/04/06/EAjFMI.png" 
-              sx={{ width: 160, height: 60, borderRadius: '2%'}}
+              sx={{ width: 180, height: 70 }}
               
             />
             <Grid
                 justify="space-between"
                 container 
-                spacing={1}
+                spacing={2}
                 justifyContent="center"
             >
                 <Grid item>
                     <Link href="/main" style={{ textDecoration: 'none', color: 'white'}}>
-                      <Button variant="inherit">Home</Button>
+                      <Button variant="inherit" sx={{ textTransform: 'none', fontSize: 15}}>Home</Button>
                     </Link>
                 </Grid>
                 <Grid item>
                     <Link href="/profile" style={{ textDecoration: 'none', color: 'white', }}>
-                      <Button variant="inherit">Profile</Button>
+                      <Button variant="inherit" sx={{ textTransform: 'none', fontSize: 15}}>Profile</Button>
                     </Link>
                 </Grid> 
                 <Grid item>
                     <Link href="/sale-properties" style={{ textDecoration: 'none', color: 'white', }}>
-                      <Button variant="inherit">Sale Properties</Button>
+                      <Button variant="inherit" sx={{ textTransform: 'none', fontSize: 15}}>Sale Properties</Button>
                     </Link>
                 </Grid>    
                 <Grid item>
                     <Link href="/sell-property" style={{ textDecoration: 'none', color: 'white', }}>
-                      <Button variant="inherit">Sell Property</Button>
+                      <Button variant="inherit" sx={{ textTransform: 'none', fontSize: 15}}>Sell Property</Button>
                     </Link>
                 </Grid>          
             </Grid>

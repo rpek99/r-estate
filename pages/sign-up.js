@@ -30,7 +30,7 @@ const UserSignupPage = () => {
       return (
         <Card sx={{ backgroundColor: '#f5f5f5'}}>
           <ThemeProvider theme={theme}>
-          <Container component="main" maxWidth="sm" sx={{ marginBottom: 5}}>
+          <Container component="main" maxWidth="sm">
             <Card sx={{ backgroundColor: 'white', borderRadius: '2%', height: 760}}>
             <CssBaseline />
             <Box
@@ -44,7 +44,7 @@ const UserSignupPage = () => {
             >
                <Box 
                   component="img" 
-                  src="https://imgyukle.com/f/2022/04/06/EAjw1Q.png" 
+                  src="logo1.png" 
                   sx={{ width: 210, height: 80, m: 3, marginBottom: 3}}
                 />
               <Typography sx={{ fontSize: 25 }}> 

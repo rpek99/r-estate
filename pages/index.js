@@ -11,6 +11,7 @@ import Link from 'next/Link';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import MiddlePost from '../components/MiddlePost';
+import Card from '@mui/material/Card';
 
 const theme = createTheme();
 
@@ -52,53 +53,55 @@ const featuredPosts = [
 
 export default function Home() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Container>
-        <Toolbar sx={{ marginTop: 1}}>
-            <Grid container justifyContent="space-between">
-              <Grid item>
-                <Box
-                    component="img" 
-                    src="https://imgyukle.com/f/2022/04/06/EAjw1Q.png" 
-                    sx={{ height: 70, width: 200}}
-                />
+    <Card sx={{ backgroundColor: "#f5f5f5" }}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Container maxWidth="xl">
+          <Toolbar sx={{ marginTop: 1}}>
+              <Grid container justifyContent="space-between">
+                <Grid item>
+                  <Box
+                      component="img" 
+                      src="logo3.png" 
+                      sx={{ height: 90, width: 220}}
+                  />
+                </Grid>
+                <Grid item sx={{ marginTop: 3}}>
+                  <Link href='sign-up'>
+                    <Button size="medium" sx={{ marginRight: 2, color: "#424242", fontWeight: "bold", fontSize: "18px", textTransform: 'none', ':hover': { bgcolor: '#e0e0e0'} }}>
+                      Sign Up
+                    </Button>
+                  </Link>
+                  <Link href='/login'>
+                    <Button size="large"  sx={{ backgroundColor: "#757575", color: "white", borderRadius: 2, textTransform: 'none', fontSize: "18px", width: 90, height: 40, ':hover': { bgcolor: '#424242'}} }>
+                      Login
+                    </Button>
+                  </Link>
+                </Grid>
               </Grid>
-              <Grid item sx={{ marginTop: 2.5}}>
-                <Link href='sign-up'>
-                  <Button size="medium" sx={{ marginRight: 2, color: "#424242", fontWeight: "bold", fontSize: "18px", textTransform: 'none', ':hover': { bgcolor: '#e0e0e0'}} }>
-                    Sign Up
-                  </Button>
-                </Link>
-                <Link href='/login'>
-                  <Button size="large"  sx={{ backgroundColor: "#757575", color: "white", borderRadius: 2, textTransform: 'none', fontSize: "18px", width: 90, height: 40, ':hover': { bgcolor: '#424242'}} }>
-                    Login
-                  </Button>
-                </Link>
-              </Grid>
+            </Toolbar>
+          </Container>
+          <Grid container justifyContent="center">
+            <Box sx={{ width: 1300 }}>
+              <MainPost />  
+            </Box>
+          </Grid>
+        <Container maxWidth="lg">
+            <Typography variant="h5" sx={{ fontWeight: "bold", margin: 2, marginTop: 5, marginBottom: 3}}>Explore all things property</Typography>
+            <Grid container spacing={4}>
+              {featuredPosts.map((post) => (
+                <SmallPost key={post.title} post={post}/>
+              ))}
             </Grid>
-          </Toolbar>
+            <Grid sx={{ marginTop: 8}}>
+              <MiddlePost post={post}/>
+            </Grid>
         </Container>
-        <Grid container justifyContent="center">
-          <Box sx={{ width: 1300 }}>
-            <MainPost />  
-          </Box>
-        </Grid>
-      <Container maxWidth="lg">
-          <Typography variant="h5" sx={{ fontWeight: "bold", margin: 2, marginTop: 6, marginBottom: 3}}>Explore all things property</Typography>
-          <Grid container spacing={4}>
-            {featuredPosts.map((post) => (
-              <SmallPost key={post.title} post={post}/>
-            ))}
-          </Grid>
-          <Grid sx={{ marginTop: 5}}>
-            <MiddlePost post={post}/>
-          </Grid>
-      </Container>
-      <Footer 
-        title="Footer"
-        description="Something here to give the footer a purpose!"
-      />
-    </ThemeProvider>
+        <Footer 
+          title="Footer"
+          description="Something here to give the footer a purpose!"
+        />
+      </ThemeProvider>
+    </Card>
   )
 }

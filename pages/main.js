@@ -137,7 +137,7 @@ const Main = () => {
                             </Grid>
                         </Grid>
                         <Grid item sx={{ margin: 1, marginTop: 4}}>
-                            <Button sx={{ backgroundColor: '#5c6bc0', color: 'white', width: 100, height: 40, ':hover': { bgcolor: '#3949ab'} }}>Search</Button>
+                            <Button sx={{ backgroundColor: '#5c6bc0', color: 'white', width: 100, height: 40, ':hover': { bgcolor: '#3949ab'}, textTransform: 'none', fontSize: 16 }}>Search</Button>
                         </Grid>
                     </Grid>
                 </Container>

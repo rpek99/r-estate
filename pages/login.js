@@ -36,13 +36,13 @@ const Login = () => {
 
     return (
       <Card sx={{ backgroundColor: '#f5f5f5'}}>
-        <Container maxWidth="sm" sx={{ marginBottom: 5 }}>
+        <Container maxWidth="sm">
           <CssBaseline />
           <Card sx={{borderRadius: '2%', height: 760}}>
               <Grid container justifyContent="center" alignItems="center">
               <Box 
                 component="img" 
-                src="https://imgyukle.com/f/2022/04/06/EAjw1Q.png" 
+                src="logo1.png" 
                 sx={{ width: 210, height: 80, marginTop: 8}}
               />
               </Grid>
@@ -86,14 +86,16 @@ const Login = () => {
                       />
                     </Grid>
                   </Grid>
-                  <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}, textTransform: 'none', fontSize: 15}}
-                  >
-                    Login
-                  </Button>
+                  <Link href="/main">
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      sx={{ mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}, textTransform: 'none', fontSize: 15}}
+                    >
+                      Login
+                    </Button>
+                  </Link>
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
                       <Link href="/">

@@ -10,65 +10,33 @@ let imageUrl = "https://argonaut.au.reastatic.net/resi-property/prod/homepage-we
 
 const MainPost = () => {
     return (
-        <Paper
-            sx={{
-            position: 'relative',
-            backgroundColor: 'grey.400',
-            color: '#fff',
-            mb: 4,
-            backgroundSize: 'cover',
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundImage: `url(${imageUrl})`,
-            top: 10,
-            height: 350,
-            marginBottom: 2
-            }}
-        >
-            {<img style={{ display: 'none' }} src={imageUrl}  />}
-            <Box
-                sx={{
-                    position: 'absolute',
-                    top: 0,
-                    bottom: 0,
-                    right: 0,
-                    left: 0,
-                    backgroundColor: 'rgba(0,0,0,.2)',
-                }}
-            />
-            <Grid container justifyContent="center" >
-                <Grid item md={8}>
-                    <Box
-                        sx={{
-                            position: 'relative',
-                            p: { xs: 3, md: 8 },
-                            pr: { md: 0 },
-                        }}
-                    >
-                        <Grid container justifyContent="center">
-                            <Typography component="h2" variant="h3" color="inherit" gutterBottom>
-                                Buy and sale property safely
-                            </Typography>
-                        </Grid>
-                        <Grid container justifyContent="center">
-                            <Typography variant="h5" color="inherit" paragraph>
-                                start learning the skills for the 
-                            </Typography>
-                        </Grid>
-                        <Grid container justifyContent="center">
-                            <Typography variant="h5" color="inherit" paragraph>
-                                learn web3 development earn crypto rewards
-                            </Typography>
-                        </Grid>
-                        <Grid container justifyContent="center">
-                            <Typography variant="h5" color="inherit" paragraph>
-                                and get paid while you learn
-                            </Typography>
-                        </Grid>
-                    </Box>
-                </Grid>
+        <Grid container justifyContent="center" sx={{ marginTop: 6, marginBottom: 6}}>
+             <Grid container justifyContent="center">
+                <Typography component="h2" variant="h2" color="inherit">
+                    Learn web3 development
+                </Typography>
             </Grid>
-        </Paper>
+            <Grid container justifyContent="center">
+                <Typography component="h2" variant="h2" color="inherit" gutterBottom>
+                    earn crypto rewards
+                </Typography>
+            </Grid>
+            <Grid container justifyContent="center">
+                <Typography variant="h5" color="inherit">
+                    start learning the skills for the 
+                </Typography>
+            </Grid>
+            <Grid container justifyContent="center">
+                <Typography variant="h5" color="inherit">
+                    web3 development earn crypto rewards
+                 </Typography>
+            </Grid>
+            <Grid container justifyContent="center">
+                <Typography variant="h5" color="inherit" paragraph>
+                    and get paid while you learn
+                </Typography>
+            </Grid>
+        </Grid>
     );
 }
 

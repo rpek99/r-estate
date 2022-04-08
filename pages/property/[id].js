@@ -132,7 +132,7 @@ const PropertyDetails = () => {
                     </Grid>
                     <Grid sx={{ marginTop: 5, marginRight: 5}} xs={2}>
                         <Link href="/main">
-                            <Button sx={{ fontFamily: 'Raleway', backgroundColor: '#d32f2f', color: 'white', width: 160, height: 40, fontSize: 20, ':hover': { bgcolor: '#b71c1c'}, textTransform: 'none'}}>Buy Property</Button>
+                            <Button sx={{ backgroundColor: '#d32f2f', color: 'white', width: 160, height: 40, fontSize: 16, ':hover': { bgcolor: '#b71c1c'}, textTransform: 'none'}}>Buy Property</Button>
                         </Link>
                     </Grid>
                 </Grid>

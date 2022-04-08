@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Link from 'next/link';
 import { Box } from '@mui/system';
 import AppBar from '@mui/material/AppBar';
@@ -19,7 +18,7 @@ const theme = createTheme({
    }
 });
 
-function Navbar(props) {
+function Navbar() {
 
 
   return (
@@ -28,9 +27,8 @@ function Navbar(props) {
           <Toolbar>
             <Box 
               component="img" 
-              src="https://imgyukle.com/f/2022/04/06/EAjFMI.png" 
+              src="/logo2.png" 
               sx={{ width: 180, height: 70 }}
-              
             />
             <Grid
                 justify="space-between"

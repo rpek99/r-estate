@@ -2,7 +2,6 @@ import * as React from 'react';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Box from '@mui/material/Box';
@@ -15,7 +14,7 @@ const SmallPost = (props) => {
         <Box sx={{ flexGrow: 1, marginTop: 6, marginLeft: 5}}>
             <Grid container spacing={3}>
                 <Grid item xs={12}>
-                    <Card sx={{ height: 350}}>
+                    <Card sx={{ height: 380}}>
                         <Grid style={{ display:'flex', justifyContent:'center' }}>
                             <CardMedia
                                 component="img"
@@ -24,7 +23,7 @@ const SmallPost = (props) => {
                                 alt={post.imageLabel}
                             />
                         </Grid>
-                        <CardContent sx={{ flex: 1, maxWidth: 300 }}>
+                        <CardContent sx={{ flex: 1, maxWidth: 350, marginTop: 2 }}>
                             <Typography component="h2" variant="h5">
                                 {post.title}
                             </Typography>

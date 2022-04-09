@@ -17,35 +17,37 @@ const theme = createTheme();
 
 const post = 
   {
-    title: 'Explore suburb profiles',
-    description: 'Lorem Ipsum is simply dummy text of the printing and typesetting'+
-                  'industry. Lorem Ipsum has been the industry standard dummy text'+
-                  'ever since the 1500s, when an unknown printer took a galley of type.',
+    title: 'Join this innovation',
+    description: 'r-estate aims to eliminate many difficulties brought by traditional methods.'+
+                  'The biggest contribution to the real estate sector is that it eliminates the problem '+
+                  'of trust, thanks to its infrastructure. '+
+                  'Also it keeps the user experience at the highest level by supporting '+
+                  'this infrastructure with a simple and understandable interface.'
   }
 
 const featuredPosts = [
   {
-    title: 'Explore suburb profiles',
+    title: 'No need for trust',
     date: 'Nov 12',
     description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
+      'Don\'t need to trust anyone during the buying and selling process, r-estate does not need middlemen.',
     image: 'https://argonaut.au.reastatic.net/resi-property/prod/homepage-web/guides-selling-47d7f52fdaf669353712.webp',
     imageLabel: 'Image Text',
   },
   {
-    title: 'Need help with',
+    title: 'Blockchain assurance',
     date: 'Nov 11',
     description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://cloudfront-us-east-1.images.arcpublishing.com/coindesk/ZJZZK5B2ZNF25LYQHMUTBTOMLU.png',
+      'All transactions take place using the ethereum blockchain infrastructure. A record of each transaction is kept on this chain.',
+    image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ethereum-icon-purple.svg/2048px-Ethereum-icon-purple.svg.png',
     imageLabel: 'Image Text',
   },
   {
-    title: 'Get estimated property',
+    title: 'Get rid of long processes',
     date: 'Nov 11',
     description:
-      'This is a wider card with supporting text below as a natural lead-in to additional content.',
-    image: 'https://argonaut.au.reastatic.net/resi-property/prod/homepage-web/homeloan-4ee39797e0d724886d9d.webp',
+      'No need for long and complex document processes. You can buy or sell property quickly with r-estate, which brings all transactions under one roof.',
+    image: 'https://cdn2.iconfinder.com/data/icons/summer-travel-5/64/Summer-Travel-spend-Time-hour-512.png',
     imageLabel: 'Image Text',
   },
   
@@ -98,8 +100,8 @@ export default function Home() {
             </Grid>
         </Container>
         <Footer 
-          title="Footer"
-          description="Something here to give the footer a purpose!"
+          contactTitle="Contact Us"
+          contactInfo="r_estate@gmail.com"
         />
       </ThemeProvider>
     </Card>

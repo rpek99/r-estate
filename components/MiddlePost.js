@@ -18,7 +18,7 @@ const MiddlePost = (props) => {
                         sx={{ width: '45%', display: { xs: 'none', sm: 'block' } }}
                         image="https://static.news.bitcoin.com/wp-content/uploads/2019/10/uBRlFnvH-real-estate-crypto.jpg"
                     />
-                    <CardContent sx={{ flex: 1, marginTop: 8, marginLeft: 3}}>
+                    <CardContent sx={{ flex: 1, marginTop: 5, marginLeft: 3, maxWidth: 550}}>
                         <Typography component="h2" variant="h5" sx={{ marginBottom: 2}}>
                             {post.title}
                         </Typography>

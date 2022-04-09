@@ -6,36 +6,42 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import Grid from '@mui/material/Grid';
-import { IconButton } from '@mui/material';
+import { Divider, IconButton, Paper } from '@mui/material';
 
 
 
 const Footer = (props) => {
-    const { description, title } = props;
+    const { contactTitle, contactInfo } = props;
 
     return (
-        <Box component="footer" sx={{ bgcolor: 'background.paper', py: 3}}>
+        <Box component="footer" sx={{ bgcolor: 'background.paper', py: 10, paddingBottom: 5}}>
             <Container maxWidth="lg">
-                <Typography variant="h6" align="center" gutterBottom>
-                    {title}
+                <Typography
+                    align="center"
+                    color="text.secondary"
+                    component="p" 
+                    sx= {{ fontFamily: "Georgia", fontSize: 20}}
+                >
+                    {contactTitle}
                 </Typography>
                 <Typography
-                    variant="subtitle1"
                     align="center"
                     color="text.secondary"
                     component="p"
+                    sx={{ fontFamily: "Georgia", fontSize: 18}}
                 >
-                    {description}
+                    {contactInfo}
                 </Typography>
+                <Divider sx={{ m: 3 }}/>
                 <Grid align="center">
                     <IconButton >
-                        <TwitterIcon />
+                        <TwitterIcon sx={{ fontSize: 30 }}/>
                     </IconButton>
                     <IconButton>
-                        <FacebookIcon />
+                        <FacebookIcon sx={{ fontSize: 30 }}/>
                     </IconButton>
                     <IconButton>
-                        <InstagramIcon />
+                        <InstagramIcon sx={{ fontSize: 30 }}/>
                     </IconButton>
                 </Grid>
             </Container>

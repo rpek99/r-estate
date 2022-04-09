@@ -189,8 +189,8 @@ const PropertyDetails = () => {
                     </Grid>
                 </Grid>
                 <Footer 
-                    title="Footer"
-                    description="Something here to give the footer a purpose!"
+                    contactTitle="Contact Us"
+                    contactInfo="r_estate@gmail.com"
                 />
             </Container>
         </div>

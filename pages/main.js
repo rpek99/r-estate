@@ -148,7 +148,7 @@ const Main = () => {
                         <Properties key={list.id} post={list} />
                     ))}
                 </Grid>
-                <Footer title="Footer" description="Something about main page informations"/>
+                <Footer contactTitle="Contact Us" contactInfo="r_estate@gmail.com"/>
             </Container>
         </div>
     )

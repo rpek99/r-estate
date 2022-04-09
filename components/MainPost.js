@@ -13,27 +13,27 @@ const MainPost = () => {
         <Grid container justifyContent="center" sx={{ marginTop: 6, marginBottom: 6}}>
              <Grid container justifyContent="center">
                 <Typography component="h2" variant="h2" color="inherit">
-                    Learn web3 development
+                    Buy or sale property quickly
                 </Typography>
             </Grid>
             <Grid container justifyContent="center">
                 <Typography component="h2" variant="h2" color="inherit" gutterBottom>
-                    earn crypto rewards
+                    and securily with r-estate
                 </Typography>
             </Grid>
             <Grid container justifyContent="center">
                 <Typography variant="h5" color="inherit">
-                    start learning the skills for the 
+                    start to actualize your
                 </Typography>
             </Grid>
             <Grid container justifyContent="center">
                 <Typography variant="h5" color="inherit">
-                    web3 development earn crypto rewards
+                    real estate transactions in a shorter
                  </Typography>
             </Grid>
             <Grid container justifyContent="center">
                 <Typography variant="h5" color="inherit" paragraph>
-                    and get paid while you learn
+                    time and more securely
                 </Typography>
             </Grid>
         </Grid>

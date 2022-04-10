@@ -1,15 +1,11 @@
 import React from 'react';
-import { CardContent, Container, Typography } from "@mui/material";
-import Divider from '@mui/material/Divider'
-import Card from '@mui/material/Card';
-import Box from '@mui/material/Box';
+import { CardContent, Typography, Divider, Card, Box, Grid } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import BedroomParentIcon from '@mui/icons-material/BedroomParent';
 import ShowerIcon from '@mui/icons-material/Shower';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import PoolIcon from '@mui/icons-material/Pool';
-import Grid from '@mui/material/Grid';
 
 
 const PropertyInformation = (props) => {

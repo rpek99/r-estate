@@ -1,17 +1,10 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import LoginIcon from '@mui/icons-material/Login';
-import { Controller, useForm } from "react-hook-form";
 import Link from 'next/link';
+import { Controller, useForm } from "react-hook-form";
+import { Avatar, Button, CssBaseline, Grid, Box, Typography, Container, Card} from '@mui/material';
+import { createTheme } from '@mui/material/styles';
+import LoginIcon from '@mui/icons-material/Login';
 import FormInput from '../components/FormInput';
-import Card from '@mui/material/Card';
 
 
 const theme = createTheme({

@@ -1,26 +1,10 @@
 import * as React from 'react';
-import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
 import Link from 'next/link';
-import { Box } from '@mui/system';
-import AppBar from '@mui/material/AppBar';
-import Grid from '@mui/material/Grid';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { Toolbar, Button, AppBar, Grid, Box } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-const theme = createTheme({
-  typography: {
-    "fontFamily":"Roboto",
-    "fontSize": 13,
-    "fontWeightLight": 300,
-    "fontWeightRegular": 400,
-    "fontWeightMedium": 500
-   }
-});
 
-function Navbar() {
-
-
+const Navbar = () => {
   return (
     <Box sx={{ margin: 10}}>
         <AppBar position="fixed" style={{ backgroundColor:"#455a64"}} >
@@ -57,9 +41,11 @@ function Navbar() {
                     </Link>
                 </Grid>          
             </Grid>
-            <Button startIcon={<LogoutIcon />} sx={{ marginLeft: 2}} variant="inherit" href="/">
-              Logout
-            </Button>       
+            <Link href="/">
+              <Button startIcon={<LogoutIcon />} sx={{ marginLeft: 2}} variant="inherit">
+                Logout
+              </Button>
+            </Link> 
           </Toolbar>
         </AppBar>
       </Box>

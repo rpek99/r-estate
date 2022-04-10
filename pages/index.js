@@ -1,17 +1,11 @@
+import Link from 'next/link';
+import { Card, Box, Button, Toolbar, Typography, Grid, Container, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
 import MainPost from '../components/MainPost';
 import SmallPost from '../components/SmallPost';
-import Grid from '@mui/material/Grid';
-import { Typography } from '@mui/material';
 import Footer from '../components/Footer';
-import Toolbar from '@mui/material/Toolbar';
-import Link from 'next/Link';
-import Button from '@mui/material/Button';
-import Box from '@mui/material/Box';
 import MiddlePost from '../components/MiddlePost';
-import Card from '@mui/material/Card';
+
 
 const theme = createTheme();
 

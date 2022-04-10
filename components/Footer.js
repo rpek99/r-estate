@@ -1,13 +1,8 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
+import { Divider, IconButton, Container, Box, Typography, Grid } from '@mui/material';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
-import Grid from '@mui/material/Grid';
-import { Divider, IconButton, Paper } from '@mui/material';
-
 
 
 const Footer = (props) => {

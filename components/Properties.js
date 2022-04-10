@@ -1,11 +1,5 @@
 import * as React from 'react';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Box from '@mui/material/Box';
+import { Typography, Grid, Card, CardActionArea, CardContent, CardMedia, Box } from '@mui/material';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import BedroomParentIcon from '@mui/icons-material/BedroomParent';
 import ShowerIcon from '@mui/icons-material/Shower';

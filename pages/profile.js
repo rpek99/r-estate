@@ -1,6 +1,8 @@
+import React from 'react';
 import { Card, CardContent, Container, Grid, Typography, Box, Button, Divider } from "@mui/material";
-import Navbar from "../components/Navbar";
 import PersonIcon from '@mui/icons-material/Person';
+import Navbar from "../components/Navbar";
+
 
 const user = {
     name: "Rüstem",

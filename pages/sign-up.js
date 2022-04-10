@@ -1,21 +1,14 @@
 import React from 'react';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Controller, useForm } from "react-hook-form";
-import FormInput from '../components/FormInput';
-import PhoneInput from '../components/PhoneInput';
 import Link from 'next/link';
-import Card from '@mui/material/Card';
+import { Controller, useForm } from "react-hook-form";
+import { Button, CssBaseline, Grid, Box, Typography, Container, Card } from '@mui/material'
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import FormInput from '../components/FormInput';
+import PhoneInput  from '../components/PhoneInput';
 
 
 const theme = createTheme();
+
 
 const UserSignupPage = () => {
   
@@ -25,7 +18,7 @@ const UserSignupPage = () => {
     });
   
     const onSubmit = (registerForm) => {
-      }
+    }
   
       return (
         <Card sx={{ backgroundColor: '#f5f5f5'}}>

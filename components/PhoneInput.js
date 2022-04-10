@@ -1,7 +1,5 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
-import Input from '@mui/material/Input';
-import FormLabel from '@mui/material/FormLabel';
+import { Grid, Input, FormLabel } from '@mui/material';
 import FormHelperText from '@mui/material/FormHelperText';
 import ReactPhoneInput from "react-phone-input-material-ui";
 import "react-phone-input-material-ui/lib/material.css";

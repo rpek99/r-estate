@@ -1,15 +1,11 @@
 import React from 'react';
-import { Button, CardContent, Container, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material";
+import Link from 'next/link';
+import { Button, CardContent, Container, Typography, CardMedia, Card, Grid } from "@mui/material";
 import Navbar from "../../components/Navbar";
 import Carousel from 'react-material-ui-carousel'
-import Grid from '@mui/material/Grid';
-import Card from '@mui/material/Card';
-import CardMedia from '@mui/material/CardMedia';
 import Footer from '../../components/Footer';
-import Divider from '@mui/material/Divider'
 import PropertyInformation from '../../components/PropertyInformation';
-import Link from 'next/link';
-import CircleIcon from '@mui/icons-material/Circle';
+
 
 const properties = [
     {

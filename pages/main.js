@@ -1,12 +1,9 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
-import { Container, Typography } from '@mui/material';
+import { Container, Typography, Grid, Card, Button } from '@mui/material';
 import Properties from '../components/Properties';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import Card from '@mui/material/Card';
 import QueryInput from '../components/QueryInput';
-import Button from '@mui/material/Button';
 
 const list = [
     {

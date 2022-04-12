@@ -16,6 +16,8 @@ const FormInput = (props) => {
 
     return (
         <TextField
+            multiline
+            rows={props.rows}
             error={!!error}
             helperText={error?.message}
             {...field}

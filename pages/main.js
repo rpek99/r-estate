@@ -8,8 +8,8 @@ import QueryInput from '../components/QueryInput';
 const list = [
     {
         id: 1,
-        title: 'The standard chunk of Lorem Ipsum used since the',
-        description: 'It is a long established fact that a reader will be distracted by',
+        title: 'New Build Triplex Villas with Private Pool in Beylikduzu',
+        description: 'The complex close to the sea is located in Beylikduzu, Istanbul. The complex is situated on a 6400 sqm land area and consists of 12 detached villas.',
         name: 'Deneme1',
         city: 'Istanbul',
         room: 3,
@@ -22,8 +22,8 @@ const list = [
     },
     {
         id: 2,
-        title: 'The standard chunk of Lorem Ipsum used since the',
-        description: 'It is a long established fact that a reader will be distracted by',
+        title: 'Houses in Tranquil Place Intertwined with Nature',
+        description: 'Luxury houses for sale in Tuzla, Istanbul built using durable and high-quality materials are suitable for citizenship applications and investment.',
         name: 'Deneme2',
         city: 'Istanbul',
         room: 5,
@@ -36,8 +36,8 @@ const list = [
     },
     {
         id: 3,
-        title: 'The standard chunk of Lorem Ipsum used since the',
-        description: 'It is a long established fact that a reader will be distracted by',
+        title: 'Well Located Investment Building in Kadikoy',
+        description: 'The brand new building is located in the Osmanaga Neighborhood in Kadikoy, Istanbul Anatolia built using durable and high-quality materials.',
         name: 'Deneme3',
         city: 'Istanbul',
         room: 8,
@@ -50,8 +50,8 @@ const list = [
     },
     {
         id: 4,
-        title: 'The standard chunk of Lorem Ipsum used since the',
-        description: 'It is a long established fact that a reader will be distracted by',
+        title: 'Splendid Villa in Istanbul Kurtkoy Neighbourhood',
+        description: 'Villa for sale in Pendik İstanbul is within easy reach of the Aydos forest, hiking parks, and Sabiha Gokcen Airport. The splendid villa is close to all daily amenities.',
         name: 'Deneme4',
         city: 'Istanbul',
         room: 8,

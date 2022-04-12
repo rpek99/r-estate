@@ -5,6 +5,7 @@ import MainPost from '../components/MainPost';
 import SmallPost from '../components/SmallPost';
 import Footer from '../components/Footer';
 import MiddlePost from '../components/MiddlePost';
+import ReactFlagsSelect from "react-flags-select";
 
 
 const theme = createTheme();
@@ -21,6 +22,7 @@ const post =
 
 const featuredPosts = [
   {
+    id: 1,
     title: 'No need for trust',
     date: 'Nov 12',
     description:
@@ -29,6 +31,7 @@ const featuredPosts = [
     imageLabel: 'Image Text',
   },
   {
+    id: 2,
     title: 'Blockchain assurance',
     date: 'Nov 11',
     description:
@@ -37,6 +40,7 @@ const featuredPosts = [
     imageLabel: 'Image Text',
   },
   {
+    id:3,
     title: 'Get rid of long processes',
     date: 'Nov 11',
     description:
@@ -72,7 +76,10 @@ export default function Home() {
                     <Button size="large"  sx={{ backgroundColor: "#757575", color: "white", borderRadius: 2, textTransform: 'none', fontSize: "18px", width: 90, height: 40, ':hover': { bgcolor: '#424242'}} }>
                       Login
                     </Button>
-                  </Link>
+                  </Link> 
+                </Grid>
+                <Grid sx={{ marginTop: 3, marginLeft: -95}}>
+                    <ReactFlagsSelect  placeholder="Select Language" countries={["US", "TR"]}/>
                 </Grid>
               </Grid>
             </Toolbar>
@@ -86,7 +93,7 @@ export default function Home() {
             <Typography variant="h5" sx={{ fontWeight: "bold", margin: 2, marginTop: 5, marginBottom: 3}}>Explore all things property</Typography>
             <Grid container spacing={4}>
               {featuredPosts.map((post) => (
-                <SmallPost key={post.title} post={post}/>
+                <SmallPost key={post.id} post={post}/>
               ))}
             </Grid>
             <Grid sx={{ marginTop: 8}}>

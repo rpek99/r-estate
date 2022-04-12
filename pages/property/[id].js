@@ -117,7 +117,7 @@ const PropertyDetails = () => {
             <Navbar />
             <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5', boxShadow: 'none', marginBottom: 3}}>
                 <Grid container justifyContent="space-between" spacing={2}>
-                    <Grid sx={{ marginLeft: 10, marginTop: 2 }} xs={8}>
+                    <Grid item sx={{ marginLeft: 10 }} xs={8}>
                         <Grid>
                             <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>{properties[0].title}</Typography>
                         </Grid>
@@ -126,7 +126,7 @@ const PropertyDetails = () => {
                             <Typography sx={{ fontFamily: 'Raleway', fontSize: 35, color:'#c62828', marginLeft: 2, marginTop: -1}}>{formatter.format(properties[0].price)}</Typography>
                         </Grid>
                     </Grid>
-                    <Grid sx={{ marginTop: 5, marginRight: 5}} xs={2}>
+                    <Grid item sx={{ marginTop: 3, marginRight: 5}} xs={2}>
                         <Link href="/main">
                             <Button sx={{ backgroundColor: '#d32f2f', color: 'white', width: 160, height: 40, fontSize: 16, ':hover': { bgcolor: '#b71c1c'}, textTransform: 'none'}}>Buy Property</Button>
                         </Link>
@@ -138,14 +138,13 @@ const PropertyDetails = () => {
                 <Grid container alignItems="center" justifyContent="center"> 
                     <Carousel sx= {{ width: 900, height: 500}} navButtonsAlwaysVisible >
                         {properties.map((property) => (
-                            <Card>
+                            <Card key={property.id}>
                                 <Grid style={{ display:'flex', justifyContent:'center' }}>
                                     <CardMedia
                                         component="img"
                                         sx={{ width: '100%', height: 430}}
                                         image={property.photo}
                                         alt={property.name}
-                                        key={property.id}
                                     />
                                 </Grid>
                             </Card>

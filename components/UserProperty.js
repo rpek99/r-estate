@@ -10,7 +10,7 @@ const UserProperty = (props) => {
     const { property } = props;
 
     return (
-        <Card sx={{ display: 'flex', backgroundColor: "#e0e0e0", height: 200, marginTop: 5 }}>
+        <Card sx={{ display: 'flex', backgroundColor: "#eeeeee", height: 200, marginTop: 5 }}>
             <CardMedia
                 component="img"
                 sx={{ width: '30%'}}

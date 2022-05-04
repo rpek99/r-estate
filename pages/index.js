@@ -78,9 +78,9 @@ export default function Home() {
                     </Button>
                   </Link> 
                 </Grid>
-                <Grid sx={{ marginTop: 3, marginLeft: -95}}>
+                {/* <Grid sx={{ marginTop: 3, marginLeft: -95}}>
                     <ReactFlagsSelect  placeholder="Select Language" countries={["US", "TR"]}/>
-                </Grid>
+                </Grid> */}
               </Grid>
             </Toolbar>
           </Container>

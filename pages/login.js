@@ -1,30 +1,58 @@
 import * as React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 import { Controller, useForm } from "react-hook-form";
 import { Avatar, Button, CssBaseline, Grid, Box, Typography, Container, Card} from '@mui/material';
-import { createTheme } from '@mui/material/styles';
 import LoginIcon from '@mui/icons-material/Login';
 import FormInput from '../components/FormInput';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import { useToasts } from 'react-toast-notifications'
+import axios from "axios";
 
-
-const theme = createTheme({
-    typography: {
-      "fontFamily":"Roboto",
-      "fontSize": 14,
-      "fontWeightLight": 300,
-      "fontWeightRegular": 400,
-      "fontWeightMedium": 500
-    }
+export const Schema = Yup.object().shape({
+  email: Yup.string()
+    .email("Pleas enter valid e-mail address")
+    .required("Cannot be empty"),
+  password: Yup.string()
+    .required("Cannot be empty")
 });
 
 const Login = () => {
 
+    const router = useRouter()
+
+    const { addToast } = useToasts()
+
     const { handleSubmit, control } = useForm({
-        // resolver: yupResolver(Schema),
+        resolver: yupResolver(Schema),
     });
 
-    const onSubmit = () => {
-
+    const onSubmit = (loginForm) => {
+      
+      axios
+        .post('/auth/login', {
+            'email': loginForm["email"],
+            'password': loginForm["password"]
+        },
+        {
+          headers: { 'Content-Type': 'application/json' },
+        })
+        .then((result) => {localStorage.setItem("tokenKey", result.data.message);
+                          localStorage.setItem("currentUser", result.data.userId)})  
+        .then(() => { 
+          addToast("Login successful" , { 
+            autoDismiss: true,
+            appearance: 'success' 
+          });
+          setTimeout(() => router.push({ pathname: '/main' }), 1500);
+        })
+        .catch((err) =>
+          addToast(err?.response?.data, { 
+            autoDismiss: true,
+            appearance: 'error'
+          })
+        );
     }
 
     return (
@@ -79,16 +107,14 @@ const Login = () => {
                       />
                     </Grid>
                   </Grid>
-                  <Link href="/main">
-                    <Button
-                      type="submit"
-                      fullWidth
-                      variant="contained"
-                      sx={{ mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}, textTransform: 'none', fontSize: 15}}
-                    >
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}, textTransform: 'none', fontSize: 15}}
+                  >
                       Login
-                    </Button>
-                  </Link>
+                  </Button>
                   <Grid container spacing={2}>
                     <Grid item xs={6}>
                       <Link href="/">

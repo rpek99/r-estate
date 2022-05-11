@@ -1,24 +1,82 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router'
 import { Controller, useForm } from "react-hook-form";
 import { Button, CssBaseline, Grid, Box, Typography, Container, Card } from '@mui/material'
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import FormInput from '../components/FormInput';
 import PhoneInput  from '../components/PhoneInput';
+import parsePhoneNumber from "libphonenumber-js";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as Yup from "yup";
+import "yup-phone";
+import axios from "axios";
+import 'react-toastify/dist/ReactToastify.css';
+import { useToasts } from 'react-toast-notifications'
 
 
 const theme = createTheme();
 
+export const Schema = Yup.object().shape({
+  firstName: Yup.string().required("Cannot be empty"),
+  lastName: Yup.string().required("Cannot be empty"),
+  email: Yup.string()
+    .email("Pleas enter valid e-mail address")
+    .required("Cannot be empty"),
+  mobilePhone: Yup.string()
+    .required("Cannot be empty")
+    .phone("TR", true, "Please enter a valid number"),
+  password: Yup.string()
+    .required("Cannot be empty")
+    .min(8, "Password must has minimum 8 character"),
+  confirmPassword: Yup.string()
+    .required("Cannot be empty")
+    .oneOf([Yup.ref("password"), null], "Passwords doesn't match"),
+});
+
 
 const UserSignupPage = () => {
-  
+
+    const router = useRouter()
+
+    const { addToast } = useToasts()
     
     const { handleSubmit, control } = useForm({
-
+      resolver: yupResolver(Schema),
     });
   
     const onSubmit = (registerForm) => {
-    }
+      const formData = new FormData();
+
+      const phoneNumber = parsePhoneNumber("+" + registerForm["mobilePhone"]);
+      if (phoneNumber) {
+        registerForm["mobilePrefix"] = parseInt(phoneNumber.countryCallingCode);
+        registerForm["mobilePhone"] = phoneNumber.nationalNumber;
+      }
+
+      const registerFormData = new Blob([JSON.stringify(registerForm)], {
+        type: "application/json",
+      });
+
+      formData.append("user", registerFormData);
+
+
+      axios
+        .post('/auth/register', formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        }).then((res) => {
+          addToast(res?.data , { 
+            autoDismiss: true,
+            appearance: 'success' 
+          });
+          setTimeout(() => router.push({ pathname: '/login' }), 1500);
+        }).catch((err) => 
+          addToast(err?.response?.data, { 
+            autoDismiss: true,
+            appearance: 'error'
+          })
+        );
+      }
   
       return (
         <Card sx={{ backgroundColor: '#f5f5f5'}}>

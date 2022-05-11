@@ -5,6 +5,12 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 
 const Navbar = () => {
+
+  const onClick = () => {
+    localStorage.removeItem("currentUser")
+    localStorage.removeItem("tokenKey")
+  }
+  
   return (
     <Box sx={{ margin: 10}}>
         <AppBar position="fixed" style={{ backgroundColor:"#455a64"}} >
@@ -42,7 +48,7 @@ const Navbar = () => {
                 </Grid>          
             </Grid>
             <Link href="/">
-              <Button startIcon={<LogoutIcon />} sx={{ marginLeft: 2}} variant="inherit">
+              <Button startIcon={<LogoutIcon />} onClick={onClick} sx={{ marginLeft: 2}} variant="inherit">
                 Logout
               </Button>
             </Link> 

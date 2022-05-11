@@ -1,18 +1,29 @@
-import React from 'react';
+import { React, useState, useEffect } from 'react';
 import { Card, CardContent, Container, Grid, Typography, Box, Button, Divider } from "@mui/material";
-import PersonIcon from '@mui/icons-material/Person';
 import Navbar from "../components/Navbar";
+import axios from "axios";
 
-
-const user = {
-    name: "Rüstem",
-    surname: "Pek",
-    phoneNumber: "0535 549 75 05",
-    email: "rpek@medipol.edu.tr",
-    walletAddress: "0x995...fEB95"
-}
 
 const Profile = () => {
+
+    const [email, setEmail] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [mobilePhone, setMobilePhone] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+
+    useEffect(() => {
+        axios
+            .get("user/getUser?userId=" +localStorage.getItem("currentUser"))
+            .then((res) => {
+                setEmail(res.data.email)
+                setFirstName(res.data.firstName)
+                setLastName(res.data.lastName)
+                setMobilePhone(res.data.mobilePhone);
+                setPhoneNumber(`(${mobilePhone.slice(0,3)}) ${mobilePhone.slice(3,6)} ${mobilePhone.slice(6,8)} ${mobilePhone.slice(8.10)}`);
+            })
+    });
+
     return (
         <div>
             <Navbar />
@@ -29,7 +40,9 @@ const Profile = () => {
                     > 
                         <Box sx={{ marginTop: 5, backgroundColor: '#616161', width: 160, height: 160, borderRadius: '50%'}}>
                             <Grid container justifyContent="center" alignItems="center">
-                                <PersonIcon sx={{ color: 'white', fontSize: 70, marginTop: 5 }}/>
+                                <Typography sx={{ marginTop: 5, fontSize: "50px", color: "white"}}>
+                                    {firstName.charAt(0).toUpperCase() + lastName.charAt(0).toUpperCase()}
+                                </Typography>
                             </Grid>
                         </Box>
                         <Card sx={{ backgroundColor: "#616161", marginTop: 5, width: 750, height: 150, boxShadow: "0" }}>
@@ -37,7 +50,7 @@ const Profile = () => {
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
                                         <Typography sx={{ fontSize: 18, color: 'white'}}>Name & Surname</Typography>
-                                        <Typography sx={{ fontSize: 15, color: 'white', marginTop: 2 }}>{user.name} {user.surname}</Typography>
+                                        <Typography sx={{ fontSize: 15, color: 'white', marginTop: 2 }}>{firstName} {lastName}</Typography>
                                     </Grid>
                                     <Grid item>
                                         <Button 
@@ -62,7 +75,7 @@ const Profile = () => {
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
                                         <Typography sx={{ fontSize: 18, color: 'white'}}>Email</Typography>
-                                        <Typography sx={{ fontSize: 15, color: 'white', marginTop: 2 }}>{user.email}</Typography>
+                                        <Typography sx={{ fontSize: 15, color: 'white', marginTop: 2 }}>{email}</Typography>
                                     </Grid>
                                     <Grid item>
                                         <Button 
@@ -87,7 +100,7 @@ const Profile = () => {
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
                                         <Typography sx={{ fontSize: 18, color: 'white'}}>Phone Number</Typography>
-                                        <Typography sx={{ fontSize: 15, color: 'white', marginTop: 2 }}>{user.phoneNumber}</Typography>
+                                        <Typography sx={{ fontSize: 15, color: 'white', marginTop: 2 }}>{phoneNumber}</Typography>
                                     </Grid>
                                     <Grid item>
                                         <Button 
@@ -114,7 +127,7 @@ const Profile = () => {
                                         <Typography sx={{ fontSize: 18, color: 'white'}}>Connect Wallet</Typography>
                                         <Typography sx={{ fontSize: 15, color: 'white', marginTop: 2}}>Wallet Address</Typography>
                                         <Divider sx={{ m: 1, width: 200, marginLeft: 0, backgroundColor: "white" }}/>
-                                        <Typography sx={{ textDecoration: 'underline', fontSize: 15, color: 'white', marginTop: 2}}>{user.walletAddress}</Typography>
+                                        <Typography sx={{ textDecoration: 'underline', fontSize: 15, color: 'white', marginTop: 2}}>none</Typography>
                                     </Grid>
                                     <Grid item>
                                         <Button 

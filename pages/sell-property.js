@@ -2,7 +2,7 @@ import { Box, Button, Card, Container, Grid, Typography } from "@mui/material";
 import Link from "next/link";
 import { Controller, useForm } from "react-hook-form";
 import FormInput from "../components/FormInput";
-import Navbar from "../components/Navbar";
+import AuthNavbar from "../components/AuthNavbar";
 
 const SellProperty = () => {
 
@@ -16,7 +16,7 @@ const SellProperty = () => {
 
     return (
         <div>
-            <Navbar />
+            <AuthNavbar />
             <Card sx={{ marginTop: 12, display: 'flex', backgroundColor: '#eeeeee', boxShadow: 'none', height: 80}}>
                 <Container maxWidth="md">
                     <Grid container>

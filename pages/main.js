@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container, Typography, Grid, Card, Button } from '@mui/material';
 import Properties from '../components/Properties';
-import Navbar from '../components/Navbar';
+import AuthNavbar from '../components/AuthNavbar';
 import Footer from '../components/Footer';
 import QueryInput from '../components/QueryInput';
+import NoAuthNavbar from '../components/NoAuthNavbar';
 
 const list = [
     {
@@ -107,10 +108,18 @@ const priceList = [
 ];
 
 const Main = () => {
+
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+    useEffect(() => {
+        if(localStorage.getItem("currentUser")) {
+            setIsAuthenticated(true);
+        }
+    })
     
     return (
         <div>
-            <Navbar />
+            {isAuthenticated ? <AuthNavbar /> : <NoAuthNavbar page="main" />}
             <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5', boxShadow: 'none', height: 100}}>
                 <Container maxWidth="lg">
                     <Grid container>

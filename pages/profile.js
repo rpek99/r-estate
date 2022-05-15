@@ -1,10 +1,13 @@
 import { React, useState, useEffect } from 'react';
 import { Card, CardContent, Container, Grid, Typography, Box, Button, Divider } from "@mui/material";
-import Navbar from "../components/Navbar";
+import AuthNavbar from "../components/AuthNavbar";
 import axios from "axios";
+import AuthError from './auth-error';
 
 
 const Profile = () => {
+
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
 
     const [email, setEmail] = useState("");
     const [firstName, setFirstName] = useState("");
@@ -13,7 +16,9 @@ const Profile = () => {
     const [phoneNumber, setPhoneNumber] = useState("");
 
     useEffect(() => {
-        axios
+        if(localStorage.getItem("currentUser")) {
+            setIsAuthenticated(true)
+            axios
             .get("user/getUser?userId=" +localStorage.getItem("currentUser"))
             .then((res) => {
                 setEmail(res.data.email)
@@ -22,11 +27,14 @@ const Profile = () => {
                 setMobilePhone(res.data.mobilePhone);
                 setPhoneNumber(`(${mobilePhone.slice(0,3)}) ${mobilePhone.slice(3,6)} ${mobilePhone.slice(6,8)} ${mobilePhone.slice(8.10)}`);
             })
+        }
     });
 
     return (
+      <>
+      {isAuthenticated ? 
         <div>
-            <Navbar />
+            <AuthNavbar />
             <Card sx={{ backgroundColor: '#f5f5f5', marginTop: -1}}>
                 <Container maxWidth="sm">
                     <Box
@@ -153,6 +161,8 @@ const Profile = () => {
                 </Container>
             </Card>
         </div>
+        : <AuthError />}
+      </>
     )
 }
 

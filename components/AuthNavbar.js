@@ -1,10 +1,10 @@
-import * as React from 'react';
+import { React } from 'react';
 import Link from 'next/link';
 import { Toolbar, Button, AppBar, Grid, Box } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 
-const Navbar = () => {
+const AuthNavbar = () => {
 
   const onClick = () => {
     localStorage.removeItem("currentUser")
@@ -58,4 +58,4 @@ const Navbar = () => {
   );
 }
 
-export default Navbar;
+export default AuthNavbar;

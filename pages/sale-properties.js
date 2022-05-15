@@ -1,5 +1,5 @@
 import { Grid, Card, Container, Typography } from "@mui/material";
-import Navbar from "../components/Navbar";
+import AuthNavbar from "../components/AuthNavbar";
 import UserProperty from "../components/UserProperty";
 import Footer from "../components/Footer";
 
@@ -25,7 +25,7 @@ const properties = [
 const SaleProperties = () => {
     return (
         <div>
-            <Navbar />
+            <AuthNavbar />
             <Card sx={{ marginTop: 12, display: 'flex', backgroundColor: '#eeeeee', boxShadow: 'none', height: 80}}>
                 <Container maxWidth="lg">
                     <Grid container>

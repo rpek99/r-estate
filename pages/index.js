@@ -1,11 +1,11 @@
-import Link from 'next/link';
-import { Card, Box, Button, Toolbar, Typography, Grid, Container, CssBaseline } from '@mui/material';
+import { Card, Box, Typography, Grid, Container, CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import MainPost from '../components/MainPost';
 import SmallPost from '../components/SmallPost';
 import Footer from '../components/Footer';
 import MiddlePost from '../components/MiddlePost';
 import ReactFlagsSelect from "react-flags-select";
+import NoAuthNavbar from '../components/NoAuthNavbar';
 
 
 const theme = createTheme();
@@ -57,32 +57,7 @@ export default function Home() {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Container maxWidth="xl">
-          <Toolbar sx={{ marginTop: 1}}>
-              <Grid container justifyContent="space-between">
-                <Grid item>
-                  <Box
-                      component="img" 
-                      src="logo3.png" 
-                      sx={{ height: 90, width: 220}}
-                  />
-                </Grid>
-                <Grid item sx={{ marginTop: 3}}>
-                  <Link href='sign-up'>
-                    <Button size="medium" sx={{ marginRight: 2, color: "#424242", fontWeight: "bold", fontSize: "18px", textTransform: 'none', ':hover': { bgcolor: '#e0e0e0'} }}>
-                      Sign Up
-                    </Button>
-                  </Link>
-                  <Link href='/login'>
-                    <Button size="large"  sx={{ backgroundColor: "#757575", color: "white", borderRadius: 2, textTransform: 'none', fontSize: "18px", width: 90, height: 40, ':hover': { bgcolor: '#424242'}} }>
-                      Login
-                    </Button>
-                  </Link> 
-                </Grid>
-                {/* <Grid sx={{ marginTop: 3, marginLeft: -95}}>
-                    <ReactFlagsSelect  placeholder="Select Language" countries={["US", "TR"]}/>
-                </Grid> */}
-              </Grid>
-            </Toolbar>
+          <NoAuthNavbar />
           </Container>
           <Grid container justifyContent="center">
             <Box sx={{ width: 1300 }}>

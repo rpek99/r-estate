@@ -5,7 +5,7 @@ import { Typography, Grid } from '@mui/material';
 const MainPost = () => {
     return (
         <Grid container justifyContent="center" sx={{ marginTop: 6, marginBottom: 6}}>
-             <Grid container justifyContent="center">
+            <Grid container justifyContent="center">
                 <Typography component="h2" variant="h2" color="inherit">
                     Buy or sale property quickly
                 </Typography>
@@ -30,6 +30,7 @@ const MainPost = () => {
                     time and more securely
                 </Typography>
             </Grid>
+            
         </Grid>
     );
 }

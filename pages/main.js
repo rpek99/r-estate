@@ -108,18 +108,9 @@ const priceList = [
 ];
 
 const Main = () => {
-
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-    useEffect(() => {
-        if(localStorage.getItem("currentUser")) {
-            setIsAuthenticated(true);
-        }
-    })
-    
     return (
         <div>
-            {isAuthenticated ? <AuthNavbar /> : <NoAuthNavbar page="main" />}
+            <AuthNavbar />
             <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5', boxShadow: 'none', height: 100}}>
                 <Container maxWidth="lg">
                     <Grid container>

@@ -113,18 +113,9 @@ var formatter = new Intl.NumberFormat('en-US', {
 
 
 const PropertyDetails = () => {
-
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-    useEffect(() => {
-        if(localStorage.getItem("currentUser")) {
-            setIsAuthenticated(true);
-        }
-    })
-
     return (
         <div>
-            {isAuthenticated ? <AuthNavbar /> : <NoAuthNavbar page="property"/>}
+            <AuthNavbar />
             <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5', boxShadow: 'none', marginBottom: 3}}>
                 <Grid container justifyContent="space-between" spacing={2}>
                     <Grid item sx={{ marginLeft: 10 }} xs={8}>
@@ -136,26 +127,23 @@ const PropertyDetails = () => {
                             <Typography sx={{ fontFamily: 'Raleway', fontSize: 35, color:'#c62828', marginLeft: 2, marginTop: -1}}>{formatter.format(properties[0].price)}</Typography>
                         </Grid>
                     </Grid>
-                    { isAuthenticated ? 
-                        <Grid item sx={{ marginTop: 3, marginRight: 5}} xs={2}>
-                            <Link href="/main">
-                                <Button 
-                                    sx={{ 
-                                        backgroundColor: '#d32f2f',
-                                        color: 'white', 
-                                        width: 160, 
-                                        height: 40, 
-                                        fontSize: 16, 
-                                        ':hover': { bgcolor: '#b71c1c'}, 
-                                        textTransform: 'none'
-                                    }}
-                                >
-                                    Buy Property
-                                </Button>
-                            </Link>
-                        </Grid>
-                        : <Grid />
-                    }
+                    <Grid item sx={{ marginTop: 3, marginRight: 5}} xs={2}>
+                        <Link href="/main">
+                            <Button 
+                                sx={{ 
+                                    backgroundColor: '#d32f2f',
+                                    color: 'white', 
+                                    width: 160, 
+                                    height: 40, 
+                                    fontSize: 16, 
+                                    ':hover': { bgcolor: '#b71c1c'}, 
+                                    textTransform: 'none'
+                                }}
+                            >
+                                Buy Property
+                            </Button>
+                        </Link>
+                    </Grid>
                 </Grid>
             </Card>
             

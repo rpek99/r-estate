@@ -29,11 +29,11 @@ const SaleProperties = () => {
             <Card sx={{ marginTop: 12, display: 'flex', backgroundColor: '#eeeeee', boxShadow: 'none', height: 80}}>
                 <Container maxWidth="lg">
                     <Grid container>
-                            <Grid item sx={{ marginTop: 2 }} xs={3}>
-                                <Grid>
-                                    <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>My Properties</Typography>
-                                </Grid>
+                        <Grid item sx={{ marginTop: 2 }} xs={3}>
+                            <Grid>
+                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>My Properties</Typography>
                             </Grid>
+                        </Grid>
                     </Grid>
                 </Container>
             </Card>

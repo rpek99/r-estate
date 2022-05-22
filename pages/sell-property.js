@@ -3,8 +3,21 @@ import Link from "next/link";
 import { Controller, useForm } from "react-hook-form";
 import FormInput from "../components/FormInput";
 import AuthNavbar from "../components/AuthNavbar";
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react'
 
 const SellProperty = () => {
+
+    const router = useRouter()
+
+    const { data: session, status } = useSession({
+        required: true,
+		onUnauthenticated: () => {
+            setTimeout(() => {
+                router.push('/')
+            }, 3000)
+		},
+    })
 
     const { handleSubmit, control } = useForm({
         // resolver: yupResolver(Schema),
@@ -15,70 +28,78 @@ const SellProperty = () => {
     }
 
     return (
-        <div>
-            <AuthNavbar />
-            <Card sx={{ marginTop: 12, display: 'flex', backgroundColor: '#eeeeee', boxShadow: 'none', height: 80}}>
-                <Container maxWidth="md">
-                    <Grid container>
-                            <Grid item sx={{ marginTop: 2 }} xs={10}>
-                                <Grid>
-                                    <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>Mülk satışı için öncelikle tapu kontrolü yapmalısınız</Typography>
+        <>
+        {session ? 
+            <div>
+                <AuthNavbar />
+                <Card sx={{ marginTop: 12, display: 'flex', backgroundColor: '#eeeeee', boxShadow: 'none', height: 80}}>
+                    <Container maxWidth="md">
+                        <Grid container>
+                                <Grid item sx={{ marginTop: 2 }} xs={10}>
+                                    <Grid>
+                                        <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>Mülk satışı için öncelikle tapu kontrolü yapmalısınız</Typography>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                    </Grid>
-                </Container>
-            </Card>
-            <Container maxWidth="md" sx={{ marginBottom: 10 }}>
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginBottom: 5
-                    }}
-                >
-                    <Box noValidate sx={{ mt: 1 }}>
-                        <form
-                            noValidate
-                            onSubmit={handleSubmit(onSubmit)}
-                        >
-                            <Grid container spacing={2} sx={{ maxWidth: 600}}>
-                                <Grid item xs={12}>
-                                    <Controller
-                                        name='tcno'
-                                        control={control}
-                                        render={(props) => (
-                                            <FormInput {...props} required label="TC Kimlik Numarası"/>
-                                        )}
-                                    />
+                        </Grid>
+                    </Container>
+                </Card>
+                <Container maxWidth="md" sx={{ marginBottom: 10 }}>
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            marginBottom: 5
+                        }}
+                    >
+                        <Box noValidate sx={{ mt: 1 }}>
+                            <form
+                                noValidate
+                                onSubmit={handleSubmit(onSubmit)}
+                            >
+                                <Grid container spacing={2} sx={{ maxWidth: 600}}>
+                                    <Grid item xs={12}>
+                                        <Controller
+                                            name='tcno'
+                                            control={control}
+                                            render={(props) => (
+                                                <FormInput {...props} required label="TC Kimlik Numarası"/>
+                                            )}
+                                        />
+                                    </Grid>
+                                    <Grid item xs={12}>
+                                        <Controller
+                                            name='propertyNo'
+                                            control={control}
+                                            render={(props) => (
+                                                <FormInput {...props} required label="Taşınmaz Mülk Numarası"/>
+                                            )}
+                                        />
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12}>
-                                    <Controller
-                                        name='propertyNo'
-                                        control={control}
-                                        render={(props) => (
-                                            <FormInput {...props} required label="Taşınmaz Mülk Numarası"/>
-                                        )}
-                                    />
+                                <Grid container sx={{ marginTop: 3}}>
+                                    <Link href="/sell-property-detail">
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            sx={{ width: 200, mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}, textTransform: 'none', fontSize: 15}}
+                                        >
+                                            Kontrol Et
+                                        </Button>
+                                    </Link>
                                 </Grid>
-                            </Grid>
-                            <Grid container sx={{ marginTop: 3}}>
-                                <Link href="/sell-property-detail">
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        sx={{ width: 200, mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}, textTransform: 'none', fontSize: 15}}
-                                    >
-                                        Kontrol Et
-                                    </Button>
-                                </Link>
-                            </Grid>
-                        </form>
+                            </form>
+                        </Box>
                     </Box>
-                </Box>
-            </Container>
-        </div>
+                </Container>
+            </div>
+            :
+            <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
+                <Typography sx={{ fontSize: 30}}>Loading ...</Typography>
+            </Grid>
+            }
+        </>
     )
 }
 

@@ -31,7 +31,7 @@ const Login = () => {
     const onSubmit = (loginForm) => {
       
       axios
-        .post('/auth/login', {
+        .post('/auth/authenticate', {
             'email': loginForm["email"],
             'password': loginForm["password"]
         },
@@ -39,7 +39,7 @@ const Login = () => {
           headers: { 'Content-Type': 'application/json' },
         })
         .then((result) => {localStorage.setItem("tokenKey", result.data.message);
-                          localStorage.setItem("currentUser", result.data.userId)})  
+                          localStorage.setItem("currentUser", result.data.userId)}) 
         .then(() => { 
           addToast("Login successful" , { 
             autoDismiss: true,

@@ -20,21 +20,7 @@ const MiddlePost = (props) => {
                         </Typography>
                         <Typography variant="subtitle1" color="text.secondary">
                             {post.description}
-                        </Typography>
-                        <Button 
-                            href="/sign-up"
-                            sx={{ 
-                                minWidth: '150px', minHeight: '20px',
-                                marginTop: 5,
-                                fontSize: "15px",
-                                backgroundColor: '#616161',
-                                color: 'white ',
-                                textTransform: 'none',
-                                ':hover': { bgcolor: '#263238'}}
-                            }
-                        >
-                            Join
-                        </Button>
+                        </Typography>  
                     </CardContent>
                 </Card>
         </Grid>

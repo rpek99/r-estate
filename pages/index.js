@@ -65,7 +65,7 @@ export default function Home() {
             </Box>
           </Grid>
         <Container maxWidth="lg">
-            <Typography variant="h5" sx={{ fontWeight: "bold", margin: 2, marginTop: 5, marginBottom: 3}}>Explore all things property</Typography>
+            <Typography variant="h5" sx={{ fontWeight: "bold", margin: 2, marginTop: 4, marginBottom: 3}}>Explore all things property</Typography>
             <Grid container spacing={4}>
               {featuredPosts.map((post) => (
                 <SmallPost key={post.id} post={post}/>

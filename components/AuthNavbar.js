@@ -2,13 +2,17 @@ import { React } from 'react';
 import Link from 'next/link';
 import { Toolbar, Button, AppBar, Grid, Box } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useRouter } from "next/router";
+import { signOut } from "next-auth/react";
 
 
 const AuthNavbar = () => {
 
-  const onClick = () => {
-    localStorage.removeItem("currentUser")
-    localStorage.removeItem("tokenKey")
+  const router = useRouter()
+
+  const handleSingOut = async () => {
+      const data = await signOut({ redirect: false, callbackUrl: '/'})
+      router.push(data.url)
   }
   
   return (
@@ -47,11 +51,9 @@ const AuthNavbar = () => {
                     </Link>
                 </Grid>          
             </Grid>
-            <Link href="/">
-              <Button startIcon={<LogoutIcon />} onClick={onClick} sx={{ marginLeft: 2}} variant="inherit">
-                Logout
-              </Button>
-            </Link> 
+            <Button startIcon={<LogoutIcon />} onClick={handleSingOut} sx={{ marginLeft: 2}} variant="inherit">
+              Logout
+            </Button>
           </Toolbar>
         </AppBar>
       </Box>

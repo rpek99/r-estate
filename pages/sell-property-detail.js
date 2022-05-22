@@ -7,6 +7,8 @@ import AuthNavbar from "../components/AuthNavbar";
 import QueryInput from "../components/QueryInput";
 import {useDropzone} from 'react-dropzone'
 import Dropzone from 'react-dropzone';
+import { useRouter } from 'next/router';
+import { useSession } from 'next-auth/react'
 
 const typeList = [
     'Apartment',
@@ -21,6 +23,16 @@ const poolCheck = [
 ];
 
 const SellProperty = () => {
+    const router = useRouter()
+
+    const { data: session, status } = useSession({
+        required: true,
+		onUnauthenticated: () => {
+            setTimeout(() => {
+                router.push('/')
+            }, 3000)
+		},
+    })
 
     const { handleSubmit, control } = useForm({
         // resolver: yupResolver(Schema),
@@ -39,140 +51,148 @@ const SellProperty = () => {
     )); 
 
     return (
-        <div>
-            <AuthNavbar />
-            <Card sx={{ marginTop: 12, display: 'flex', backgroundColor: '#eeeeee', boxShadow: 'none', height: 80}}>
-                <Container maxWidth="md">
-                    <Grid container>
-                            <Grid item sx={{ marginTop: 2 }} xs={10}>
-                                <Grid>
-                                    <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>Mülk bilgilerini giriniz</Typography>
+        <>
+        {session ? 
+            <div>
+                <AuthNavbar />
+                <Card sx={{ marginTop: 12, display: 'flex', backgroundColor: '#eeeeee', boxShadow: 'none', height: 80}}>
+                    <Container maxWidth="md">
+                        <Grid container>
+                                <Grid item sx={{ marginTop: 2 }} xs={10}>
+                                    <Grid>
+                                        <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>Mülk bilgilerini giriniz</Typography>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                    </Grid>
-                </Container>
-            </Card>
-            <Container maxWidth="md" sx={{ marginBottom: 10 }}>
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        marginBottom: 5
-                    }}
-                >
-                    <Box noValidate sx={{ mt: 1 }}>
-                        <form
-                            noValidate
-                            onSubmit={handleSubmit(onSubmit)}
-                        >
-                            <Grid container spacing={2} sx={{ maxWidth: 600}}>
-                                {/* This part should check again */}
-                                <Box sx={{ backgroundColor: "#e3f2fd", borderRadius: '1%', marginLeft: 2, padding: 2, width: 600}}>
-                                    <section className="container">
-                                        <div {...getRootProps({className: 'dropzone'})}>
-                                            <input {...getInputProps()} />
-                                            <p>Fotoğraf yüklemek için tıklayın</p>
-                                        </div>
-                                        <aside>
-                                            <h4>Dosyalar</h4>
-                                            <ul>{files}</ul>
-                                        </aside>
-                                    </section>
-                                </Box>
-                                <Grid item xs={12}>
-                                    <Controller
-                                        name='title'
-                                        control={control}
-                                        render={(props) => (
-                                            <FormInput {...props} required label="Mülk başlığı"/>
-                                        )}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Controller
-                                        name='overview'
-                                        control={control}
-                                        render={(props) => (
-                                            <FormInput {...props} required label="Önizlem bilgisi" rows={2}/>
-                                        )}
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <Controller
-                                        name='detail'
-                                        control={control}
-                                        render={(props) => (
-                                            <FormInput {...props} required label="Mülk hakkında detaylı bilgi" rows={5}/>
-                                        )}
-                                    />
-                                </Grid>
-                                <Grid item xs={12} sx={{ marginTop: 2}}>
-                                    <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242'}}>Mülk özellikleri</Typography>
-                                </Grid>
-                                <Grid container sx={{ m: 1, marginTop: 2}}>
-                                    <Grid item xs={8} sx={{ m: 1 }}>
+                        </Grid>
+                    </Container>
+                </Card>
+                <Container maxWidth="md" sx={{ marginBottom: 10 }}>
+                    <Box
+                        sx={{
+                            marginTop: 8,
+                            display: 'flex',
+                            flexDirection: 'column',
+                            marginBottom: 5
+                        }}
+                    >
+                        <Box noValidate sx={{ mt: 1 }}>
+                            <form
+                                noValidate
+                                onSubmit={handleSubmit(onSubmit)}
+                            >
+                                <Grid container spacing={2} sx={{ maxWidth: 600}}>
+                                    {/* This part should check again */}
+                                    <Box sx={{ backgroundColor: "#e3f2fd", borderRadius: '1%', marginLeft: 2, padding: 2, width: 600}}>
+                                        <section className="container">
+                                            <div {...getRootProps({className: 'dropzone'})}>
+                                                <input {...getInputProps()} />
+                                                <p>Fotoğraf yüklemek için tıklayın</p>
+                                            </div>
+                                            <aside>
+                                                <h4>Dosyalar</h4>
+                                                <ul>{files}</ul>
+                                            </aside>
+                                        </section>
+                                    </Box>
+                                    <Grid item xs={12}>
                                         <Controller
-                                            name='location'
+                                            name='title'
                                             control={control}
                                             render={(props) => (
-                                                <FormInput {...props} required label="Lokasyon"/>
+                                                <FormInput {...props} required label="Mülk başlığı"/>
                                             )}
                                         />
                                     </Grid>
-                                    <Grid item xs={8} sx={{ m: 1 }}>
+                                    <Grid item xs={12}>
                                         <Controller
-                                            name='area'
+                                            name='overview'
                                             control={control}
                                             render={(props) => (
-                                                <FormInput {...props} required label="Yaşam alanı (m2)"/>
+                                                <FormInput {...props} required label="Önizlem bilgisi" rows={2}/>
                                             )}
                                         />
                                     </Grid>
-                                    <Grid item xs={8} sx={{ m: 1 }}>
+                                    <Grid item xs={12}>
                                         <Controller
-                                            name='bathroom'
+                                            name='detail'
                                             control={control}
                                             render={(props) => (
-                                                <FormInput {...props} required label="Banyo sayısı"/>
+                                                <FormInput {...props} required label="Mülk hakkında detaylı bilgi" rows={5}/>
                                             )}
                                         />
                                     </Grid>
-                                    <Grid item xs={8} sx={{ m: 1 }}>
-                                        <Controller
-                                            name='bedroom'
-                                            control={control}
-                                            render={(props) => (
-                                                <FormInput {...props} required label="Yatak odası sayısı"/>
-                                            )}
-                                        />
+                                    <Grid item xs={12} sx={{ marginTop: 2}}>
+                                        <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242'}}>Mülk özellikleri</Typography>
                                     </Grid>
-                                    <Grid > 
-                                        <QueryInput type="input" queryName="Mülk Tipi" options={typeList}/>
+                                    <Grid container sx={{ m: 1, marginTop: 2}}>
+                                        <Grid item xs={8} sx={{ m: 1 }}>
+                                            <Controller
+                                                name='location'
+                                                control={control}
+                                                render={(props) => (
+                                                    <FormInput {...props} required label="Lokasyon"/>
+                                                )}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={8} sx={{ m: 1 }}>
+                                            <Controller
+                                                name='area'
+                                                control={control}
+                                                render={(props) => (
+                                                    <FormInput {...props} required label="Yaşam alanı (m2)"/>
+                                                )}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={8} sx={{ m: 1 }}>
+                                            <Controller
+                                                name='bathroom'
+                                                control={control}
+                                                render={(props) => (
+                                                    <FormInput {...props} required label="Banyo sayısı"/>
+                                                )}
+                                            />
+                                        </Grid>
+                                        <Grid item xs={8} sx={{ m: 1 }}>
+                                            <Controller
+                                                name='bedroom'
+                                                control={control}
+                                                render={(props) => (
+                                                    <FormInput {...props} required label="Yatak odası sayısı"/>
+                                                )}
+                                            />
+                                        </Grid>
+                                        <Grid > 
+                                            <QueryInput type="input" queryName="Mülk Tipi" options={typeList}/>
+                                        </Grid>
+                                        <Grid> 
+                                            <QueryInput type="input" queryName="Havuz" options={poolCheck}/>
+                                        </Grid>
+                                        
                                     </Grid>
-                                    <Grid> 
-                                        <QueryInput type="input" queryName="Havuz" options={poolCheck}/>
-                                    </Grid>
-                                    
                                 </Grid>
-                            </Grid>
-                            <Grid container sx={{ marginTop: 1 }}>
-                                <Link href="/main">
-                                    <Button
-                                        type="submit"
-                                        fullWidth
-                                        variant="contained"
-                                        sx={{ width: 200, mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}, textTransform: 'none', fontSize: 15}}
-                                    >
-                                        Tamamla
-                                    </Button>
-                                </Link>
-                            </Grid>
-                        </form>
+                                <Grid container sx={{ marginTop: 1 }}>
+                                    <Link href="/main">
+                                        <Button
+                                            type="submit"
+                                            fullWidth
+                                            variant="contained"
+                                            sx={{ width: 200, mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}, textTransform: 'none', fontSize: 15}}
+                                        >
+                                            Tamamla
+                                        </Button>
+                                    </Link>
+                                </Grid>
+                            </form>
+                        </Box>
                     </Box>
-                </Box>
-            </Container>
-        </div>
+                </Container>
+            </div>
+            : 
+            <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
+                <Typography sx={{ fontSize: 30}}>Loading ...</Typography>
+            </Grid>
+            }
+        </>
     )
 }
 

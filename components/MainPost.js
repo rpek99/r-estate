@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Typography, Grid } from '@mui/material';
+import Link from 'next/link';
 
 
 const MainPost = () => {
@@ -29,6 +30,15 @@ const MainPost = () => {
                 <Typography variant="h5" color="inherit" paragraph>
                     time and more securely
                 </Typography>
+            </Grid>
+            <Grid container justifyContent="center">
+                <Link href='/main'>
+                    <a>
+                        <Typography variant="h5" sx={{ color: "#263238", textDecoration: 'underline'}} display="inline">
+                            Review Now
+                        </Typography>
+                    </a>
+                </Link>
             </Grid>
             
         </Grid>

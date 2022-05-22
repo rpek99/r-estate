@@ -1,3 +1,4 @@
+import React from 'react';
 import { Card, Grid, Typography } from "@mui/material";
 import Link from 'next/link'
 
@@ -12,7 +13,7 @@ const AuthError = () => {
                         Authentication Error
                     </Typography>
                     <Typography sx={{ fontSize: 20 }}>
-                        <Link href="/login">
+                        <Link href="/auth/sign-in">
                             Please first sign in
                         </Link>
                     </Typography>

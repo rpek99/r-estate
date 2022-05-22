@@ -5,6 +5,7 @@ import AuthNavbar from '../components/AuthNavbar';
 import Footer from '../components/Footer';
 import QueryInput from '../components/QueryInput';
 import NoAuthNavbar from '../components/NoAuthNavbar';
+import { useSession } from 'next-auth/react'
 
 const list = [
     {
@@ -108,46 +109,58 @@ const priceList = [
 ];
 
 const Main = () => {
+    const { data: session, status } = useSession()
+
+    useEffect(() => {
+        console.log(status)
+    })
+    
     return (
-        <div>
-            <AuthNavbar />
-            <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5', boxShadow: 'none', height: 100}}>
-                <Container maxWidth="lg">
-                    <Grid container>
-                        <Grid item sx={{ marginTop: 1 }} xs={3}>
-                            <Grid>
-                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 32, color: '#424242'}}>Find Your Ideal</Typography>
-                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242'}}>Home & Investment</Typography>
-                            </Grid>
-                        </Grid>
-                        <Grid item sx={{ marginTop: 2 }}>
-                            <Grid container>
-                                <Grid item>
-                                   <QueryInput type="checkBox" queryName="City" options={cityList}/>
-                                </Grid>
-                                <Grid item>
-                                    <QueryInput type="checkBox" queryName="Type" options={typeList}/>
-                                </Grid>
-                                <Grid item>
-                                    <QueryInput type="input" queryName="Price" options={priceList}/>
+        <>
+            <div>
+                {status === 'unauthenticated' ? <NoAuthNavbar page="main" /> : <AuthNavbar />}
+                <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5', boxShadow: 'none', height: 100}}>
+                    <Container maxWidth="lg">
+                        <Grid container>
+                            <Grid item sx={{ marginTop: 1 }} xs={3}>
+                                <Grid>
+                                    <Typography sx={{ fontFamily: 'Raleway', fontSize: 32, color: '#424242'}}>Find Your Ideal</Typography>
+                                    <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242'}}>Home & Investment</Typography>
                                 </Grid>
                             </Grid>
+                            <Grid item sx={{ marginTop: 2 }}>
+                                <Grid container>
+                                    <Grid item>
+                                    <QueryInput type="checkBox" queryName="City" options={cityList}/>
+                                    </Grid>
+                                    <Grid item>
+                                        <QueryInput type="checkBox" queryName="Type" options={typeList}/>
+                                    </Grid>
+                                    <Grid item>
+                                        <QueryInput type="input" queryName="Price" options={priceList}/>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid item sx={{ margin: 1, marginTop: 4}}>
+                                <Button sx={{ backgroundColor: '#5c6bc0', color: 'white', width: 100, height: 40, ':hover': { bgcolor: '#3949ab'}, textTransform: 'none', fontSize: 16 }}>Search</Button>
+                            </Grid>
                         </Grid>
-                        <Grid item sx={{ margin: 1, marginTop: 4}}>
-                            <Button sx={{ backgroundColor: '#5c6bc0', color: 'white', width: 100, height: 40, ':hover': { bgcolor: '#3949ab'}, textTransform: 'none', fontSize: 16 }}>Search</Button>
-                        </Grid>
+                    </Container>
+                </Card>
+                <Container maxWidth="lg" sx={{ marginTop: 3}}>
+                    <Grid container spacing={4}>
+                        {list.map((list) => (
+                            <Properties key={list.id} post={list} />
+                        ))}
                     </Grid>
+                    <Footer contactTitle="Contact Us" contactInfo="r_estate@gmail.com"/>
                 </Container>
-            </Card>
-            <Container maxWidth="lg" sx={{ marginTop: 3}}>
-                <Grid container spacing={4}>
-                    {list.map((list) => (
-                        <Properties key={list.id} post={list} />
-                    ))}
-                </Grid>
-                <Footer contactTitle="Contact Us" contactInfo="r_estate@gmail.com"/>
-            </Container>
-        </div>
+            </div>
+            :
+            <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
+                <Typography sx={{ fontSize: 30}}>Loading ...</Typography>
+            </Grid>
+        </>
     )
 }
 

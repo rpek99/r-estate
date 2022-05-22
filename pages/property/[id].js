@@ -6,6 +6,7 @@ import Carousel from 'react-material-ui-carousel'
 import Footer from '../../components/Footer';
 import PropertyInformation from '../../components/PropertyInformation';
 import NoAuthNavbar from '../../components/NoAuthNavbar';
+import { useSession } from 'next-auth/react'
 
 
 const properties = [
@@ -113,95 +114,110 @@ var formatter = new Intl.NumberFormat('en-US', {
 
 
 const PropertyDetails = () => {
+    const { data: session, status } = useSession()
+
+    if (status === 'loading') {
+        return (
+            <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
+                <Typography sx={{ fontSize: 30}}>Loading ...</Typography>
+            </Grid>
+        )
+    }
+
     return (
-        <div>
-            <AuthNavbar />
-            <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5', boxShadow: 'none', marginBottom: 3}}>
-                <Grid container justifyContent="space-between" spacing={2}>
-                    <Grid item sx={{ marginLeft: 10 }} xs={8}>
-                        <Grid>
-                            <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>{properties[0].title}</Typography>
+        <>
+            <div>
+                {status === 'unauthenticated' ? <NoAuthNavbar page="main" /> : <AuthNavbar />}
+                <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5', boxShadow: 'none', marginBottom: 3}}>
+                    <Grid container justifyContent="space-between" spacing={2}>
+                        <Grid item sx={{ marginLeft: 10 }} xs={8}>
+                            <Grid>
+                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>{properties[0].title}</Typography>
+                            </Grid>
+                            <Grid container sx={{ marginTop: 1}}>         
+                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 25}}>Price: </Typography>
+                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 35, color:'#c62828', marginLeft: 2, marginTop: -1}}>{formatter.format(properties[0].price)}</Typography>
+                            </Grid>
                         </Grid>
-                        <Grid container sx={{ marginTop: 1}}>         
-                            <Typography sx={{ fontFamily: 'Raleway', fontSize: 25}}>Price: </Typography>
-                            <Typography sx={{ fontFamily: 'Raleway', fontSize: 35, color:'#c62828', marginLeft: 2, marginTop: -1}}>{formatter.format(properties[0].price)}</Typography>
+                        {status === "unauthenticated" ? 
+                            <Grid /> 
+                            :
+                            <Grid item sx={{ marginTop: 3, marginRight: 5}} xs={2}>
+                                <Link href="/main">
+                                    <Button 
+                                        sx={{ 
+                                            backgroundColor: '#d32f2f',
+                                            color: 'white', 
+                                            width: 160, 
+                                            height: 40, 
+                                            fontSize: 16, 
+                                            ':hover': { bgcolor: '#b71c1c'}, 
+                                            textTransform: 'none'
+                                        }}
+                                    >
+                                        Buy Property
+                                    </Button>
+                                </Link>
+                            </Grid>
+                        }
+                    </Grid>
+                </Card>
+                <Container maxWidth="lg">
+                    <Grid container alignItems="center" justifyContent="center"> 
+                        <Carousel sx= {{ width: 900, height: 500}} navButtonsAlwaysVisible >
+                            {properties.map((property) => (
+                                <Card key={property.id}>
+                                    <Grid style={{ display:'flex', justifyContent:'center' }}>
+                                        <CardMedia
+                                            component="img"
+                                            sx={{ width: '100%', height: 430}}
+                                            image={property.photo}
+                                            alt={property.name}
+                                        />
+                                    </Grid>
+                                </Card>
+                            ))}
+                        </Carousel>
+                    </Grid>
+                    <Grid sx={{ marginLeft: 5, marginRight: 5}}>
+                        <Grid item>
+                            <PropertyInformation propertyInfo={properties[0]} title="Overview"/>
                         </Grid>
-                    </Grid>
-                    <Grid item sx={{ marginTop: 3, marginRight: 5}} xs={2}>
-                        <Link href="/main">
-                            <Button 
-                                sx={{ 
-                                    backgroundColor: '#d32f2f',
-                                    color: 'white', 
-                                    width: 160, 
-                                    height: 40, 
-                                    fontSize: 16, 
-                                    ':hover': { bgcolor: '#b71c1c'}, 
-                                    textTransform: 'none'
-                                }}
-                            >
-                                Buy Property
-                            </Button>
-                        </Link>
-                    </Grid>
-                </Grid>
-            </Card>
-            
-            <Container maxWidth="lg">
-                <Grid container alignItems="center" justifyContent="center"> 
-                    <Carousel sx= {{ width: 900, height: 500}} navButtonsAlwaysVisible >
-                        {properties.map((property) => (
-                            <Card key={property.id}>
-                                <Grid style={{ display:'flex', justifyContent:'center' }}>
-                                    <CardMedia
-                                        component="img"
-                                        sx={{ width: '100%', height: 430}}
-                                        image={property.photo}
-                                        alt={property.name}
-                                    />
-                                </Grid>
+                        <Grid item sx={{ marginTop: 3}}>
+                            <PropertyInformation propertyInfo={properties[0]} title="Property Features"/>
+                        </Grid>
+                        <Grid item sx={{ marginTop: 3}}>
+                            <Card sx={{ backgroundColor: '#f5f5f5' }}>
+                                <CardContent sx={{ marginLeft: 2, marginTop: 1}}>
+                                    <Typography sx={{ fontSize: 25, fontFamily: 'Raleway'}}>About The Property</Typography>
+                                </CardContent>
+                                <CardContent sx={{ marginLeft: 2, marginTop: -1 }}>
+                                    <Typography sx={{ fontSize: 16}}>
+                                        {properties[0].about}
+                                    </Typography>
+                                </CardContent>
                             </Card>
-                        ))}
-                    </Carousel>
-                </Grid>
-                <Grid sx={{ marginLeft: 5, marginRight: 5}}>
-                    <Grid item>
-                        <PropertyInformation propertyInfo={properties[0]} title="Overview"/>
+                        </Grid>
+                        <Grid sx={{ marginTop: 3}}>
+                            <Card sx={{ backgroundColor: '#f5f5f5' }}>
+                                <CardContent sx={{ marginLeft: 2, marginTop: 1}}>
+                                    <Typography sx={{ fontSize: 25, fontFamily: 'Raleway'}}>Advertiser Contact</Typography>
+                                </CardContent>
+                                <CardContent sx={{ marginLeft: 2, marginTop: -5 }}>
+                                    <Typography sx={{ fontSize: 16, marginTop: 5}}>Name&Surname: {properties[0].owner.name} {properties[0].owner.surname}</Typography>
+                                    <Typography sx={{ fontSize: 16, marginTop: 2}}>Email Address: {properties[0].owner.email}</Typography>
+                                    <Typography sx={{ fontSize: 16, marginTop: 2}}>Phone Number: {properties[0].owner.phone}</Typography>
+                                </CardContent>
+                            </Card>
+                        </Grid>
                     </Grid>
-                    <Grid item sx={{ marginTop: 3}}>
-                        <PropertyInformation propertyInfo={properties[0]} title="Property Features"/>
-                    </Grid>
-                    <Grid item sx={{ marginTop: 3}}>
-                        <Card sx={{ backgroundColor: '#f5f5f5' }}>
-                            <CardContent sx={{ marginLeft: 2, marginTop: 1}}>
-                                <Typography sx={{ fontSize: 25, fontFamily: 'Raleway'}}>About The Property</Typography>
-                            </CardContent>
-                            <CardContent sx={{ marginLeft: 2, marginTop: -1 }}>
-                                <Typography sx={{ fontSize: 16}}>
-                                    {properties[0].about}
-                                </Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                    <Grid sx={{ marginTop: 3}}>
-                        <Card sx={{ backgroundColor: '#f5f5f5' }}>
-                            <CardContent sx={{ marginLeft: 2, marginTop: 1}}>
-                                <Typography sx={{ fontSize: 25, fontFamily: 'Raleway'}}>Advertiser Contact</Typography>
-                            </CardContent>
-                            <CardContent sx={{ marginLeft: 2, marginTop: -5 }}>
-                                <Typography sx={{ fontSize: 16, marginTop: 5}}>Name&Surname: {properties[0].owner.name} {properties[0].owner.surname}</Typography>
-                                <Typography sx={{ fontSize: 16, marginTop: 2}}>Email Address: {properties[0].owner.email}</Typography>
-                                <Typography sx={{ fontSize: 16, marginTop: 2}}>Phone Number: {properties[0].owner.phone}</Typography>
-                            </CardContent>
-                        </Card>
-                    </Grid>
-                </Grid>
-                <Footer 
-                    contactTitle="Contact Us"
-                    contactInfo="r_estate@gmail.com"
-                />
-            </Container>
-        </div>
+                    <Footer 
+                        contactTitle="Contact Us"
+                        contactInfo="r_estate@gmail.com"
+                    />
+                </Container>
+            </div>
+        </>
     )
 }
 

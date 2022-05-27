@@ -1,4 +1,4 @@
-import { React, useEffect } from 'react';
+import { React, useEffect, useState } from 'react';
 import { Card, CardContent, Container, Grid, Typography, Box, Divider } from "@mui/material";
 import AuthNavbar from "../components/AuthNavbar";
 import { useSession } from 'next-auth/react'
@@ -9,6 +9,9 @@ import { useRouter } from 'next/router';
 
 const Profile = () => {
 
+    const [ walletAddress, setWalletAddress ] = useState("none");
+    const [ walletLength, setWalletLength ] = useState(0);
+
     const router = useRouter()
 
     const { data: session, status } = useSession({
@@ -18,6 +21,13 @@ const Profile = () => {
                 router.push('/')
             }, 3000)
 		},
+    })
+
+    useEffect(() => {
+        if (localStorage.getItem("currentWallet")) {
+            setWalletAddress(localStorage.getItem("currentWallet"));
+            setWalletLength(localStorage.getItem("currentWallet").length);
+        }
     })
 
 
@@ -57,7 +67,7 @@ const Profile = () => {
                                 <Grid container justifyContent="space-between">
                                     <Grid item>
                                         <Typography sx={{ fontSize: 18, color: 'white'}}>Email</Typography>
-                                        <Typography sx={{ fontSize: 15, color: 'white', marginTop: 2 }}>{session.user.name}</Typography>
+                                        <Typography sx={{ fontSize: 15, color: 'white', marginTop: 2 }}>{session.user.email}</Typography>
                                     </Grid>
                                 </Grid>
                             </CardContent>
@@ -68,7 +78,7 @@ const Profile = () => {
                                     <Grid item>
                                         <Typography sx={{ fontSize: 18, color: 'white', marginTop: 2}}>Wallet Address</Typography>
                                         <Divider sx={{ m: 1, width: 200, marginLeft: 0, backgroundColor: "white" }}/>
-                                        <Typography sx={{ textDecoration: 'underline', fontSize: 15, color: 'white', marginTop: 2}}>none</Typography>
+                                        <Typography sx={{ textDecoration: 'underline', fontSize: 15, color: 'white', marginTop: 2}}>{walletAddress.slice(0,5)+"...."+walletAddress.slice(walletLength - 5, walletLength)}</Typography>
                                     </Grid>   
                                 </Grid>
                             </CardContent>

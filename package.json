@@ -18,6 +18,7 @@
     "@mui/material": "^5.5.3",
     "@next-auth/mongodb-adapter": "^1.0.3",
     "axios": "^0.27.2",
+    "ethers": "^5.6.8",
     "libphonenumber-js": "^1.9.53",
     "material-ui-dropzone": "^3.5.0",
     "mongodb": "^4.6.0",

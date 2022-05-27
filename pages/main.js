@@ -156,10 +156,6 @@ const Main = () => {
                     <Footer contactTitle="Contact Us" contactInfo="r_estate@gmail.com"/>
                 </Container>
             </div>
-            :
-            <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
-                <Typography sx={{ fontSize: 30}}>Loading ...</Typography>
-            </Grid>
         </>
     )
 }

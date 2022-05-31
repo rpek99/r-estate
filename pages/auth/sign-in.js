@@ -33,7 +33,7 @@ const SignIn = () => {
     const handleOAuthSignIn = (provider) => () => signIn(provider)
 
     return (
-        <Card sx={{ backgroundColor: "#f5f5f5", height: 710 }}>
+        <Card sx={{ backgroundColor: "#f5f5f5", height: 755 }}>
             <Container maxWidth="sm">
                 <Grid container justifyContent="center" alignItems="center" sx={{ marginTop: 35 }} direction="column">      
                     <Grid item sx={{ m: 2}}>

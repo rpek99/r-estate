@@ -40,7 +40,7 @@ const NoAuthNavbar = (props) => {
                                 <Image
                                     src="/logo2.png"
                                     width={200}
-                                    height={70}
+                                    height={80}
                                 />
                             </a> 
                         </Link>
@@ -65,7 +65,7 @@ const NoAuthNavbar = (props) => {
                         <Button 
                             onClick={handleSignIn} 
                             variant="inherit" 
-                            sx={{ textTransform: 'none', fontSize: 16, marginLeft: 8 }}
+                            sx={{ textTransform: 'none', fontSize: 16, width: 150 }}
                         >
                             Sign In
                         </Button>

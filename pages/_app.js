@@ -3,6 +3,8 @@ import '../styles/globals.css'
 import axios from "axios"
 import { ToastProvider } from 'react-toast-notifications'
 import { WagmiConfig, createClient } from 'wagmi'
+import { MarketplaceProvider } from '../context/MarketplaceContext'
+import { PropertyProvider } from '../context/PropertyContext'
 
 const client = createClient();
 
@@ -12,9 +14,13 @@ function MyApp({ Component, pageProps }) {
   return (
     <WagmiConfig client={client}>
       <SessionProvider session={pageProps.session}>
-        <ToastProvider>
-          <Component {...pageProps} />
-        </ToastProvider>
+        <MarketplaceProvider>
+          <PropertyProvider>
+            <ToastProvider>
+              <Component {...pageProps} />
+            </ToastProvider>
+          </PropertyProvider>
+        </MarketplaceProvider>
       </SessionProvider>
     </WagmiConfig>
   )

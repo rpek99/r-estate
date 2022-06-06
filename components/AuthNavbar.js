@@ -4,9 +4,15 @@ import { Toolbar, Button, AppBar, Grid, Box, Typography } from '@mui/material';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useRouter } from "next/router";
 import { signOut } from "next-auth/react";
+import { useAccount, useConnect } from 'wagmi'
+import { InjectedConnector } from 'wagmi/connectors/injected'
 
 
 const AuthNavbar = () => {
+  const { connect } = useConnect({
+    connector: new InjectedConnector(),
+  })
+  const { data: userData } = useAccount();
 
   const router = useRouter()
 
@@ -52,7 +58,26 @@ const AuthNavbar = () => {
                     </Link>
                 </Grid>          
             </Grid>
-            <Button startIcon={<LogoutIcon />} onClick={handleSingOut} sx={{ marginLeft: 15}} variant="inherit">
+            {userData ?
+              <Typography color="white" sx={{ marginRight: 1 }}>
+                {userData.address.slice(0, 5) + "...." + userData.address.slice(userData.address.length - 5, userData.address.length)}
+              </Typography>
+              :
+              <Button
+                onClick={() => connect()}
+                sx={{
+                  backgroundColor: '#37474f',
+                  textTransform: 'none',
+                  color: 'white',
+                  ':hover': { bgcolor: '#546e7a' },
+                  width: 180,
+                  height: 40
+                }}
+              >
+                Connect Wallet
+            </Button>
+            }
+            <Button startIcon={<LogoutIcon />} onClick={handleSingOut} sx={{ marginLeft: 5 }} variant="inherit">
               Logout
             </Button>
           </Toolbar>
@@ -62,3 +87,5 @@ const AuthNavbar = () => {
 }
 
 export default AuthNavbar;
+
+

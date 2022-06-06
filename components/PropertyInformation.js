@@ -22,7 +22,7 @@ const PropertyInformation = (props) => {
             </CardContent>
             <CardContent>
                 {title == "Overview" ?
-                        <Typography sx={{ marginTop: 1 }}>{propertyInfo.detail}</Typography> :
+                        <Typography sx={{ marginTop: 1 }}>{propertyInfo.overview}</Typography> :
                         <Box sx={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
@@ -35,8 +35,8 @@ const PropertyInformation = (props) => {
                                         <HomeIcon />
                                     </Grid>
                                     <Grid item>
-                                        <Typography>
-                                            Property Type: {propertyInfo.type}
+                                        <Typography sx = {{ textTransform: 'capitalize' }}>
+                                            Property Type: {propertyInfo.propertyType}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -46,7 +46,7 @@ const PropertyInformation = (props) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography>
-                                            Bedrooms: {propertyInfo.bedroom}
+                                            Bedrooms: {propertyInfo.bedroomNum}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -61,7 +61,7 @@ const PropertyInformation = (props) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography>
-                                            Bathrooms: {propertyInfo.bath}
+                                            Bathrooms: {propertyInfo.bathroomNum}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -71,7 +71,7 @@ const PropertyInformation = (props) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography>
-                                            Location: {propertyInfo.city}
+                                            Location: {propertyInfo.location}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -86,7 +86,7 @@ const PropertyInformation = (props) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography>
-                                            Living area(sqm): {propertyInfo.size}
+                                            Living area(sqm): {propertyInfo.areaSize}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -95,7 +95,7 @@ const PropertyInformation = (props) => {
                                         <PoolIcon />
                                     </Grid>
                                     <Grid item>
-                                        <Typography>
+                                        <Typography sx = {{ textTransform: 'capitalize' }}>
                                             Pool: {propertyInfo.pool}
                                         </Typography>
                                     </Grid>

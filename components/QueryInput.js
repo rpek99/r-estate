@@ -1,6 +1,6 @@
-import { useState, React } from 'react';
+import React from 'react';
 import { FormControl, InputLabel, Select, MenuItem,
-         Checkbox, ListItemText, OutlinedInput} from '@mui/material';
+          ListItemText, OutlinedInput} from '@mui/material';
 
 
 const ITEM_HEIGHT = 48;
@@ -15,56 +15,24 @@ const MenuProps = {
     },
   };
 
-
-
 const QueryInput = (props) => {
-    const [value, setValue] = useState([]);
-
-    const {queryName, options, type} = props;
-
-    const handleChange = (event) => {
-        const {
-            target: { value },
-        } = event;
-
-        setValue(
-            // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
-    };
+    const {queryName, options, field} = props;
 
     return (
         <FormControl sx={{ m: 1, width: 220, marginTop: 2}} size="small">
             <InputLabel id="demo-multiple-checkbox-label">{queryName}</InputLabel>
-                {type === "checkBox" ?
-                    <Select
-                        multiple
-                        value={value}
-                        onChange={handleChange}
-                        input={<OutlinedInput label={queryName} />}
-                        renderValue={(selected) => selected.join(', ')}
-                        MenuProps={MenuProps}
-                    >
-                        {options.map((option) => (
-                            <MenuItem key={option} value={option}>
-                                <Checkbox checked={value.indexOf(option) > -1} />
-                                <ListItemText primary={option} />
-                            </MenuItem>
-                        ))}
-                    </Select> : 
-                    <Select
-                        value={value}
-                        onChange={handleChange}
-                        input={<OutlinedInput label={queryName} />}
-                        renderValue={(selected) => selected.join(', ')}
-                        MenuProps={MenuProps}
-                    >
-                        {options.map((option) => (
-                            <MenuItem key={option} value={option}>
-                                <ListItemText primary={option} />
-                            </MenuItem>
-                        ))}
-                    </Select> } 
+            <Select
+                value={field && field.value}
+                onChange={(e) => field.onChange(e)}
+                input={<OutlinedInput label={queryName} />}
+                MenuProps={MenuProps}
+            >
+                {options.map((option) => (
+                    <MenuItem key={option.value} value={option.value}>
+                        <ListItemText primary={option.label} />
+                    </MenuItem>
+                ))}
+            </Select>
         </FormControl> 
     )
 }

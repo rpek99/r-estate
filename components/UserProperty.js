@@ -1,8 +1,6 @@
 import CheckIcon from '@mui/icons-material/Check';
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CloseIcon from '@mui/icons-material/Close';
-import { Card, CardContent, CardMedia, Divider, IconButton, Typography, Tooltip } from '@mui/material';
+import { Card, CardContent, CardMedia, Divider, Typography } from '@mui/material';
 
 
 const UserProperty = (props) => {
@@ -32,15 +30,9 @@ const UserProperty = (props) => {
                 <Typography sx={{ fontSize: 18, marginTop: 2}}>#{property.number}</Typography>
             </CardContent>
             <CardContent sx={{ m : 2, marginLeft: 0, marginTop: 3 }}>
-                <Typography sx={{ fontSize: 18}}>On Sale</Typography>
+                <Typography sx={{ fontSize: 18, marginLeft: 2}}>Sold</Typography>
                 <Divider sx={{ width: 80, marginTop: 1}}/>
                 {property.onSale ? <CheckIcon sx={{ marginTop: 2, marginLeft: 3}} /> : <CloseIcon sx={{ marginTop: 2, marginLeft: 3}}/>}
-                
-            </CardContent>
-            <CardContent sx={{ marginLeft: 5}}>
-                <IconButton>
-                    {property.onSale ? <Tooltip title="Remove From Sale"><RemoveCircleOutlineIcon /></Tooltip> : <Tooltip title="Put On Sale"><AddCircleOutlineIcon/></Tooltip>}
-                </IconButton>
             </CardContent>
         </Card>        
     )

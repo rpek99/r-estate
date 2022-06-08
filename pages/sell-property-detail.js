@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Box, Button, Card, Container, Grid, Typography } from "@mui/material";
 import LoadingButton from '@mui/lab/LoadingButton';
 import SaveIcon from '@mui/icons-material/Save';
 import { Controller, useForm } from "react-hook-form";
+import { useDropzone } from 'react-dropzone';
 import FormInput from "../components/FormInput";
 import AuthNavbar from "../components/AuthNavbar";
 import QueryInput from "../components/QueryInput";
@@ -14,9 +15,41 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useMarketplace } from '../context/MarketplaceContext';
 import { PROPERTY_NFT_ADDRESS } from '../Config';
-import { ethers, BigNumber } from "ethers";
+import { ethers } from "ethers";
 import { useAccount, useConnect } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
+
+
+const thumbsContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+  marginTop: 16
+};
+
+const thumb = {
+  display: 'inline-flex',
+  borderRadius: 2,
+  border: '1px solid #eaeaea',
+  marginBottom: 8,
+  marginRight: 8,
+  width: 100,
+  height: 100,
+  padding: 4,
+  boxSizing: 'border-box'
+};
+
+const thumbInner = {
+  display: 'flex',
+  minWidth: 0,
+  overflow: 'hidden'
+};
+
+const img = {
+  display: 'block',
+  width: 'auto',
+  height: '100%'
+};
 
 export const Schema = Yup.object().shape({
     title: Yup.string().required("Cannot be empty"),
@@ -53,9 +86,43 @@ const SellProperty = () => {
     })
     const { data: userData } = useAccount();
 
+    const router = useRouter()
+
     const { propertyContract } = useProperty();
     const { marketplace } = useMarketplace();
-    const router = useRouter()
+    
+    const [images, setImages] = useState(null);
+    const [open, setOpen] = useState(false);
+
+    const { getRootProps, getInputProps } = useDropzone({
+      accept: {
+        'image/*': []
+      },
+      maxFiles: 5,
+      onDrop: acceptedFiles => {
+        setImages(acceptedFiles.map(file => Object.assign(file, {
+          preview: URL.createObjectURL(file)
+        })));
+      }
+    });
+  
+    const thumbs = images && images.map(file => (
+      <div style={thumb} key={file.name}>
+        <div style={thumbInner}>
+          <img
+            src={file.preview}
+            style={img}
+            // Revoke data uri after image is loaded
+            onLoad={() => { URL.revokeObjectURL(file.preview) }}
+          />
+        </div>
+      </div>
+    ));
+  
+    useEffect(() => {
+      // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
+      return () => images && images.forEach(file => URL.revokeObjectURL(file.preview));
+    }, []);
 
     const { data: session, status } = useSession({
         required: true,
@@ -71,21 +138,36 @@ const SellProperty = () => {
     });
 
     const onSubmit = async (propertyForm) => { 
+      if (!images) {
+        //TODO show error message
+        return;
+      }
+      if (images && (images.length < 1 || images.length > 5)) {
+        //TODO show error message
+        return;
+      }
+  
+      let cids = [];
+  
+      const files = images.map(image => ({ content: image }))
+      for await (const result of client.addAll(files)) {
+        cids.push(result.cid.toString());
+      }
 
         const jsonForm = JSON.stringify({
-            title: propertyForm.title,
-            overview: propertyForm.overview,
-            detail: propertyForm.detail,
-            location: propertyForm.location,
-            areaSize: propertyForm.areaSize,
-            bathroomNum: propertyForm.bathroomNum,
-            bedroomNum: propertyForm.bedroomNum,
-            propertyType: propertyForm.propertyType,
-            pool: propertyForm.pool,
+          images: cids,
+          title: propertyForm.title,
+          overview: propertyForm.overview,
+          detail: propertyForm.detail,
+          location: propertyForm.location,
+          areaSize: propertyForm.areaSize,
+          bathroomNum: propertyForm.bathroomNum,
+          bedroomNum: propertyForm.bedroomNum,
+          propertyType: propertyForm.propertyType,
+          pool: propertyForm.pool,
         });
         const addedFile = await client.add(jsonForm);
         await createMarketSale(addedFile.path, propertyForm.price);
-
     }
 
     const createMarketSale = async (tokenURI, price) => {
@@ -139,6 +221,21 @@ const SellProperty = () => {
                   >
                     <Grid container spacing={2} sx={{ maxWidth: 600 }}>
                       <Grid item xs={12}>
+                        <Box marginBottom={2} backgroundColor="#eeeeee" height={180} padding={2}>
+                          <section className="container">
+                            <div {...getRootProps({ className: 'dropzone' })}>
+                              <input {...getInputProps()} />
+                              <Typography>
+                                Görüntü dosyası eklemek için tıklayın
+                              </Typography>        
+                            </div>
+                            <aside style={thumbsContainer}>
+                              {thumbs}
+                            </aside>
+                          </section>
+                        </Box>
+                      </Grid>
+                      <Grid item xs={12}>
                         <Controller
                           name='title'
                           control={control}
@@ -187,7 +284,7 @@ const SellProperty = () => {
                               <FormInput 
                                 {...props} 
                                 required 
-                                label="Fiyat" 
+                                label="Fiyat (eth)" 
                               />
                           )}
                         />

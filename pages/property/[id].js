@@ -8,34 +8,36 @@ import Footer from '../../components/Footer';
 import PropertyInformation from '../../components/PropertyInformation';
 import NoAuthNavbar from '../../components/NoAuthNavbar';
 import { useSession } from 'next-auth/react'
-import { ethers } from 'ethers';
+import { ethers, BigNumber } from 'ethers';
 import { useMarketplace } from '../../context/MarketplaceContext';
 import { useProperty } from '../../context/PropertyContext';
 import axios from 'axios';
+import { ipfs } from '../../util/ipfsUtil';
+import { useAccount, useBalance, useSigner } from 'wagmi';
 
 const PropertyDetails = () => {
-    const [ NFT, setNFT ] = useState({});
-
+    const [nft, setNft] = useState(null);
     const { marketplace } = useMarketplace();
     const { propertyContract } = useProperty();
 
+    const marketplaceCommission = "1";
+    const governmentCommission = "2";
 
     const router = useRouter();
     const { id } = router.query;
 
     const { data: session, status } = useSession();
+    const { data: signer } = useSigner();
+    const { data: account } = useAccount();
+    const { data: balance } = useBalance({ addressOrName: account?.address });
     
     useEffect(() => {
+        if (!marketplace || !id) return;
         loadNFT();
-    }, [])
+    }, [id, marketplace])
 
     const loadNFT = async () => {
-        await marketplace.getSpecificListing(id)
-            .then((data) => fetchData(data))
-            .then((item) => setNFT(item));
-    }
-
-    const fetchData = async (data) => {
+        const data = await marketplace.getSpecificListing(id);
         const tokenURI = await propertyContract.tokenURI(data.tokenId);
         const metadata = await axios.get(`https://ipfs.io/ipfs/${tokenURI}`);
         const property = {
@@ -48,18 +50,37 @@ const PropertyDetails = () => {
             pool: metadata.data.pool,
             propertyType: metadata.data.propertyType,
             title: metadata.data.title,
+            images: metadata.data.images,
             seller: data.seller,
             owner: data.owner,
             tokenId: data.tokenId.toNumber(),
             listingId: data.listingId.toNumber(),
             price: data.price,
         };
-        return property;
+        setNft(property);
+    }
+
+    const buy = async () => {
+
+        if (!balance) {
+            throw Error("Wallet not connected");
+        };
+        if (!nft) return;
+
+        const mCommission = nft.price.mul(BigNumber.from(marketplaceCommission)).div(BigNumber.from("100"));
+        const gCommission = nft.price.mul(BigNumber.from(governmentCommission)).div(BigNumber.from("100"));
+
+        const finalPrice = nft.price.add(mCommission.add(gCommission));
+        console.log(ethers.utils.formatEther(finalPrice));
+
+        const calculatedFinalPrice = ethers.utils.formatEther(finalPrice).toString();
+
+        const tx = await marketplace.buy(nft.tokenId, { value: ethers.utils.parseUnits(calculatedFinalPrice, "ether"), gasLimit: 1000000 });
+        await tx.wait();
     }
 
 
-
-    if (status === 'loading') {
+    if (status === 'loading' || !nft) {
         return (
             <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
                 <Typography sx={{ fontSize: 30}}>Loading ...</Typography>
@@ -75,19 +96,20 @@ const PropertyDetails = () => {
                     <Grid container justifyContent="space-between" spacing={2}>
                         <Grid item sx={{ marginLeft: 10 }} xs={8}>
                             <Grid>
-                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>{NFT.title}</Typography>
+                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>{nft.title}</Typography>
                             </Grid>
                             <Grid container sx={{ marginTop: 1}}>         
                                 <Typography sx={{ fontFamily: 'Raleway', fontSize: 25}}>Price: </Typography>
-                                {/* <Typography sx={{ fontFamily: 'Raleway', fontSize: 35, color:'#c62828', marginLeft: 2, marginTop: -1}}>{ethers.utils.formatEther(NFT.price)} ETH</Typography> */}
+                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 35, color:'#c62828', marginLeft: 2, marginTop: -1}}>{ethers.utils.formatEther(nft.price)} ETH</Typography>
                             </Grid>
                         </Grid>
                         {status === "unauthenticated" ? 
                             <Grid /> 
                             :
-                            <Grid item sx={{ marginTop: 3, marginRight: 5}} xs={2}>
-                                <Link href="/main">
+                            <Grid item sx={{ marginTop: 3, marginRight: 5}} xs={2}> 
+                                {account ? 
                                     <Button 
+                                        onClick={() => buy()}
                                         sx={{ 
                                             backgroundColor: '#d32f2f',
                                             color: 'white', 
@@ -100,34 +122,51 @@ const PropertyDetails = () => {
                                     >
                                         Buy Property
                                     </Button>
-                                </Link>
+                                :
+                                    <>
+                                        <Button 
+                                            disabled
+                                            sx={{ 
+                                                backgroundColor: '#bdbdbd',
+                                                width: 160, 
+                                                height: 40, 
+                                                fontSize: 16,  
+                                                textTransform: 'none'
+                                            }}
+                                        >
+                                            Buy Property
+                                        </Button>
+                                        <Typography sx={{ fontSize: 13, marginTop: 0.5, color: "#9e9e9e"}}>
+                                            You should connect wallet
+                                        </Typography>   
+                                    </>         
+                                }
                             </Grid>
                         }
                     </Grid>
                 </Card>
                 <Container maxWidth="lg">
-                    {/* <Grid container alignItems="center" justifyContent="center"> 
+                    <Grid container alignItems="center" justifyContent="center"> 
                         <Carousel sx= {{ width: 900, height: 500}} navButtonsAlwaysVisible >
-                            {properties.map((property) => (
-                                <Card key={property.id}>
+                            {nft.images.map((image, index) => (
+                                <Card key={index}>
                                     <Grid style={{ display:'flex', justifyContent:'center' }}>
                                         <CardMedia
                                             component="img"
                                             sx={{ width: '100%', height: 430}}
-                                            image={property.photo}
-                                            alt={property.name}
+                                            image={ipfs(image)}
                                         />
                                     </Grid>
                                 </Card>
                             ))}
                         </Carousel>
-                    </Grid> */}
+                    </Grid>
                     <Grid sx={{ marginLeft: 5, marginRight: 5}}>
                         <Grid item>
-                            <PropertyInformation propertyInfo={NFT} title="Overview"/>
+                            <PropertyInformation propertyInfo={nft} title="Overview"/>
                         </Grid>
                         <Grid item sx={{ marginTop: 3}}>
-                            <PropertyInformation propertyInfo={NFT} title="Property Features"/>
+                            <PropertyInformation propertyInfo={nft} title="Property Features"/>
                         </Grid>
                         <Grid item sx={{ marginTop: 3}}>
                             <Card sx={{ backgroundColor: '#f5f5f5' }}>
@@ -136,7 +175,7 @@ const PropertyDetails = () => {
                                 </CardContent>
                                 <CardContent sx={{ marginLeft: 2, marginTop: -1 }}>
                                     <Typography sx={{ fontSize: 16}}>
-                                        {NFT.detail}
+                                        {nft.detail}
                                     </Typography>
                                 </CardContent>
                             </Card>

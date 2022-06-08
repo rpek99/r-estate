@@ -43,20 +43,23 @@ const priceList = [
 const Main = () => {
     const [NFTs, setNFTs] = useState([]);
 
+    const [loading, setLoading] = useState(true);
     const { marketplace } = useMarketplace();
     const { propertyContract } = useProperty();
 
     const { data: session, status } = useSession();
 
     useEffect(() => {
+        if (!marketplace) return;
         loadNFTs();
     }, [marketplace])
 
     const loadNFTs = async () => {
         const data = await marketplace.getAllListings();
+        console.log("all listings ", data);
         const items = await Promise.all(
             data.map(async (nft) => {
-                const tokenURI = await propertyContract.tokenURI(nft.tokenId);
+                const tokenURI = await propertyContract.tokenURI(nft?.tokenId);
                 const metadata = await axios.get(`https://ipfs.io/ipfs/${tokenURI}`);
                 const property = {
                     areaSize: metadata.data.areaSize,
@@ -68,6 +71,7 @@ const Main = () => {
                     pool: metadata.data.pool,
                     propertyType: metadata.data.propertyType,
                     title: metadata.data.title,
+                    images: metadata.data.images,
                     seller: nft.seller,
                     owner: nft.owner,
                     tokenId: nft.tokenId.toNumber(),
@@ -78,8 +82,16 @@ const Main = () => {
             })
         );
         setNFTs(items);
+        setLoading(false);
     }
 
+    if (loading) {
+        return (
+            <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
+                <Typography sx={{ fontSize: 30}}>Fetching Data...</Typography>
+            </Grid>
+        )
+    }
 
     return (
         <>

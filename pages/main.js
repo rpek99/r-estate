@@ -56,7 +56,6 @@ const Main = () => {
 
     const loadNFTs = async () => {
         const data = await marketplace.getAllListings();
-        console.log("all listings ", data);
         const items = await Promise.all(
             data.map(async (nft) => {
                 const tokenURI = await propertyContract.tokenURI(nft?.tokenId);

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
 import { useRouter } from 'next/router'
 import { Button, CardContent, Container, Typography, CardMedia, Card, Grid } from "@mui/material";
+import LoadingButton from '@mui/lab/LoadingButton';
 import AuthNavbar from "../../components/AuthNavbar";
 import Carousel from 'react-material-ui-carousel'
 import Footer from '../../components/Footer';
@@ -17,6 +17,7 @@ import { useAccount, useBalance, useSigner } from 'wagmi';
 
 const PropertyDetails = () => {
     const [nft, setNft] = useState(null);
+    const [loading, setLoading] = useState(false);
     const { marketplace } = useMarketplace();
     const { propertyContract } = useProperty();
 
@@ -61,6 +62,7 @@ const PropertyDetails = () => {
     }
 
     const buy = async () => {
+        setLoading(true);
 
         if (!balance) {
             throw Error("Wallet not connected");
@@ -77,6 +79,8 @@ const PropertyDetails = () => {
 
         const tx = await marketplace.buy(nft.tokenId, { value: ethers.utils.parseUnits(calculatedFinalPrice, "ether"), gasLimit: 1000000 });
         await tx.wait();
+        router.push("/main");
+        setLoading(false);
     }
 
 
@@ -108,20 +112,34 @@ const PropertyDetails = () => {
                             :
                             <Grid item sx={{ marginTop: 3, marginRight: 5}} xs={2}> 
                                 {account ? 
-                                    <Button 
-                                        onClick={() => buy()}
-                                        sx={{ 
-                                            backgroundColor: '#d32f2f',
-                                            color: 'white', 
-                                            width: 160, 
-                                            height: 40, 
-                                            fontSize: 16, 
-                                            ':hover': { bgcolor: '#b71c1c'}, 
-                                            textTransform: 'none'
-                                        }}
-                                    >
-                                        Buy Property
-                                    </Button>
+                                    <>
+                                        {!loading ? 
+                                            <Button 
+                                                onClick={() => buy()}
+                                                sx={{ 
+                                                    backgroundColor: '#d32f2f',
+                                                    color: 'white', 
+                                                    width: 160, 
+                                                    height: 40, 
+                                                    fontSize: 16, 
+                                                    ':hover': { bgcolor: '#b71c1c'}, 
+                                                    textTransform: 'none'
+                                                }}
+                                            >
+                                                Buy Property
+                                            </Button>
+                                        :
+                                            <LoadingButton
+                                                loading
+                                                loadingPosition="start"
+                                                startIcon={<SaveIcon />}
+                                                variant="outlined"
+                                                sx={{ width: 200, textTransform: 'none', fontSize: 15, mt: 3, mb: 2 }}
+                                                >
+                                                Loading Process
+                                            </LoadingButton>
+                                        }
+                                    </>
                                 :
                                     <>
                                         <Button 

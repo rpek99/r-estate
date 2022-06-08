@@ -4,28 +4,22 @@ import UserProperty from "../components/UserProperty";
 import Footer from "../components/Footer";
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react'
-
-
-const properties = [
-    {
-        location: "İstanbul/Beylikdüzü",
-        price: "100.000",
-        number: "5032",
-        onSale: true,
-        image: "https://media.architecturaldigest.com/photos/56d9ef71ce4f38152ccc96f4/2:1/w_5130,h_2565,c_limit/designers-homes-02.jpg",
-    },
-    {
-        location: "İstanbul/Beşiktaş",
-        price: "300.000",
-        number: "5035",
-        onSale: false,
-        image: "https://media.architecturaldigest.com/photos/571e97c5741fcddb16b559c9/2:1/w_5127,h_2563,c_limit/modernist-decor-inspiration-01.jpg",
-    }
-]
-
+import { useAccount, useSigner } from 'wagmi';
+import { useMarketplace } from "../context/MarketplaceContext";
+import { useProperty } from "../context/PropertyContext";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const SaleProperties = () => {
-    const router = useRouter()
+    const [NFTs, setNFTs] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const router = useRouter();
+
+    const { marketplace } = useMarketplace();
+    const { propertyContract } = useProperty();
+
+    const { data: account } = useAccount();
 
     const { data: session, status } = useSession({
         required: true,
@@ -35,6 +29,41 @@ const SaleProperties = () => {
             }, 3000)
 		},
     })
+
+    useEffect(() => {
+        if (!marketplace || !account) return;
+        loadSellerNFTs();
+    }, [marketplace])
+
+    const loadSellerNFTs = async () => {
+        const data = await marketplace.getListingsCreated();
+        const items = await Promise.all(
+            data.map(async (nft) => {
+                const tokenURI = await propertyContract.tokenURI(nft?.tokenId);
+                const metadata = await axios.get(`https://ipfs.io/ipfs/${tokenURI}`);
+                const property = {
+                    location: metadata.data.location,
+                    images: metadata.data.images,
+                    seller: nft.seller,
+                    owner: nft.owner,
+                    tokenId: nft.tokenId.toNumber(),
+                    listingId: nft.listingId.toNumber(),
+                    price: nft.price,
+                };
+                return property;
+            })
+        );
+        setNFTs(items);
+        setLoading(false);
+    }
+
+    if (loading) {
+        return (
+            <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
+                <Typography sx={{ fontSize: 30}}>Fetching Data...</Typography>
+            </Grid>
+        )
+    }
 
     return (
         <>
@@ -46,15 +75,15 @@ const SaleProperties = () => {
                         <Grid container>
                             <Grid item sx={{ marginTop: 2 }} xs={3}>
                                 <Grid>
-                                    <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>My Properties</Typography>
+                                    <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>Listed Properties</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
                     </Container>
                 </Card>
                 <Container maxWidth="lg" sx={{ marginBottom: 10 }}>
-                    {properties.map((property) => (
-                        <UserProperty property={property} />
+                    {NFTs.map((nft) => (
+                        <UserProperty property={nft} />
                     ))}
                 </Container>
                 <Footer 

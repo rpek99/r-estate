@@ -78,7 +78,7 @@ const poolCheck = [
 
 const client = create({ url: "https://ipfs.infura.io:5001/api/v0" });
 
-const SellProperty = () => {
+const SellPropertyDetail = () => {
     const [ loading, setLoading ] = useState(false);
 
     const { connect } = useConnect({
@@ -432,4 +432,4 @@ const SellProperty = () => {
       </>
     )
 }
-export default SellProperty;
+export default SellPropertyDetail;

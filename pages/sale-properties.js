@@ -13,6 +13,7 @@ import axios from "axios";
 const SaleProperties = () => {
     const [NFTs, setNFTs] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [iswalletConnected, setIsWalletConnected] = useState(true);
 
     const router = useRouter();
 
@@ -31,9 +32,14 @@ const SaleProperties = () => {
     })
 
     useEffect(() => {
-        if (!marketplace || !account) return;
+        if (!marketplace || !account) {
+            setIsWalletConnected(false);
+        }
+        if ( account ) {
+            setIsWalletConnected(true);
+        }
         loadSellerNFTs();
-    }, [marketplace])
+    }, [marketplace, account])
 
     const loadSellerNFTs = async () => {
         const data = await marketplace.getListingsCreated();
@@ -60,7 +66,7 @@ const SaleProperties = () => {
     if (loading) {
         return (
             <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
-                <Typography sx={{ fontSize: 30}}>Fetching Data...</Typography>
+                <Typography sx={{ fontSize: 30, color: "#424242"}}>Fetching Data...</Typography>
             </Grid>
         )
     }
@@ -81,11 +87,25 @@ const SaleProperties = () => {
                         </Grid>
                     </Container>
                 </Card>
-                <Container maxWidth="lg" sx={{ marginBottom: 10 }}>
-                    {NFTs.map((nft) => (
-                        <UserProperty property={nft} />
-                    ))}
-                </Container>
+                {iswalletConnected ? 
+                    <>
+                        {NFTs.length > 0 ?
+                            <Container maxWidth="lg" sx={{ marginBottom: 10 }}>
+                                {NFTs.map((nft) => (
+                                    <UserProperty property={nft} />
+                                ))}
+                            </Container>
+                        :
+                            <Grid container justifyContent="center" sx={{ marginTop: 20, marginBottom: 10 }}>
+                                <Typography sx={{ fontSize: 30, color: "#424242"}}>There is no any property that you listed...</Typography>
+                            </Grid>
+                        }
+                    </>
+                :
+                    <Grid container justifyContent="center" sx={{ marginTop: 20, marginBottom: 10 }}>
+                        <Typography sx={{ fontSize: 30, color: "#424242"}}>Please connect wallet...</Typography>
+                    </Grid>
+                }
                 <Footer 
                     contactTitle="Contact Us" 
                     contactInfo="r_estate@gmail.com"

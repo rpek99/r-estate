@@ -63,7 +63,7 @@ const SellProperty = () => {
                                             name='tcno'
                                             control={control}
                                             render={(props) => (
-                                                <FormInput {...props} required label="TC Kimlik Numarası"/>
+                                                <FormInput {...props} required label="Taşınmaz Mülk Numarası"/>
                                             )}
                                         />
                                     </Grid>
@@ -72,7 +72,7 @@ const SellProperty = () => {
                                             name='propertyNo'
                                             control={control}
                                             render={(props) => (
-                                                <FormInput {...props} required label="Taşınmaz Mülk Numarası"/>
+                                                <FormInput {...props} required label="Taşınmaz Mülk Anahtar Kodu"/>
                                             )}
                                         />
                                     </Grid>

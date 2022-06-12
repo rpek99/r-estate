@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router'
 import { Button, CardContent, Container, Typography, CardMedia, Card, Grid } from "@mui/material";
+import SaveIcon from '@mui/icons-material/Save';
 import LoadingButton from '@mui/lab/LoadingButton';
 import AuthNavbar from "../../components/AuthNavbar";
 import Carousel from 'react-material-ui-carousel'
@@ -134,7 +135,7 @@ const PropertyDetails = () => {
                                                 loadingPosition="start"
                                                 startIcon={<SaveIcon />}
                                                 variant="outlined"
-                                                sx={{ width: 200, textTransform: 'none', fontSize: 15, mt: 3, mb: 2 }}
+                                                sx={{ width: 180, textTransform: 'none', fontSize: 15, mb: 2 }}
                                                 >
                                                 Loading Process
                                             </LoadingButton>

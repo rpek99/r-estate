@@ -9,34 +9,35 @@ import { useSession } from 'next-auth/react'
 import { useProperty } from '../context/PropertyContext';
 import axios from 'axios';
 import { useMarketplace } from '../context/MarketplaceContext';
+import { Controller, useForm } from 'react-hook-form';
 
 
 const cityList = [
-    'İstanbul',
-    'İzmir',
-    'Antalya',
-    'Rize',
-    'Muğla',
-    'Çanakkale',
-    'Ankara',
-    'Edirne',
+    { value: 'İstanbul', label: 'İstanbul'},
+    { value: 'izmir', label: 'İzmir'},
+    { value: 'antalya', label: 'Antalya'},
+    { value: 'rize', label: 'Rize'},
+    { value: 'muğla', label: 'Muğla'},
+    { value: 'çanakkale', label: 'Çanakkale'},
+    { value: 'ankara', label: 'Ankara'},
+    { value: 'edirne', label: 'Edirne'},
 ];
 
 const typeList = [
-    'Apartment',
-    'Villa',
-    'Bungalow',
-    'Penthouse',
+    { value: 'apartment', label: 'Apartment'},
+    { value: 'villa', label: 'Villa'},
+    { value: 'bungalow', label: 'Bungalow'},
+    { value: 'penthouse', label: 'Penthouse'},
 ];
 
 const priceList = [
-    'All',
-    '0 - 100.000',
-    '100.000 - 200.000',
-    '200.000 - 300.000',
-    '300.000 - 400.000',
-    '400.000 - 500.000',
-    '500.000 +',
+    { value: 0, label: 'All'},
+    { value: 1, label: '0 - 4 eth'},
+    { value: 2, label: '4 - 8 eth'},
+    { value: 3, label: '8 - 12 eth'},
+    { value: 4, label: '12 - 20 eth'},
+    { value: 5, label: '20 - 40 eth'},
+    { value: 6, label: '40 eth < '},
 ];
 
 
@@ -48,6 +49,19 @@ const Main = () => {
     const { propertyContract } = useProperty();
 
     const { data: session, status } = useSession();
+
+    const { handleSubmit, control } = useForm({
+        // resolver: yupResolver(Schema),
+    });
+
+    const onSubmit = (queryForm) => {
+        console.log(queryForm);
+        const arr = [];
+
+        NFTs.forEach((nft) => {
+            console.log(nft.propertyType == queryForm.propertyType);
+        })
+    }
 
     useEffect(() => {
         if (!marketplace) return;
@@ -98,30 +112,86 @@ const Main = () => {
                 {status === 'unauthenticated' ? <NoAuthNavbar page="main" /> : <AuthNavbar />}
                 <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5', boxShadow: 'none', height: 100 }}>
                     <Container maxWidth="lg">
-                        <Grid container>
-                            <Grid item sx={{ marginTop: 1 }} xs={3}>
-                                <Grid>
-                                    <Typography sx={{ fontFamily: 'Raleway', fontSize: 32, color: '#424242' }}>Find Your Ideal</Typography>
-                                    <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242' }}>Home & Investment</Typography>
-                                </Grid>
-                            </Grid>
-                            <Grid item sx={{ marginTop: 2 }}>
-                                <Grid container>
-                                    <Grid item>
-                                        <QueryInput type="checkBox" queryName="Location" options={cityList} />
-                                    </Grid>
-                                    <Grid item>
-                                        <QueryInput type="checkBox" queryName="Type" options={typeList} />
-                                    </Grid>
-                                    <Grid item>
-                                        <QueryInput type="input" queryName="Price" options={priceList} />
+                        <form
+                            noValidate
+                            onSubmit={handleSubmit(onSubmit)}
+                        >
+                            <Grid container>
+                                <Grid item sx={{ marginTop: 1 }} xs={3}>
+                                    <Grid>
+                                        <Typography sx={{ fontFamily: 'Raleway', fontSize: 32, color: '#424242' }}>Find Your Ideal</Typography>
+                                        <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242' }}>Home & Investment</Typography>
                                     </Grid>
                                 </Grid>
+                                <Grid item sx={{ marginTop: 2 }}>
+                                    <Grid container>
+                                        <Grid item>
+                                            <Controller
+                                                name='cityName'
+                                                control={control}
+                                                defaultValue=""
+                                                render={({ field }) => {
+                                                return (
+                                                    <QueryInput 
+                                                        field={field}
+                                                        queryName="Location" 
+                                                        options={cityList}
+                                                    />
+                                                )
+                                                }} 
+                                            />
+                                        </Grid>
+                                        <Grid item>
+                                            <Controller
+                                                name='propertyType'
+                                                control={control}
+                                                defaultValue=""
+                                                render={({ field }) => {
+                                                return (
+                                                    <QueryInput 
+                                                        field={field}
+                                                        queryName="Type" 
+                                                        options={typeList}
+                                                    />
+                                                )
+                                                }} 
+                                            />
+                                        </Grid>
+                                        <Grid item>
+                                            <Controller
+                                                name='propertyPrice'
+                                                control={control}
+                                                defaultValue=""
+                                                render={({ field }) => {
+                                                return (
+                                                    <QueryInput 
+                                                        field={field}
+                                                        queryName="Price" 
+                                                        options={priceList}
+                                                    />
+                                                )
+                                                }} 
+                                            />
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item sx={{ margin: 1, marginTop: 4 }}>
+                                    <Button  
+                                        type="submit" 
+                                        sx={{ 
+                                                backgroundColor: '#5c6bc0', 
+                                                color: 'white', width: 100, 
+                                                height: 40, 
+                                                ':hover': { bgcolor: '#3949ab' }, 
+                                                textTransform: 'none', 
+                                                fontSize: 16 
+                                            }}
+                                    >
+                                        Search
+                                    </Button>
+                                </Grid>
                             </Grid>
-                            <Grid item sx={{ margin: 1, marginTop: 4 }}>
-                                <Button sx={{ backgroundColor: '#5c6bc0', color: 'white', width: 100, height: 40, ':hover': { bgcolor: '#3949ab' }, textTransform: 'none', fontSize: 16 }}>Search</Button>
-                            </Grid>
-                        </Grid>
+                        </form>
                     </Container>
                 </Card>
                 <Container maxWidth="lg" sx={{ marginTop: 3 }}>

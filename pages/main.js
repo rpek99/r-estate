@@ -30,19 +30,11 @@ const typeList = [
     { value: 'penthouse', label: 'Penthouse'},
 ];
 
-const priceList = [
-    { value: 0, label: 'All'},
-    { value: 1, label: '0 - 4 eth'},
-    { value: 2, label: '4 - 8 eth'},
-    { value: 3, label: '8 - 12 eth'},
-    { value: 4, label: '12 - 20 eth'},
-    { value: 5, label: '20 - 40 eth'},
-    { value: 6, label: '40 eth < '},
-];
-
 
 const Main = () => {
     const [NFTs, setNFTs] = useState([]);
+    const [NFTsCopy, setNFTsCopy] = useState([]);
+    const [isSearchClicked, setIsSearchClicked] = useState(false);
 
     const [loading, setLoading] = useState(true);
     const { marketplace } = useMarketplace();
@@ -50,17 +42,30 @@ const Main = () => {
 
     const { data: session, status } = useSession();
 
-    const { handleSubmit, control } = useForm({
-        // resolver: yupResolver(Schema),
-    });
+    const { handleSubmit, control } = useForm({});
 
     const onSubmit = (queryForm) => {
-        console.log(queryForm);
+        setIsSearchClicked(true);
         const arr = [];
 
         NFTs.forEach((nft) => {
-            console.log(nft.propertyType == queryForm.propertyType);
-        })
+            if(queryForm.propertyType && queryForm.cityName) {
+                if(queryForm.propertyType == nft.propertyType && queryForm.cityName == nft.location){
+                    arr.push(nft);
+                }
+            }
+            if(queryForm.propertyType && !queryForm.cityName) {
+                if(queryForm.propertyType == nft.propertyType) {
+                    arr.push(nft);
+                }
+            }
+            if(!queryForm.propertyType && queryForm.cityName) {
+                if(queryForm.cityName == nft.location) {
+                    arr.push(nft);
+                }
+            }         
+        });
+        setNFTs(arr);
     }
 
     useEffect(() => {
@@ -69,6 +74,7 @@ const Main = () => {
     }, [marketplace])
 
     const loadNFTs = async () => {
+        setLoading(true);
         const data = await marketplace.getAllListings();
         const items = await Promise.all(
             data.map(async (nft) => {
@@ -95,7 +101,13 @@ const Main = () => {
             })
         );
         setNFTs(items);
+        setNFTsCopy(items);
         setLoading(false);
+    }
+
+    const nftCopy = () => {
+        setNFTs(NFTsCopy);
+        setIsSearchClicked(false);
     }
 
     if (loading) {
@@ -117,7 +129,7 @@ const Main = () => {
                             onSubmit={handleSubmit(onSubmit)}
                         >
                             <Grid container>
-                                <Grid item sx={{ marginTop: 1 }} xs={3}>
+                                <Grid item sx={{ marginTop: 1, marginRight: 5 }} xs={3}>
                                     <Grid>
                                         <Typography sx={{ fontFamily: 'Raleway', fontSize: 32, color: '#424242' }}>Find Your Ideal</Typography>
                                         <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242' }}>Home & Investment</Typography>
@@ -141,7 +153,7 @@ const Main = () => {
                                                 }} 
                                             />
                                         </Grid>
-                                        <Grid item>
+                                        <Grid item sx={{ width: 300 }}>
                                             <Controller
                                                 name='propertyType'
                                                 control={control}
@@ -152,22 +164,6 @@ const Main = () => {
                                                         field={field}
                                                         queryName="Type" 
                                                         options={typeList}
-                                                    />
-                                                )
-                                                }} 
-                                            />
-                                        </Grid>
-                                        <Grid item>
-                                            <Controller
-                                                name='propertyPrice'
-                                                control={control}
-                                                defaultValue=""
-                                                render={({ field }) => {
-                                                return (
-                                                    <QueryInput 
-                                                        field={field}
-                                                        queryName="Price" 
-                                                        options={priceList}
                                                     />
                                                 )
                                                 }} 
@@ -189,6 +185,23 @@ const Main = () => {
                                     >
                                         Search
                                     </Button>
+                                </Grid>
+                                <Grid item sx={{ margin: 1, marginTop: 4 }}>
+                                {isSearchClicked &&
+                                    <Button  
+                                        onClick={() => nftCopy()}
+                                        sx={{ 
+                                                backgroundColor: '#9e9e9e', 
+                                                color: 'white', width: 120, 
+                                                height: 40, 
+                                                ':hover': { bgcolor: '#616161' }, 
+                                                textTransform: 'none', 
+                                                fontSize: 16 
+                                            }}
+                                    >
+                                        Reset Query
+                                    </Button>
+                                }
                                 </Grid>
                             </Grid>
                         </form>

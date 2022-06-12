@@ -71,6 +71,17 @@ const typeList = [
     { value: "penthouse" , label: 'Penthouse'},
 ];
 
+const cityList = [
+  { value: 'istanbul', label: 'İstanbul'},
+  { value: 'izmir', label: 'İzmir'},
+  { value: 'antalya', label: 'Antalya'},
+  { value: 'rize', label: 'Rize'},
+  { value: 'muğla', label: 'Muğla'},
+  { value: 'çanakkale', label: 'Çanakkale'},
+  { value: 'ankara', label: 'Ankara'},
+  { value: 'edirne', label: 'Edirne'},
+];
+
 const poolCheck = [
     { value: "yes" , label: "Yes"},
     { value: "no" , label: "No"},
@@ -293,17 +304,20 @@ const SellPropertyDetail = () => {
                         <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242' }}>Mülk özellikleri</Typography>
                       </Grid>
                       <Grid container sx={{ m: 1, marginTop: 2 }}>
-                        <Grid item xs={8} sx={{ m: 1 }}>
+                        <Grid item>
                           <Controller
                             name='location'
                             control={control}
-                            render={(props) => (
-                                <FormInput 
-                                  {...props} 
-                                  required 
-                                  label="Lokasyon" 
+                            defaultValue=""
+                            render={({ field }) => {
+                              return (
+                                <QueryInput 
+                                  field={field}
+                                  queryName="Lokasyon" 
+                                  options={cityList}
                                 />
-                            )}
+                              )
+                            }} 
                           />
                         </Grid>
                         <Grid item xs={8} sx={{ m: 1 }}>

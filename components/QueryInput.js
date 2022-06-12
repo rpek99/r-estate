@@ -19,7 +19,7 @@ const QueryInput = (props) => {
     const {queryName, options, field} = props;
 
     return (
-        <FormControl sx={{ m: 1, width: 220, marginTop: 2}} size="small">
+        <FormControl sx={{ m: 1, width: 250, marginTop: 2}} size="small">
             <InputLabel id="demo-multiple-checkbox-label">{queryName}</InputLabel>
             <Select
                 value={field && field.value}

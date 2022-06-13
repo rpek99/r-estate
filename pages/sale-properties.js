@@ -14,6 +14,7 @@ import axios from "axios";
 const SaleProperties = () => {
     const [NFTs, setNFTs] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isAccountExist, setIsAccountExist] = useState(true);
 
     const router = useRouter();
 
@@ -32,9 +33,14 @@ const SaleProperties = () => {
     })
 
     useEffect(() => {
-        if (!marketplace || !account) return;
-        loadSellerNFTs();
-    }, [marketplace, account])
+        if (!marketplace || !account){
+            setLoading(false);
+            setIsAccountExist(false);
+        }
+        else {
+            loadSellerNFTs();
+        }
+    }, [marketplace])
 
 
     const loadSellerNFTs = async () => {
@@ -58,6 +64,31 @@ const SaleProperties = () => {
         );
         setNFTs(items);
         setLoading(false);
+    }
+
+    if (!isAccountExist) {
+        return (
+            <Grid container direction="column" alignItems="center" justifyContent="center" sx={{ marginTop: 35 }}>
+                <Grid item>
+                    <Typography sx={{ fontSize: 30, color: "#424242"}}>First connect your wallet from profile page</Typography>
+                </Grid>
+                <Grid item sx={{ marginTop: 5 }}>
+                    <Button
+                        onClick={() => router.push('/profile')}
+                        sx={{
+                        backgroundColor: '#37474f',
+                        textTransform: 'none',
+                        color: 'white',
+                        ':hover': { bgcolor: '#546e7a' },
+                        width: 180,
+                        height: 40
+                        }}
+                    >
+                        Go Profile Page
+                    </Button>
+                </Grid>
+            </Grid>
+        )
     }
 
     if (loading) {

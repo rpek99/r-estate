@@ -19,7 +19,7 @@ const UserProperty = (props) => {
             <CardContent sx={{ m : 2, marginTop: 3, marginLeft: 5, minWidth: 200 }}>
                 <Typography sx={{ fontSize: 20}}>P. Location</Typography>
                 <Divider sx={{ width: 100, marginTop: 1}}/>
-                <Typography sx={{ fontSize: 18, marginTop: 2}}>{property.location}</Typography>
+                <Typography sx={{ fontSize: 18, marginTop: 2, textTransform: 'capitalize'}}>{property.location}</Typography>
             </CardContent>
             <CardContent sx={{ m : 2, marginLeft: 0, marginTop: 3 }}>
                 <Typography sx={{ fontSize: 20}}>P. Price</Typography>

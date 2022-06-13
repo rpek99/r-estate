@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
       <SessionProvider session={pageProps.session}>
         <MarketplaceProvider>
           <PropertyProvider>
-            <ToastProvider>
+            <ToastProvider placement='bottom-left'>
               <Component {...pageProps} />
             </ToastProvider>
           </PropertyProvider>

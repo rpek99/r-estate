@@ -41,7 +41,10 @@ const Properties = (props) => {
                                             bgcolor: 'background.paper',
                                             maxWidth: 300,
                                         }}>
-                                            <LocationOnIcon sx={{ marginRight: -1}}/> {post.location} 
+                                            <LocationOnIcon sx={{ marginRight: -1}}/>
+                                            <Typography sx={{textTransform: 'capitalize'}}>
+                                                {post.location}
+                                            </Typography> 
                                             <BedroomParentIcon sx={{ marginRight: -1}} /> {post.bedroomNum}
                                             <ShowerIcon sx={{ marginRight: -1}}/> {post.bathroomNum}
                                             <Typography>{post.areaSize} sq.m</Typography>

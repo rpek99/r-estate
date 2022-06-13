@@ -18,6 +18,7 @@ import { PROPERTY_NFT_ADDRESS } from '../Config';
 import { ethers } from "ethers";
 import { useAccount, useConnect } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
+import { useToasts } from 'react-toast-notifications'
 
 
 const thumbsContainer = {
@@ -56,7 +57,7 @@ export const Schema = Yup.object().shape({
     overview: Yup.string().required("Cannot be empty"),
     detail: Yup.string().required("Cannot be empty"),
     price: Yup.number().required("Cannot be empty").label("Price"),
-    location: Yup.string().required("Cannot be empty"),
+    location: Yup.string().required().min(1, "Required"),
     areaSize: Yup.number().required("Cannot be empty").label("Size"),
     bathroomNum: Yup.number().required("Cannot be empty").label("Bathroom number"),
     bedroomNum: Yup.number().required("Cannot be empty").label("Bedroom number"),
@@ -96,6 +97,8 @@ const SellPropertyDetail = () => {
       connector: new InjectedConnector(),
     })
     const { data: userData } = useAccount();
+
+    const { addToast } = useToasts();
 
     const router = useRouter()
 
@@ -187,15 +190,15 @@ const SellPropertyDetail = () => {
       const tx = await propertyContract.mint(tokenURI);
       tx = await tx.wait();
     
-      console.log("Minted");
       const tokenId = tx.events[0].args[2];
-
-      console.log("Creating market listing...")
 
       tx = await marketplace.createListing(PROPERTY_NFT_ADDRESS, tokenId, ethers.utils.parseEther(price.toString()))
       tx = await tx.wait();
 
-      console.log("LISTED!...")
+      addToast("Property succesfully listed", { 
+        autoDismiss: true,
+        appearance: 'success'
+      });
       router.push("/main");
       setLoading(false);
     }

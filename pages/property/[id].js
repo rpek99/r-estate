@@ -15,6 +15,7 @@ import { useProperty } from '../../context/PropertyContext';
 import axios from 'axios';
 import { ipfs } from '../../util/ipfsUtil';
 import { useAccount, useBalance, useSigner } from 'wagmi';
+import { useToasts } from 'react-toast-notifications'
 
 const PropertyDetails = () => {
     const [nft, setNft] = useState(null);
@@ -24,6 +25,8 @@ const PropertyDetails = () => {
 
     const marketplaceCommission = "1";
     const governmentCommission = "2";
+
+    const { addToast } = useToasts();
 
     const router = useRouter();
     const { id } = router.query;
@@ -74,14 +77,25 @@ const PropertyDetails = () => {
         const gCommission = nft.price.mul(BigNumber.from(governmentCommission)).div(BigNumber.from("100"));
 
         const finalPrice = nft.price.add(mCommission.add(gCommission));
-        console.log(ethers.utils.formatEther(finalPrice));
-
         const calculatedFinalPrice = ethers.utils.formatEther(finalPrice).toString();
 
-        const tx = await marketplace.buy(nft.tokenId, { value: ethers.utils.parseUnits(calculatedFinalPrice, "ether"), gasLimit: 1000000 });
-        await tx.wait();
-        router.push("/main");
-        setLoading(false);
+        if(calculatedFinalPrice >= balance.formatted){
+            addToast("Insufficient amount", { 
+                autoDismiss: true,
+                appearance: 'error'
+            });
+            setLoading(false);
+        }
+        else{
+            const tx = await marketplace.buy(nft.tokenId, { value: ethers.utils.parseUnits(calculatedFinalPrice, "ether"), gasLimit: 1000000 });
+            await tx.wait();
+            addToast("Property bought succesfully", { 
+                autoDismiss: true,
+                appearance: 'success'
+            });
+            router.push("/main");
+            setLoading(false);
+        }   
     }
 
 

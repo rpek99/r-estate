@@ -19,6 +19,7 @@ import { ethers } from "ethers";
 import { useAccount, useConnect } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
 import { useToasts } from 'react-toast-notifications'
+import { useTranslation } from 'react-i18next';
 
 
 const thumbsContainer = {
@@ -100,7 +101,9 @@ const SellPropertyDetail = () => {
 
     const { addToast } = useToasts();
 
-    const router = useRouter()
+    const router = useRouter();
+
+    const { t } = useTranslation();
 
     const { propertyContract } = useProperty();
     const { marketplace } = useMarketplace();
@@ -195,7 +198,7 @@ const SellPropertyDetail = () => {
       tx = await marketplace.createListing(PROPERTY_NFT_ADDRESS, tokenId, ethers.utils.parseEther(price.toString()))
       tx = await tx.wait();
 
-      addToast("Property succesfully listed", { 
+      addToast(t("toast_listed_message"), { 
         autoDismiss: true,
         appearance: 'success'
       });
@@ -213,7 +216,7 @@ const SellPropertyDetail = () => {
                 <Grid container>
                   <Grid item sx={{ marginTop: 2 }} xs={10}>
                     <Grid>
-                      <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242' }}>Mülk bilgilerini giriniz</Typography>
+                      <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242' }}>{t("sell_property_detail_page_title")}</Typography>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -240,7 +243,7 @@ const SellPropertyDetail = () => {
                             <div {...getRootProps({ className: 'dropzone' })}>
                               <input {...getInputProps()} />
                               <Typography>
-                                Görüntü dosyası eklemek için tıklayın
+                                {t("sell_property_detail_image_field")}
                               </Typography>        
                             </div>
                             <aside style={thumbsContainer}>
@@ -257,7 +260,7 @@ const SellPropertyDetail = () => {
                               <FormInput 
                                 {...props}
                                 required 
-                                label="Mülk başlığı" 
+                                label={t("sell_property_detail_property_title_field")}
                               />
                           )}
                         />
@@ -270,7 +273,7 @@ const SellPropertyDetail = () => {
                               <FormInput 
                                 {...props} 
                                 required 
-                                label="Önizlem bilgisi" 
+                                label={t("sell_property_detail_preview_field")}
                                 rows={2} 
                               />
                           )}
@@ -284,7 +287,7 @@ const SellPropertyDetail = () => {
                               <FormInput 
                                 {...props} 
                                 required 
-                                label="Mülk hakkında detaylı bilgi" 
+                                label={t("sell_property_detail_inform_field")}
                                 rows={5} 
                               />
                           )}
@@ -298,13 +301,13 @@ const SellPropertyDetail = () => {
                               <FormInput 
                                 {...props} 
                                 required 
-                                label="Fiyat (eth)" 
+                                label={t("price_field") + " (eth)"}
                               />
                           )}
                         />
                       </Grid>
                       <Grid item xs={12} sx={{ marginTop: 2 }}>
-                        <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242' }}>Mülk özellikleri</Typography>
+                        <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242' }}>{t("sell_property_detail_page_title2")}</Typography>
                       </Grid>
                       <Grid container sx={{ m: 1, marginTop: 2 }}>
                         <Grid item>
@@ -316,7 +319,7 @@ const SellPropertyDetail = () => {
                               return (
                                 <QueryInput 
                                   field={field}
-                                  queryName="Lokasyon" 
+                                  queryName={t("location_field")}
                                   options={cityList}
                                 />
                               )
@@ -331,7 +334,7 @@ const SellPropertyDetail = () => {
                                 <FormInput 
                                   {...props} 
                                   required 
-                                  label="Yaşam alanı (m2)" 
+                                  label={t("living_area_field")}
                                 />
                             )}
                           />
@@ -344,7 +347,7 @@ const SellPropertyDetail = () => {
                                 <FormInput 
                                   {...props} 
                                   required 
-                                  label="Banyo sayısı" 
+                                  label={t("sell_property_detail_bathroom_field")}
                                 />
                             )}
                           />
@@ -357,7 +360,7 @@ const SellPropertyDetail = () => {
                                 <FormInput 
                                   {...props} 
                                   required 
-                                  label="Yatak odası sayısı" 
+                                  label={t("sell_property_detail_bedroom_field")}
                                 />
                             )}
                           />
@@ -371,7 +374,7 @@ const SellPropertyDetail = () => {
                               return (
                                 <QueryInput 
                                   field={field}
-                                  queryName="Mülk Tipi" 
+                                  queryName={t("property_type_field")}
                                   options={typeList}
                                 />
                               )
@@ -387,7 +390,7 @@ const SellPropertyDetail = () => {
                               return (
                                 <QueryInput 
                                   field={field}
-                                  queryName="Havuz" 
+                                  queryName={t("pool_field")} 
                                   options={poolCheck} 
                                 />
                               )
@@ -406,7 +409,7 @@ const SellPropertyDetail = () => {
                               variant="contained"
                               sx={{ width: 200, mt: 3, mb: 2, backgroundColor: "#455a64", ':hover': { bgcolor: '#263238' }, textTransform: 'none', fontSize: 15 }}
                             >
-                              Tamamla
+                              {t("sell_property_detail_button")}
                             </Button>
                           :
                             <>
@@ -416,10 +419,10 @@ const SellPropertyDetail = () => {
                                 variant="contained"
                                 sx={{ width: 200, mt: 3, mb: 2, textTransform: 'none', fontSize: 15 }}
                               >
-                                  Tamamla
+                                {t("sell_property_detail_button")}
                               </Button> 
-                              <Typography sx={{ fontSize: 13, marginLeft: 1, color: "#9e9e9e"}}>
-                                First you should connect wallet
+                              <Typography sx={{ fontSize: 13, marginLeft: 2, color: "#9e9e9e"}}>
+                                {t("connect_wallet_message")}
                               </Typography>   
                             </>  
                           }
@@ -432,7 +435,7 @@ const SellPropertyDetail = () => {
                           variant="outlined"
                           sx={{ width: 200, textTransform: 'none', fontSize: 15, mt: 3, mb: 2 }}
                           >
-                          Loading Process
+                          {t("loading_process_button")}
                         </LoadingButton>
                       }
                     </Grid>
@@ -443,7 +446,7 @@ const SellPropertyDetail = () => {
           </div>
           :
           <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
-              <Typography sx={{ fontSize: 30 }}>Loading ...</Typography>
+              <Typography sx={{ fontSize: 30 }}>{t("loading_message")}</Typography>
           </Grid>
         }
       </>

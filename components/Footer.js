@@ -3,11 +3,11 @@ import { Divider, IconButton, Container, Box, Typography, Grid } from '@mui/mate
 import TwitterIcon from '@mui/icons-material/Twitter';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import InstagramIcon from '@mui/icons-material/Instagram';
+import { useTranslation } from 'react-i18next';
 
 
-const Footer = (props) => {
-    const { contactTitle, contactInfo } = props;
-
+const Footer = () => {
+    const { t } = useTranslation();
     return (
         <Box component="footer" sx={{ bgcolor: 'background.paper', py: 10, paddingBottom: 5}}>
             <Container maxWidth="lg">
@@ -17,7 +17,7 @@ const Footer = (props) => {
                     component="p" 
                     sx= {{ fontFamily: "Georgia", fontSize: 20}}
                 >
-                    {contactTitle}
+                    {t("footer_title")}
                 </Typography>
                 <Typography
                     align="center"
@@ -25,7 +25,7 @@ const Footer = (props) => {
                     component="p"
                     sx={{ fontFamily: "Georgia", fontSize: 18}}
                 >
-                    {contactInfo}
+                    r_estate@gmail.com
                 </Typography>
                 <Divider sx={{ m: 3 }}/>
                 <Grid align="center">

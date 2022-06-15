@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Typography, Grid, Card, CardContent, CardMedia, Button} from '@mui/material';
+import { Typography, Grid, Card, CardContent, CardMedia } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
+const MiddlePost = () => {
 
-const MiddlePost = (props) => {
-
-    const { post } = props;
+    const { t } = useTranslation();
 
     return(
         <Grid item xs={12} md={6}>
@@ -16,10 +16,10 @@ const MiddlePost = (props) => {
                     />
                     <CardContent sx={{ flex: 1, marginTop: 5, marginLeft: 3, maxWidth: 550}}>
                         <Typography component="h2" variant="h5" sx={{ marginBottom: 2}}>
-                            {post.title}
+                            {t("middle_post_title")}
                         </Typography>
                         <Typography variant="subtitle1" color="text.secondary">
-                            {post.description}
+                            {t("middle_post_content")}
                         </Typography>  
                     </CardContent>
                 </Card>

@@ -9,6 +9,7 @@ import { useMarketplace } from "../context/MarketplaceContext";
 import { useProperty } from "../context/PropertyContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 
 const SaleProperties = () => {
@@ -17,6 +18,8 @@ const SaleProperties = () => {
     const [isAccountExist, setIsAccountExist] = useState(true);
 
     const router = useRouter();
+
+    const { t } = useTranslation();
 
     const { marketplace } = useMarketplace();
     const { propertyContract } = useProperty();
@@ -37,9 +40,7 @@ const SaleProperties = () => {
             setLoading(false);
             setIsAccountExist(false);
         }
-        else {
-            loadSellerNFTs();
-        }
+        loadSellerNFTs();
     }, [marketplace])
 
 
@@ -70,7 +71,7 @@ const SaleProperties = () => {
         return (
             <Grid container direction="column" alignItems="center" justifyContent="center" sx={{ marginTop: 35 }}>
                 <Grid item>
-                    <Typography sx={{ fontSize: 30, color: "#424242"}}>First connect your wallet from profile page</Typography>
+                    <Typography sx={{ fontSize: 30, color: "#424242"}}>{t("sale_properties_connect_wallet_message")}</Typography>
                 </Grid>
                 <Grid item sx={{ marginTop: 5 }}>
                     <Button
@@ -84,7 +85,7 @@ const SaleProperties = () => {
                         height: 40
                         }}
                     >
-                        Go Profile Page
+                        {t("sale_properties_connect_wallet_button")}
                     </Button>
                 </Grid>
             </Grid>
@@ -94,7 +95,7 @@ const SaleProperties = () => {
     if (loading) {
         return (
             <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
-                <Typography sx={{ fontSize: 30, color: "#424242"}}>Fetching Data...</Typography>
+                <Typography sx={{ fontSize: 30, color: "#424242"}}>{t("fetch_data_message")}</Typography>
             </Grid>
         )
     }
@@ -109,7 +110,7 @@ const SaleProperties = () => {
                         <Grid container>
                             <Grid item sx={{ marginTop: 2 }} xs={3}>
                                 <Grid>
-                                    <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>Listed Properties</Typography>
+                                    <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>{t("sale_properties_page_title")}</Typography>
                                 </Grid>
                             </Grid>
                         </Grid>
@@ -120,14 +121,11 @@ const SaleProperties = () => {
                         <UserProperty property={nft} />
                     ))}
                 </Container>
-                <Footer 
-                    contactTitle="Contact Us" 
-                    contactInfo="r_estate@gmail.com"
-                />
+                <Footer />
             </div>
             : 
             <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
-                <Typography sx={{ fontSize: 30}}>Loading ...</Typography>
+                <Typography sx={{ fontSize: 30}}>{t("loading_message")}</Typography>
             </Grid>
             } 
         </>

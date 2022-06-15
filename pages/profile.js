@@ -4,10 +4,9 @@ import AuthNavbar from "../components/AuthNavbar";
 import { useSession } from 'next-auth/react'
 import PersonIcon from '@mui/icons-material/Person';
 import { useRouter } from 'next/router';
-import { ethers } from 'ethers';
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 import { InjectedConnector } from 'wagmi/connectors/injected'
-
+import { useTranslation } from 'react-i18next';
 
 const Profile = () => {
   const { isConnected, connect } = useConnect({
@@ -17,6 +16,8 @@ const Profile = () => {
   const { data: userData } = useAccount();
 
   const router = useRouter()
+
+  const { t } = useTranslation();
 
   const { data: session, status } = useSession({
     required: true,
@@ -52,7 +53,7 @@ const Profile = () => {
                   <CardContent sx={{ marginLeft: 2, marginTop: 2 }}>
                     <Grid container justifyContent="space-between">
                       <Grid item>
-                        <Typography sx={{ fontSize: 18, color: 'white' }}>Name & Surname</Typography>
+                        <Typography sx={{ fontSize: 18, color: 'white' }}>{t("profile_name_field")}</Typography>
                         <Typography sx={{ fontSize: 15, color: 'white', marginTop: 2 }}>{session.user.name}</Typography>
                       </Grid>
                     </Grid>
@@ -72,16 +73,15 @@ const Profile = () => {
                   <CardContent sx={{ marginLeft: 2, marginTop: 2 }}>
                     <Grid container justifyContent="space-between">
                       <Grid item>
-                        <Typography sx={{ fontSize: 18, color: 'white', marginTop: 2 }}>Wallet Address</Typography>
+                        <Typography sx={{ fontSize: 18, color: 'white', marginTop: 2 }}>{t("profile_walletAddress_field")}</Typography>
                         <Divider sx={{ m: 1, width: 200, marginLeft: 0, backgroundColor: "white" }} />
-                        {/* <Typography sx={{ textDecoration: 'underline', fontSize: 15, color: 'white', marginTop: 2}}>none</Typography> */}
                         {userData ?
                           <Typography color="white">
                             {userData.address.slice(0, 5) + "...." + userData.address.slice(userData.address.length - 5, userData.address.length)}
                           </Typography>
                           :
                           <Typography color="white">
-                            none
+                            {t("profile_walletAddress_message")}
                           </Typography>
                         }
                       </Grid>
@@ -98,7 +98,7 @@ const Profile = () => {
                             m: 5
                           }}
                         >
-                          Disconnect
+                          {t("disconnect_wallet_button")}
                         </Button> 
                       : 
                         <Button
@@ -113,7 +113,7 @@ const Profile = () => {
                             m: 5
                           }}
                         >
-                          Connect Wallet
+                          {t("connect_wallet_button")}
                         </Button>
                       }
                     </Grid>
@@ -125,7 +125,7 @@ const Profile = () => {
         </div>
         :
         <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
-          <Typography sx={{ fontSize: 30 }}>Loading ...</Typography>
+          <Typography sx={{ fontSize: 30 }}>{t("loading_message")}</Typography>
         </Grid>
       }
     </>

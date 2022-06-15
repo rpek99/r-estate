@@ -5,10 +5,13 @@ import FormInput from "../components/FormInput";
 import AuthNavbar from "../components/AuthNavbar";
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react'
+import { useTranslation } from "react-i18next";
 
 const SellProperty = () => {
 
-    const router = useRouter()
+    const router = useRouter();
+
+    const { t } = useTranslation();
 
     const { data: session, status } = useSession({
         required: true,
@@ -37,7 +40,15 @@ const SellProperty = () => {
                         <Grid container>
                                 <Grid item sx={{ marginTop: 2 }} xs={10}>
                                     <Grid>
-                                        <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>Mülk satışı için öncelikle tapu kontrolü yapmalısınız</Typography>
+                                        <Typography 
+                                            sx={{ 
+                                                fontFamily: 'Raleway', 
+                                                fontSize: 30, 
+                                                color: '#424242'
+                                            }}
+                                        >
+                                            {t("sell_property_page_title")}
+                                        </Typography>
                                     </Grid>
                                 </Grid>
                         </Grid>
@@ -63,7 +74,7 @@ const SellProperty = () => {
                                             name='tcno'
                                             control={control}
                                             render={(props) => (
-                                                <FormInput {...props} required label="Taşınmaz Mülk Numarası"/>
+                                                <FormInput {...props} required label={t("sell_property_property_number_field")}/>
                                             )}
                                         />
                                     </Grid>
@@ -72,7 +83,7 @@ const SellProperty = () => {
                                             name='propertyNo'
                                             control={control}
                                             render={(props) => (
-                                                <FormInput {...props} required label="Taşınmaz Mülk Anahtar Kodu"/>
+                                                <FormInput {...props} required label={t("sell_property_property_code_field")}/>
                                             )}
                                         />
                                     </Grid>
@@ -85,7 +96,7 @@ const SellProperty = () => {
                                             variant="contained"
                                             sx={{ width: 200, mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}, textTransform: 'none', fontSize: 15}}
                                         >
-                                            Kontrol Et
+                                            {t("sell_property_check_button")}
                                         </Button>
                                     </Link>
                                 </Grid>
@@ -96,7 +107,7 @@ const SellProperty = () => {
             </div>
             :
             <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
-                <Typography sx={{ fontSize: 30}}>Loading ...</Typography>
+                <Typography sx={{ fontSize: 30}}>{t("loading_message")}</Typography>
             </Grid>
             }
         </>

@@ -16,10 +16,12 @@ import axios from 'axios';
 import { ipfs } from '../../util/ipfsUtil';
 import { useAccount, useBalance, useSigner } from 'wagmi';
 import { useToasts } from 'react-toast-notifications'
+import { useTranslation } from 'react-i18next';
 
 const PropertyDetails = () => {
     const [nft, setNft] = useState(null);
     const [loading, setLoading] = useState(false);
+
     const { marketplace } = useMarketplace();
     const { propertyContract } = useProperty();
 
@@ -27,6 +29,8 @@ const PropertyDetails = () => {
     const governmentCommission = "2";
 
     const { addToast } = useToasts();
+
+    const { t } = useTranslation();
 
     const router = useRouter();
     const { id } = router.query;
@@ -68,9 +72,6 @@ const PropertyDetails = () => {
     const buy = async () => {
         setLoading(true);
 
-        if (!balance) {
-            throw Error("Wallet not connected");
-        };
         if (!nft) return;
 
         const mCommission = nft.price.mul(BigNumber.from(marketplaceCommission)).div(BigNumber.from("100"));
@@ -80,7 +81,7 @@ const PropertyDetails = () => {
         const calculatedFinalPrice = ethers.utils.formatEther(finalPrice).toString();
 
         if(calculatedFinalPrice >= balance.formatted){
-            addToast("Insufficient amount", { 
+            addToast(t("toast_balance_message"), { 
                 autoDismiss: true,
                 appearance: 'error'
             });
@@ -89,7 +90,7 @@ const PropertyDetails = () => {
         else{
             const tx = await marketplace.buy(nft.tokenId, { value: ethers.utils.parseUnits(calculatedFinalPrice, "ether"), gasLimit: 1000000 });
             await tx.wait();
-            addToast("Property bought succesfully", { 
+            addToast(t("toast_bought_message"), { 
                 autoDismiss: true,
                 appearance: 'success'
             });
@@ -102,7 +103,7 @@ const PropertyDetails = () => {
     if (status === 'loading' || !nft) {
         return (
             <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
-                <Typography sx={{ fontSize: 30}}>Loading ...</Typography>
+                <Typography sx={{ fontSize: 30}}>{t("loading_message")}</Typography>
             </Grid>
         )
     }
@@ -118,7 +119,7 @@ const PropertyDetails = () => {
                                 <Typography sx={{ fontFamily: 'Raleway', fontSize: 30, color: '#424242'}}>{nft.title}</Typography>
                             </Grid>
                             <Grid container sx={{ marginTop: 1}}>         
-                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 25}}>Price: </Typography>
+                                <Typography sx={{ fontFamily: 'Raleway', fontSize: 25}}>{t("price_field")}: </Typography>
                                 <Typography sx={{ fontFamily: 'Raleway', fontSize: 35, color:'#c62828', marginLeft: 2, marginTop: -1}}>{ethers.utils.formatEther(nft.price)} ETH</Typography>
                             </Grid>
                         </Grid>
@@ -141,7 +142,7 @@ const PropertyDetails = () => {
                                                     textTransform: 'none'
                                                 }}
                                             >
-                                                Buy Property
+                                                {t("buy_property_button")}
                                             </Button>
                                         :
                                             <LoadingButton
@@ -151,7 +152,7 @@ const PropertyDetails = () => {
                                                 variant="outlined"
                                                 sx={{ width: 180, textTransform: 'none', fontSize: 15, mb: 2 }}
                                                 >
-                                                Loading Process
+                                                {t("loading_process_button")}
                                             </LoadingButton>
                                         }
                                     </>
@@ -167,10 +168,10 @@ const PropertyDetails = () => {
                                                 textTransform: 'none'
                                             }}
                                         >
-                                            Buy Property
+                                            {t("buy_property_button")}
                                         </Button>
                                         <Typography sx={{ fontSize: 13, marginTop: 0.5, color: "#9e9e9e"}}>
-                                            You should connect wallet
+                                            {t("connect_wallet_message")}
                                         </Typography>   
                                     </>         
                                 }
@@ -196,15 +197,15 @@ const PropertyDetails = () => {
                     </Grid>
                     <Grid sx={{ marginLeft: 5, marginRight: 5}}>
                         <Grid item>
-                            <PropertyInformation propertyInfo={nft} title="Overview"/>
+                            <PropertyInformation propertyInfo={nft} title={t("property_info1")} type="Overview"/>
                         </Grid>
                         <Grid item sx={{ marginTop: 3}}>
-                            <PropertyInformation propertyInfo={nft} title="Property Features"/>
+                            <PropertyInformation propertyInfo={nft} title={t("property_info2")}/>
                         </Grid>
                         <Grid item sx={{ marginTop: 3}}>
                             <Card sx={{ backgroundColor: '#f5f5f5' }}>
                                 <CardContent sx={{ marginLeft: 2, marginTop: 1}}>
-                                    <Typography sx={{ fontSize: 25, fontFamily: 'Raleway'}}>About The Property</Typography>
+                                    <Typography sx={{ fontSize: 25, fontFamily: 'Raleway'}}>{t("property_info3")}</Typography>
                                 </CardContent>
                                 <CardContent sx={{ marginLeft: 2, marginTop: -1 }}>
                                     <Typography sx={{ fontSize: 16}}>
@@ -214,10 +215,7 @@ const PropertyDetails = () => {
                             </Card>
                         </Grid>
                     </Grid>
-                    <Footer 
-                        contactTitle="Contact Us"
-                        contactInfo="r_estate@gmail.com"
-                    />
+                    <Footer />
                 </Container>
             </div>
         </>

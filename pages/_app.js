@@ -5,6 +5,7 @@ import { ToastProvider } from 'react-toast-notifications'
 import { WagmiConfig, createClient } from 'wagmi'
 import { MarketplaceProvider } from '../context/MarketplaceContext'
 import { PropertyProvider } from '../context/PropertyContext'
+import '../util/i18n'
 
 const client = createClient();
 

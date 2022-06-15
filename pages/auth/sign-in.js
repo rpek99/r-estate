@@ -4,16 +4,18 @@ import { useSession, signIn } from 'next-auth/react'
 import { Button, Typography, Container, Card } from '@mui/material'
 import { Grid } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
+import { useTranslation } from 'react-i18next';
 
 const SignIn = () => {
     const { data: session, status } = useSession()
     const router = useRouter()
     
+    const { t } = useTranslation()
     
     if (status === 'loading'){
         return (
             <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
-                <Typography sx={{ fontSize: 30}}>Checking auth..</Typography>
+                <Typography sx={{ fontSize: 30}}>{t("sign_in_control_message")}</Typography>
             </Grid>
         )
     } 
@@ -25,7 +27,7 @@ const SignIn = () => {
 
         return (
             <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
-                <Typography sx={{ fontSize: 30}}>You are already sign in</Typography>
+                <Typography sx={{ fontSize: 30}}>{t("sign_in_message")}</Typography>
             </Grid>
         )
     }
@@ -49,7 +51,7 @@ const SignIn = () => {
                                 ':hover': { bgcolor: '#bdbdbd'
                             }}}
                         >
-                            Sign in with Google
+                            {t("sign_in_google")}
                         </Button>
                     </Grid> 
                 </Grid>

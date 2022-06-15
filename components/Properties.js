@@ -9,8 +9,8 @@ import { ipfs } from '../util/ipfsUtil';
 
 
 const Properties = (props) => {
-
     const { post } = props;
+    
     return (
         <Box sx={{ flexGrow: 1, marginTop: 6, marginLeft: 2, maxWidth: 280, minWidth: 280}}>
             <Grid container spacing={4}>

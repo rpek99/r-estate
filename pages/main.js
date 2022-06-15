@@ -10,6 +10,7 @@ import { useProperty } from '../context/PropertyContext';
 import axios from 'axios';
 import { useMarketplace } from '../context/MarketplaceContext';
 import { Controller, useForm } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 
 
 const cityList = [
@@ -39,6 +40,8 @@ const Main = () => {
     const [loading, setLoading] = useState(true);
     const { marketplace } = useMarketplace();
     const { propertyContract } = useProperty();
+
+    const { t } = useTranslation();
 
     const { data: session, status } = useSession();
 
@@ -113,7 +116,7 @@ const Main = () => {
     if (loading) {
         return (
             <Grid container justifyContent="center" sx={{ marginTop: 35 }}>
-                <Typography sx={{ fontSize: 30}}>Fetching Data...</Typography>
+                <Typography sx={{ fontSize: 30}}>{t("fetch_data_message")}</Typography>
             </Grid>
         )
     }
@@ -131,8 +134,8 @@ const Main = () => {
                             <Grid container>
                                 <Grid item sx={{ marginTop: 1, marginRight: 5 }} xs={3}>
                                     <Grid>
-                                        <Typography sx={{ fontFamily: 'Raleway', fontSize: 32, color: '#424242' }}>Find Your Ideal</Typography>
-                                        <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242' }}>Home & Investment</Typography>
+                                        <Typography sx={{ fontFamily: 'Raleway', fontSize: 32, color: '#424242' }}>{t("main_page_adv_line1")}</Typography>
+                                        <Typography sx={{ fontFamily: 'Raleway', fontSize: 25, color: '#424242' }}>{t("main_page_adv_line2")}</Typography>
                                     </Grid>
                                 </Grid>
                                 <Grid item sx={{ marginTop: 2 }}>
@@ -146,7 +149,7 @@ const Main = () => {
                                                 return (
                                                     <QueryInput 
                                                         field={field}
-                                                        queryName="Location" 
+                                                        queryName={t("location_field")} 
                                                         options={cityList}
                                                     />
                                                 )
@@ -162,7 +165,7 @@ const Main = () => {
                                                 return (
                                                     <QueryInput 
                                                         field={field}
-                                                        queryName="Type" 
+                                                        queryName={t("type_field")} 
                                                         options={typeList}
                                                     />
                                                 )
@@ -183,7 +186,7 @@ const Main = () => {
                                                 fontSize: 16 
                                             }}
                                     >
-                                        Search
+                                        {t("search_button")}
                                     </Button>
                                 </Grid>
                                 <Grid item sx={{ margin: 1, marginTop: 4 }}>
@@ -199,7 +202,7 @@ const Main = () => {
                                                 fontSize: 16 
                                             }}
                                     >
-                                        Reset Query
+                                        {t("reset_query_button")}
                                     </Button>
                                 }
                                 </Grid>
@@ -213,7 +216,7 @@ const Main = () => {
                             <Properties key={nft.listingId} post={nft} />
                         ))}
                     </Grid>
-                    <Footer contactTitle="Contact Us" contactInfo="r_estate@gmail.com" />
+                    <Footer />
                 </Container>
             </div>
         </>

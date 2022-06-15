@@ -6,11 +6,14 @@ import ShowerIcon from '@mui/icons-material/Shower';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import PoolIcon from '@mui/icons-material/Pool';
+import { useTranslation } from 'react-i18next';
 
 
 const PropertyInformation = (props) => {
 
-    const { propertyInfo, title } = props;
+    const { t } = useTranslation();
+
+    const { propertyInfo, title, type } = props;
 
     return (
         <Card sx={{ display: 'flex', backgroundColor: '#f5f5f5'}}>
@@ -21,8 +24,9 @@ const PropertyInformation = (props) => {
                 <Divider orientation="vertical"/>   
             </CardContent>
             <CardContent>
-                {title == "Overview" ?
-                        <Typography sx={{ marginTop: 1 }}>{propertyInfo.overview}</Typography> :
+                {type == "Overview" ?
+                        <Typography sx={{ marginTop: 1 }}>{propertyInfo.overview}</Typography> 
+                        :
                         <Box sx={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
@@ -36,7 +40,7 @@ const PropertyInformation = (props) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography sx = {{ textTransform: 'capitalize' }}>
-                                            Property Type: {propertyInfo.propertyType}
+                                            {t("property_type_field")}: {propertyInfo.propertyType}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -46,7 +50,7 @@ const PropertyInformation = (props) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography>
-                                            Bedrooms: {propertyInfo.bedroomNum}
+                                            {t("bedroom_field")}: {propertyInfo.bedroomNum}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -61,7 +65,7 @@ const PropertyInformation = (props) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography>
-                                            Bathrooms: {propertyInfo.bathroomNum}
+                                            {t("bathroom_field")}: {propertyInfo.bathroomNum}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -71,7 +75,7 @@ const PropertyInformation = (props) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography>
-                                            Location: {propertyInfo.location}
+                                            {t("location_field")}: {propertyInfo.location}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -86,7 +90,7 @@ const PropertyInformation = (props) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography>
-                                            Living area(sqm): {propertyInfo.areaSize}
+                                            {t("living_area_field")}: {propertyInfo.areaSize}
                                         </Typography>
                                     </Grid>
                                 </Grid>
@@ -96,7 +100,7 @@ const PropertyInformation = (props) => {
                                     </Grid>
                                     <Grid item>
                                         <Typography sx = {{ textTransform: 'capitalize' }}>
-                                            Pool: {propertyInfo.pool}
+                                            {t("pool_field")}: {propertyInfo.pool}
                                         </Typography>
                                     </Grid>
                                 </Grid>

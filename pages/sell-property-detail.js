@@ -16,8 +16,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useMarketplace } from '../context/MarketplaceContext';
 import { PROPERTY_NFT_ADDRESS } from '../Config';
 import { ethers } from "ethers";
-import { useAccount, useConnect } from 'wagmi'
-import { InjectedConnector } from 'wagmi/connectors/injected'
+import { useAccount } from 'wagmi'
 import { useToasts } from 'react-toast-notifications'
 import { useTranslation } from 'react-i18next';
 
@@ -93,10 +92,8 @@ const client = create({ url: "https://ipfs.infura.io:5001/api/v0" });
 
 const SellPropertyDetail = () => {
     const [ loading, setLoading ] = useState(false);
+    const [ fairValue, setFairValue] = useState(0);
 
-    const { connect } = useConnect({
-      connector: new InjectedConnector(),
-    })
     const { data: userData } = useAccount();
 
     const { addToast } = useToasts();
@@ -109,7 +106,6 @@ const SellPropertyDetail = () => {
     const { marketplace } = useMarketplace();
     
     const [images, setImages] = useState(null);
-    const [open, setOpen] = useState(false);
 
     const { getRootProps, getInputProps } = useDropzone({
       accept: {
@@ -129,7 +125,6 @@ const SellPropertyDetail = () => {
           <img
             src={file.preview}
             style={img}
-            // Revoke data uri after image is loaded
             onLoad={() => { URL.revokeObjectURL(file.preview) }}
           />
         </div>
@@ -137,6 +132,8 @@ const SellPropertyDetail = () => {
     ));
   
     useEffect(() => {
+      setFairValue(localStorage.getItem("fairValue"));
+
       // Make sure to revoke the data uris to avoid memory leaks, will run on unmount
       return () => images && images.forEach(file => URL.revokeObjectURL(file.preview));
     }, []);
@@ -156,14 +153,28 @@ const SellPropertyDetail = () => {
 
     const onSubmit = async (propertyForm) => { 
       if (!images) {
-        //TODO show error message
+        addToast(t("sell_property_detail_image_message"), { 
+          autoDismiss: true,
+          appearance: 'error'
+        });
         return;
       }
-      if (images && (images.length < 1 || images.length > 5)) {
-        //TODO show error message
+      if (images && (images.length < 2 || images.length > 5)) {
+        addToast(t("sell_property_detail_image_length_message"), { 
+          autoDismiss: true,
+          appearance: 'error'
+        });
         return;
       }
-  
+
+      if (propertyForm.price < fairValue) {
+        addToast(t("sell_property_detail_price_message") + fairValue + " eth", { 
+          autoDismiss: true,
+          appearance: 'error'
+        });
+        return;
+      }
+
       let cids = [];
   
       const files = images.map(image => ({ content: image }))

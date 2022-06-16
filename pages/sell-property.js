@@ -6,6 +6,15 @@ import AuthNavbar from "../components/AuthNavbar";
 import { useRouter } from 'next/router';
 import { useSession } from 'next-auth/react'
 import { useTranslation } from "react-i18next";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { useToasts } from 'react-toast-notifications'
+import axios from "axios";
+
+export const Schema = Yup.object().shape({
+    deedNumber: Yup.string().required("Cannot be empty"),
+    deedKey: Yup.string().required("Cannot be empty"),
+});
 
 const SellProperty = () => {
 
@@ -22,14 +31,42 @@ const SellProperty = () => {
 		},
     })
 
+    const { addToast } = useToasts()
+
     const { handleSubmit, control } = useForm({
-        // resolver: yupResolver(Schema),
+        resolver: yupResolver(Schema)
     });
 
-    const onSubmit = () => {
-
+    const onSubmit = (deedForm) => {
+        axios
+            .post('/deed/deed_auth', {
+                'deedNumber': deedForm["deedNumber"],
+                'deedKey': deedForm["deedKey"]
+            },
+            {
+                headers: { 'Content-Type': 'application/json' },
+            })
+            .then((result) => { 
+                localStorage.setItem("fairValue", result.data);
+            })
+            .then(() => {
+                addToast("Deed check completed successfully" , { 
+                    autoDismiss: true,
+                    appearance: 'success' 
+                });
+                setTimeout(() => 
+                    router.push({ 
+                        pathname: '/sell-property-detail',
+                    }), 1500);
+            })
+            .catch((err) =>
+                addToast(err?.response?.data, { 
+                    autoDismiss: true,
+                    appearance: 'error'
+                })
+            );
     }
-
+ 
     return (
         <>
         {session ? 
@@ -71,7 +108,7 @@ const SellProperty = () => {
                                 <Grid container spacing={2} sx={{ maxWidth: 600}}>
                                     <Grid item xs={12}>
                                         <Controller
-                                            name='tcno'
+                                            name='deedNumber'
                                             control={control}
                                             render={(props) => (
                                                 <FormInput {...props} required label={t("sell_property_property_number_field")}/>
@@ -80,7 +117,7 @@ const SellProperty = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <Controller
-                                            name='propertyNo'
+                                            name='deedKey'
                                             control={control}
                                             render={(props) => (
                                                 <FormInput {...props} required label={t("sell_property_property_code_field")}/>
@@ -89,16 +126,14 @@ const SellProperty = () => {
                                     </Grid>
                                 </Grid>
                                 <Grid container sx={{ marginTop: 3}}>
-                                    <Link href="/sell-property-detail">
-                                        <Button
-                                            type="submit"
-                                            fullWidth
-                                            variant="contained"
-                                            sx={{ width: 200, mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}, textTransform: 'none', fontSize: 15}}
-                                        >
-                                            {t("sell_property_check_button")}
-                                        </Button>
-                                    </Link>
+                                    <Button
+                                        type="submit"
+                                        fullWidth
+                                        variant="contained"
+                                        sx={{ width: 200, mt: 3, mb: 2 , backgroundColor: "#455a64", ':hover': { bgcolor: '#263238'}, textTransform: 'none', fontSize: 15}}
+                                    >
+                                        {t("sell_property_check_button")}
+                                    </Button>
                                 </Grid>
                             </form>
                         </Box>

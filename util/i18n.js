@@ -84,6 +84,9 @@ i18next
                     sell_property_detail_bathroom_field:"Number of bathroom",
                     sell_property_detail_bedroom_field:"Number of bedroom",
                     sell_property_detail_button:"Complete",
+                    sell_property_detail_price_message:"Price cannot be lower than fair value! Fair value: ",
+                    sell_property_detail_image_message:"You should select image file",
+                    sell_property_detail_image_length_message:"You should select at least 2 and at most 5 image file",
                     toast_balance_message:"Insufficient amount",
                     toast_bought_message:"Property bought succesfully",
                     toast_listed_message:"Property succesfully listed",
@@ -93,10 +96,10 @@ i18next
                 translation: {
                     sign_in: "Giriş Yap",
                     middle_post_title: "Bu yeniliğe katılın",
-                    middle_post_content: "r-estate, geleneksel yöntemlerin getirdiği birçok zorluğu ortadan" +
-                                         "kaldırmayı hedeflemektedir. Gayrimenkul sektörüne en büyük katkısı," +
-                                         "altyapısı sayesinde güven sorununu ortadan kaldırmasıdır. Ayrıca bu" +
-                                         "altyapıyı basit ve anlaşılır bir arayüz ile destekleyerek kullanıcı" +
+                    middle_post_content: "r-estate, geleneksel yöntemlerin getirdiği birçok zorluğu ortadan " +
+                                         "kaldırmayı hedeflemektedir. Gayrimenkul sektörüne en büyük katkısı, " +
+                                         "altyapısı sayesinde güven sorununu ortadan kaldırmasıdır. Ayrıca bu " +
+                                         "altyapıyı basit ve anlaşılır bir arayüz ile destekleyerek kullanıcı " +
                                          "deneyimini en üst seviyede tutar.",
                     main_post_text1: "R-estate ile hızlı ve güvenli şekilde ",
                     main_post_text2: "mülk alarak veya satarak",
@@ -164,6 +167,9 @@ i18next
                     sell_property_detail_bathroom_field:"Banyo sayısı",
                     sell_property_detail_bedroom_field:"Yatak odası sayısı",
                     sell_property_detail_button:"Tamamla",
+                    sell_property_detail_price_message:"Fiyat rayiç bedelinin altında olamaz!\nRayiç bedeli: ",
+                    sell_property_detail_image_message:"Resim dosyası seçiniz",
+                    sell_property_detail_image_length_message:"En az 1 en fazla 5 resim dosyası eklemelisiniz",
                     toast_balance_message:"Yetersiz miktar",
                     toast_bought_message:"Mülk başarıyla satın alındı",
                     toast_listed_message:"Mülk başarıyla listelendi",

@@ -80,7 +80,7 @@ const NoAuthNavbar = (props) => {
                                 <Image
                                     src="/logo2.png"
                                     width={200}
-                                    height={80}
+                                    height={70}
                                 />
                             </a> 
                         </Link>
